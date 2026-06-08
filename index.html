@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard Recepción MCI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Recepción</title>
 
 <style>
 
@@ -20,57 +20,36 @@ h1{
 
 .dashboard{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:20px;
-    margin-top:30px;
+    margin-bottom:30px;
 }
 
 .card{
-    border-radius:15px;
     padding:20px;
+    border-radius:15px;
     color:white;
     text-align:center;
-    box-shadow:0 4px 10px rgba(0,0,0,0.2);
 }
 
 .card h2{
+    margin:0;
     font-size:18px;
-    margin-bottom:10px;
 }
 
 .card p{
     font-size:40px;
+    margin:10px 0 0 0;
     font-weight:bold;
-    margin:0;
 }
 
-.atendidos{
-    background:#2563eb;
-}
-
-.promedio{
-    background:#f59e0b;
-}
-
-.proceso{
-    background:#dc2626;
-}
-
-.finalizados{
-    background:#16a34a;
-}
-
-.tabla{
-    margin-top:40px;
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
+.azul{background:#2563eb;}
+.verde{background:#16a34a;}
 
 table{
     width:100%;
     border-collapse:collapse;
+    background:white;
 }
 
 th{
@@ -85,40 +64,25 @@ td{
 }
 
 </style>
-
 </head>
 
 <body>
 
-<h1>🚚 Dashboard Recepción de Camiones</h1>
+<h1>🚚 Dashboard Recepción</h1>
 
 <div class="dashboard">
 
-<div class="card atendidos">
-<h2>Camiones Atendidos</h2>
-<p id="atendidos">0</p>
+<div class="card azul">
+<h2>Total Registros</h2>
+<p id="total">0</p>
 </div>
 
-<div class="card promedio">
-<h2>Tiempo Promedio</h2>
-<p id="promedio">0</p>
-</div>
-
-<div class="card proceso">
-<h2>En Proceso</h2>
-<p id="proceso">0</p>
-</div>
-
-<div class="card finalizados">
-<h2>Finalizados</h2>
-<p id="finalizados">0</p>
+<div class="card verde">
+<h2>Última Placa</h2>
+<p id="placa">-</p>
 </div>
 
 </div>
-
-<div class="tabla">
-
-<h2>Últimos Registros</h2>
 
 <table>
 
@@ -126,18 +90,14 @@ td{
 <tr>
 <th>Placa</th>
 <th>Cliente</th>
-<th>Hora Inicio</th>
-<th>Hora Fin</th>
-<th>Estado</th>
+<th>Hora Arribo</th>
 </tr>
 </thead>
 
-<tbody id="tablaBody">
+<tbody id="tabla">
 </tbody>
 
 </table>
-
-</div>
 
 <script>
 
@@ -145,56 +105,49 @@ const URL_API = "https://script.google.com/macros/s/AKfycbyxCXys8vUowqW69RWGi9Db
 
 async function cargarDatos(){
 
-    const response = await fetch(URL_API);
-    const data = await response.json();
+    try{
 
-    if(data.length <= 1){
-        return;
-    }
+        const response = await fetch(URL_API);
 
-    const registros = data.slice(1);
+        const data = await response.json();
 
-    let atendidos = registros.length;
-    let finalizados = 0;
-    let proceso = 0;
+        console.log(data);
 
-    document.getElementById("atendidos").innerText = atendidos;
+        const registros = data.slice(1);
 
-    let tabla = "";
+        document.getElementById("total").innerText = registros.length;
 
-    registros.reverse().forEach(r => {
+        if(registros.length > 0){
 
-        const placa = r[3] || "";
-        const cliente = r[4] || "";
-        const inicio = r[5] || "";
-        const fin = r[6] || "";
+            const ultimo = registros[registros.length - 1];
 
-        let estado = "En Proceso";
+            document.getElementById("placa").innerText = ultimo[2];
 
-        if(fin !== ""){
-            estado = "Finalizado";
-            finalizados++;
-        }else{
-            proceso++;
         }
 
-        tabla += `
-        <tr>
-            <td>${placa}</td>
-            <td>${cliente}</td>
-            <td>${inicio}</td>
-            <td>${fin}</td>
-            <td>${estado}</td>
-        </tr>
-        `;
-    });
+        let html = "";
 
-    document.getElementById("finalizados").innerText = finalizados;
-    document.getElementById("proceso").innerText = proceso;
+        registros.forEach(fila => {
 
-    document.getElementById("tablaBody").innerHTML = tabla;
+            html += `
+            <tr>
+                <td>${fila[2] || ""}</td>
+                <td>${fila[3] || ""}</td>
+                <td>${fila[4] || ""}</td>
+            </tr>
+            `;
 
-    document.getElementById("promedio").innerText = "25 min";
+        });
+
+        document.getElementById("tabla").innerHTML = html;
+
+    }catch(error){
+
+        console.error(error);
+
+        alert("Error al leer datos. Presiona F12 y revisa Console.");
+
+    }
 
 }
 
@@ -205,6 +158,5 @@ setInterval(cargarDatos,60000);
 </script>
 
 </body>
-
 </html>
 
