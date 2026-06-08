@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard Productividad</title>
+    <title>Dashboard MCI</title>
 </head>
 <body>
 
-<h1>Dashboard Productividad</h1>
+<h1>Vehículos Atendidos</h1>
 
-<h2>Vehículos Atendidos</h2>
-<div id="atendidos">0</div>
+<h2 id="contador">Cargando...</h2>
+
+<script>
+
+const URL_API = "https://script.google.com/macros/s/AKfycbyxCXys8vUowqW69RWGi9Dbv6CzB8O-_Zu4-xvQefI4RvNOPSn_Lory2Tbq-rB9bu4A/exec";
+
+async function cargarDatos(){
+
+   const respuesta = await fetch(URL_API);
+   const datos = await respuesta.json();
+
+   document.getElementById("contador").innerHTML = datos.length - 1;
+
+}
+
+cargarDatos();
+
+setInterval(cargarDatos,60000);
+
+</script>
 
 </body>
 </html>
