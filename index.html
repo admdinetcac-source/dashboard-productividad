@@ -1,153 +1,59 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Recepción</title>
-
-<style>
-
-body{
-    font-family: Arial, sans-serif;
-    background:#f4f6f9;
-    margin:20px;
-}
-
-h1{
-    text-align:center;
-    color:#1f2937;
-}
-
-.dashboard{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    margin-bottom:30px;
-}
-
-.card{
-    padding:20px;
-    border-radius:15px;
-    color:white;
-    text-align:center;
-}
-
-.card h2{
-    margin:0;
-    font-size:18px;
-}
-
-.card p{
-    font-size:40px;
-    margin:10px 0 0 0;
-    font-weight:bold;
-}
-
-.azul{background:#2563eb;}
-.verde{background:#16a34a;}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    background:white;
-}
-
-th{
-    background:#2563eb;
-    color:white;
-    padding:10px;
-}
-
-td{
-    padding:10px;
-    border-bottom:1px solid #ddd;
-}
-
-</style>
-</head>
-
-<body>
-
-<h1>🚚 Dashboard Recepción</h1>
-
-<div class="dashboard">
-
-<div class="card azul">
-<h2>Total Registros</h2>
-<p id="total">0</p>
-</div>
-
-<div class="card verde">
-<h2>Última Placa</h2>
-<p id="placa">-</p>
-</div>
-
-</div>
-
-<table>
-
-<thead>
-<tr>
-<th>Placa</th>
-<th>Cliente</th>
-<th>Hora Arribo</th>
-</tr>
-</thead>
-
-<tbody id="tabla">
-</tbody>
-
-</table>
-
 <script>
 
 const URL_API = "https://script.google.com/macros/s/AKfycbyxCXys8vUowqW69RWGi9Dbv6CzB8O-_Zu4-xvQefI4RvNOPSn_Lory2Tbq-rB9bu4A/exec";
 
-async function cargarDatos(){
+function procesarDatos(data){
 
-    try{
+    console.log(data);
 
-        const response = await fetch(URL_API);
+    const registros = data.slice(1);
 
-        const data = await response.json();
+    document.getElementById("total").innerText = registros.length;
 
-        console.log(data);
+    if(registros.length > 0){
 
-        const registros = data.slice(1);
+        const ultimo = registros[registros.length - 1];
 
-        document.getElementById("total").innerText = registros.length;
-
-        if(registros.length > 0){
-
-            const ultimo = registros[registros.length - 1];
-
-            document.getElementById("placa").innerText = ultimo[2];
-
-        }
-
-        let html = "";
-
-        registros.forEach(fila => {
-
-            html += `
-            <tr>
-                <td>${fila[2] || ""}</td>
-                <td>${fila[3] || ""}</td>
-                <td>${fila[4] || ""}</td>
-            </tr>
-            `;
-
-        });
-
-        document.getElementById("tabla").innerHTML = html;
-
-    }catch(error){
-
-        console.error(error);
-
-        alert("Error al leer datos. Presiona F12 y revisa Console.");
+        document.getElementById("placa").innerText = ultimo[2];
 
     }
+
+    let html = "";
+
+    registros.forEach(fila => {
+
+        html += `
+        <tr>
+            <td>${fila[2] || ""}</td>
+            <td>${fila[3] || ""}</td>
+            <td>${fila[10] || ""}</td>
+        </tr>
+        `;
+
+    });
+
+    document.getElementById("tabla").innerHTML = html;
+
+}
+
+function cargarDatos(){
+
+    const anterior = document.getElementById("jsonp");
+
+    if(anterior){
+        anterior.remove();
+    }
+
+    const script = document.createElement("script");
+
+    script.id = "jsonp";
+
+    script.src =
+        URL_API +
+        "?callback=procesarDatos&t=" +
+        new Date().getTime();
+
+    document.body.appendChild(script);
 
 }
 
@@ -156,7 +62,3 @@ cargarDatos();
 setInterval(cargarDatos,60000);
 
 </script>
-
-</body>
-</html>
-
