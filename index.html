@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Panel de Control Operativo</title>
+<title>Control Tower Recepciones</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -14,551 +14,469 @@
 <style>
 
 :root{
-    --bg:#f4f8fc;
-    --card:#ffffff;
-
-    --blue:#2563eb;
-    --blue-light:#dbeafe;
-
-    --green:#16a34a;
-    --green-light:#dcfce7;
-
-    --orange:#f97316;
-    --orange-light:#ffedd5;
-
-    --red:#ef4444;
-    --red-light:#fee2e2;
-
-    --border:#e2e8f0;
-
-    --text:#0f172a;
-    --text2:#64748b;
+--bg:#f4f8fc;
+--card:#ffffff;
+--blue:#2563eb;
+--green:#16a34a;
+--orange:#f97316;
+--purple:#7c3aed;
+--red:#ef4444;
+--border:#e2e8f0;
+--text:#0f172a;
+--text2:#64748b;
 }
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Outfit',sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Outfit',sans-serif;
 }
 
 body{
-    background:var(--bg);
-    padding:20px;
+background:var(--bg);
+padding:20px;
 }
 
 .header{
-    background:white;
-    border-radius:20px;
-    padding:20px 30px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow:0 3px 15px rgba(0,0,0,.08);
-    margin-bottom:20px;
+background:white;
+padding:20px;
+border-radius:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 3px 15px rgba(0,0,0,.08);
+margin-bottom:20px;
 }
 
-.logo h1{
-    color:#1e40af;
-    font-size:30px;
+.header h1{
+color:#1e40af;
 }
 
-.logo p{
-    color:var(--text2);
-}
-
-.info{
-    text-align:right;
-}
-
-.info #clock{
-    font-size:28px;
-    font-weight:700;
-    color:#1e40af;
-}
-
-.dashboard{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-}
-
-.panel{
-    background:white;
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 3px 15px rgba(0,0,0,.08);
-}
-
-.panel-header{
-    padding:15px 20px;
-    color:white;
-    font-weight:700;
-    font-size:20px;
-}
-
-.recepciones-header{
-    background:var(--blue);
-}
-
-.despachos-header{
-    background:var(--green);
-}
-
-.panel-body{
-    padding:20px;
+#clock{
+font-size:28px;
+font-weight:700;
+color:#2563eb;
 }
 
 .kpis{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-    margin-bottom:20px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-bottom:20px;
 }
 
 .kpi{
-    border-radius:15px;
-    padding:15px;
-    text-align:center;
+background:white;
+padding:20px;
+border-radius:20px;
+box-shadow:0 3px 15px rgba(0,0,0,.08);
+text-align:center;
 }
 
 .kpi span{
-    display:block;
-    font-size:13px;
+display:block;
+color:var(--text2);
+font-size:13px;
 }
 
 .kpi h2{
-    font-size:30px;
-    margin-top:5px;
+margin-top:10px;
+font-size:34px;
 }
 
-.blue{
-    background:var(--blue-light);
-}
-
-.orange{
-    background:var(--orange-light);
-}
-
-.green{
-    background:var(--green-light);
-}
-
-.red{
-    background:var(--red-light);
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th{
-    background:#eff6ff;
-    padding:12px;
-    text-align:left;
-    font-size:13px;
-}
-
-td{
-    padding:12px;
-    border-bottom:1px solid var(--border);
-    font-size:13px;
-}
-
-.badge{
-    padding:6px 10px;
-    border-radius:20px;
-    font-size:11px;
-    font-weight:600;
-}
-
-.ok{
-    background:#dcfce7;
-    color:#166534;
-}
-
-.proc{
-    background:#dbeafe;
-    color:#1d4ed8;
-}
-
-.pend{
-    background:#fee2e2;
-    color:#b91c1c;
-}
-
-.indicators{
-    margin-top:20px;
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-}
-
-.indicator{
-    background:white;
-    border-radius:15px;
-    padding:15px;
-    box-shadow:0 3px 10px rgba(0,0,0,.06);
-}
-
-.indicator h3{
-    text-align:center;
-    margin-bottom:10px;
-    color:#334155;
-}
-
-.chart-small{
-    height:180px;
-}
-
-.footer{
-    margin-top:20px;
-    display:grid;
-    grid-template-columns:2fr 1fr;
-    gap:20px;
+.main{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:20px;
 }
 
 .card{
-    background:white;
-    border-radius:20px;
-    padding:20px;
-    box-shadow:0 3px 15px rgba(0,0,0,.08);
+background:white;
+border-radius:20px;
+padding:20px;
+box-shadow:0 3px 15px rgba(0,0,0,.08);
 }
 
-.cumplimiento{
-    text-align:center;
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
 }
 
-.cumplimiento h1{
-    font-size:60px;
-    color:var(--green);
+th{
+background:#eff6ff;
+padding:12px;
+font-size:12px;
+text-align:left;
+}
+
+td{
+padding:10px;
+font-size:12px;
+border-bottom:1px solid #eee;
+}
+
+.badge{
+padding:6px 12px;
+border-radius:20px;
+font-size:11px;
+font-weight:600;
+}
+
+.ok{
+background:#dcfce7;
+color:#166534;
+}
+
+.proc{
+background:#dbeafe;
+color:#1d4ed8;
+}
+
+.footer{
+margin-top:20px;
 }
 
 @media(max-width:1200px){
 
-    .dashboard{
-        grid-template-columns:1fr;
-    }
+.kpis{
+grid-template-columns:repeat(2,1fr);
+}
 
-    .indicators{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .kpis{
-        grid-template-columns:repeat(2,1fr);
-    }
+.main{
+grid-template-columns:1fr;
+}
 
 }
 
 </style>
+
 </head>
 
 <body>
 
-<header class="header">
+<div class="header">
 
-    <div class="logo">
-        <h1>🏭 PANEL DE CONTROL OPERATIVO</h1>
-        <p>ALMACÉN CENTRAL</p>
-    </div>
+<div>
+<h1>🚚 CONTROL TOWER RECEPCIONES</h1>
+<div id="fecha"></div>
+</div>
 
-    <div class="info">
-        <div id="fecha"></div>
-        <div id="clock"></div>
-    </div>
-
-</header>
-
-<div class="dashboard">
-
-    <div class="panel">
-
-        <div class="panel-header recepciones-header">
-            🚚 RECEPCIONES
-        </div>
-
-        <div class="panel-body">
-
-            <div class="kpis">
-
-                <div class="kpi blue">
-                    <span>Programadas</span>
-                    <h2 id="recepProg">0</h2>
-                </div>
-
-                <div class="kpi orange">
-                    <span>Proceso</span>
-                    <h2 id="recepProceso">0</h2>
-                </div>
-
-                <div class="kpi green">
-                    <span>Completadas</span>
-                    <h2 id="recepComp">0</h2>
-                </div>
-
-                <div class="kpi red">
-                    <span>Pendientes</span>
-                    <h2 id="recepPend">0</h2>
-                </div>
-
-            </div>
-
-            <table>
-
-                <thead>
-                    <tr>
-                        <th>Cliente</th>
-                        <th>Placa</th>
-                        <th>Hora</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-
-                <tbody id="tablaRecepciones"></tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-    <div class="panel">
-
-        <div class="panel-header despachos-header">
-            📦 DESPACHOS
-        </div>
-
-        <div class="panel-body">
-
-            <canvas id="chartHoras" height="250"></canvas>
-
-        </div>
-
-    </div>
+<div id="clock"></div>
 
 </div>
 
-<div class="indicators">
+<div class="kpis">
 
-    <div class="indicator">
-        <h3>UCA</h3>
-        <canvas id="chart1" class="chart-small"></canvas>
-    </div>
+<div class="kpi">
+<span>Total Camiones</span>
+<h2 id="totalCamiones">0</h2>
+</div>
 
-    <div class="indicator">
-        <h3>URU</h3>
-        <canvas id="chart2" class="chart-small"></canvas>
-    </div>
+<div class="kpi">
+<span>En Progreso</span>
+<h2 id="enProceso">0</h2>
+</div>
 
-    <div class="indicator">
-        <h3>OTI</h3>
-        <canvas id="chart3" class="chart-small"></canvas>
-    </div>
+<div class="kpi">
+<span>Completados</span>
+<h2 id="completados">0</h2>
+</div>
 
-    <div class="indicator">
-        <h3>CFR</h3>
-        <canvas id="chart4" class="chart-small"></canvas>
-    </div>
+<div class="kpi">
+<span>Cantidad Recepcionada</span>
+<h2 id="cantidadRecepcionada">0</h2>
+</div>
+
+</div>
+
+<div class="main">
+
+<div class="card">
+
+<h3>Recepciones en Tiempo Real</h3>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Placa</th>
+<th>Llegada</th>
+<th>Inicio</th>
+<th>Fin</th>
+<th>Salida</th>
+<th>Permanencia</th>
+<th>Descarga</th>
+<th>Usuario</th>
+<th>Estado</th>
+</tr>
+
+</thead>
+
+<tbody id="tablaRecepciones"></tbody>
+
+</table>
+
+</div>
+
+<div class="card">
+
+<h3>Recepciones por Hora</h3>
+
+<canvas id="chartHoras"></canvas>
+
+</div>
 
 </div>
 
 <div class="footer">
 
-    <div class="card">
+<div class="card">
 
-        <h2>📢 Mensaje del Día</h2>
+<h3>Indicadores Operativos</h3>
 
-        <br>
+<br>
 
-        <p>
-            La coordinación y el enfoque en el proceso nos acercan a la excelencia operativa.
-        </p>
+<p><b>Tiempo promedio permanencia:</b> <span id="promedioPermanencia">0 min</span></p>
 
-    </div>
+<br>
 
-    <div class="card cumplimiento">
+<p><b>Tiempo promedio descarga:</b> <span id="promedioDescarga">0 min</span></p>
 
-        <h3>Cumplimiento General</h3>
-
-        <h1>91%</h1>
-
-        <p>Meta alcanzada</p>
-
-    </div>
+</div>
 
 </div>
 
 <script>
 
-function actualizarFechaHora(){
+const URL =
+'https://opensheet.elk.sh/1FKppkcwfb66pQ_2Fgw2DAJIDREmUcyL5hqUG0CsY9UE/RECEPCION';
 
-    const ahora = new Date();
+function reloj(){
 
-    document.getElementById('clock').innerHTML =
-        ahora.toLocaleTimeString('es-PE');
+const ahora=new Date();
 
-    document.getElementById('fecha').innerHTML =
-        ahora.toLocaleDateString('es-PE',{
-            weekday:'long',
-            year:'numeric',
-            month:'long',
-            day:'numeric'
-        });
+document.getElementById('clock').innerHTML=
+ahora.toLocaleTimeString('es-PE');
+
+document.getElementById('fecha').innerHTML=
+ahora.toLocaleDateString('es-PE',{
+weekday:'long',
+day:'numeric',
+month:'long',
+year:'numeric'
+});
 
 }
 
-setInterval(actualizarFechaHora,1000);
-actualizarFechaHora();
+setInterval(reloj,1000);
+reloj();
 
-const URL_SHEET =
-'https://opensheet.elk.sh/1FKppkcwfb66pQ_2Fgw2DAJIDREmUcyL5hqUG0CsY9UE/RECEPCION';
+function minutosEntre(inicio,fin){
 
-let chartHoras;
+if(!inicio || !fin) return null;
+
+try{
+
+const d1=new Date(`2000-01-01 ${inicio}`);
+const d2=new Date(`2000-01-01 ${fin}`);
+
+const minutos=(d2-d1)/60000;
+
+if(minutos<0) return null;
+
+return minutos;
+
+}catch{
+
+return null;
+
+}
+
+}
+
+function formatoTiempo(min){
+
+if(min===null) return '-';
+
+const h=Math.floor(min/60);
+const m=Math.floor(min%60);
+
+return `${h}h ${m}m`;
+
+}
+
+let chart;
 
 async function cargarDatos(){
 
-    try{
+try{
 
-        const res = await fetch(URL_SHEET);
+const res=await fetch(URL);
+const datos=await res.json();
 
-        const datos = await res.json();
+let total=datos.length;
+let proceso=0;
+let completados=0;
+let cantidad=0;
 
-        let proceso=0;
-        let completo=0;
-        let pendiente=0;
+let sumaPermanencia=0;
+let totalPermanencia=0;
 
-        document.getElementById('recepProg').innerHTML =
-            datos.length;
+let sumaDescarga=0;
+let totalDescarga=0;
 
-        const tabla =
-            document.getElementById('tablaRecepciones');
+let horas={};
 
-        tabla.innerHTML='';
+const tabla=
+document.getElementById('tablaRecepciones');
 
-        const horas={};
+tabla.innerHTML='';
 
-        datos.forEach(item=>{
+datos.forEach(item=>{
 
-            const estado =
-                (item.STATUS || '').toLowerCase();
+const llegada=item["Hora Llegada"] || '';
+const inicio=item["Inicio Descarga"] || '';
+const fin=item["Fin Descarga"] || '';
+const salida=item["Hora Salida"] || '';
 
-            if(estado.includes('proceso')) proceso++;
-            else if(estado.includes('complet')) completo++;
-            else pendiente++;
+const permanencia=
+minutosEntre(llegada,salida);
 
-            tabla.innerHTML += `
-            <tr>
-                <td>${item.CLIENTE || '-'}</td>
-                <td>${item.PLACA || '-'}</td>
-                <td>${item.H_ARRIBO || '-'}</td>
-                <td>
-                    <span class="badge ${
-                        estado.includes('complet')
-                        ? 'ok'
-                        : estado.includes('proceso')
-                        ? 'proc'
-                        : 'pend'
-                    }">
-                    ${item.STATUS || 'Pendiente'}
-                    </span>
-                </td>
-            </tr>
-            `;
+const descarga=
+minutosEntre(inicio,fin);
 
-            if(item.H_ARRIBO){
+if(permanencia!==null){
 
-                let hora =
-                    item.H_ARRIBO.split(':')[0] + ':00';
-
-                horas[hora] =
-                    (horas[hora] || 0) + 1;
-            }
-
-        });
-
-        document.getElementById('recepProceso').innerHTML =
-            proceso;
-
-        document.getElementById('recepComp').innerHTML =
-            completo;
-
-        document.getElementById('recepPend').innerHTML =
-            pendiente;
-
-        dibujarGrafico(horas);
-
-    }
-
-    catch(error){
-        console.error(error);
-    }
+sumaPermanencia+=permanencia;
+totalPermanencia++;
 
 }
 
-function dibujarGrafico(datos){
+if(descarga!==null){
 
-    if(chartHoras)
-        chartHoras.destroy();
-
-    chartHoras = new Chart(
-        document.getElementById('chartHoras'),
-        {
-            type:'bar',
-
-            data:{
-                labels:Object.keys(datos),
-                datasets:[{
-                    label:'Recepciones',
-                    data:Object.values(datos),
-                    backgroundColor:'#2563eb'
-                }]
-            },
-
-            options:{
-                responsive:true
-            }
-        }
-    );
+sumaDescarga+=descarga;
+totalDescarga++;
 
 }
 
-function miniChart(id,color){
+let estado='EN PROGRESO';
 
-    new Chart(document.getElementById(id),{
+if(salida){
 
-        type:'line',
+estado='COMPLETADO';
+completados++;
 
-        data:{
-            labels:['06','08','10','12','14','16'],
-            datasets:[{
-                data:[30,45,50,65,80,95],
-                borderColor:color,
-                fill:false,
-                tension:.4
-            }]
-        },
+}else{
 
-        options:{
-            plugins:{
-                legend:{
-                    display:false
-                }
-            }
-        }
-
-    });
+proceso++;
 
 }
 
-miniChart('chart1','#2563eb');
-miniChart('chart2','#16a34a');
-miniChart('chart3','#f97316');
-miniChart('chart4','#0ea5e9');
+cantidad+=Number(
+item["Cantidad Recepcionada"] || 0
+);
+
+tabla.innerHTML+=`
+
+<tr>
+
+<td>${item["Placa"] || '-'}</td>
+
+<td>${llegada || '-'}</td>
+
+<td>${inicio || '-'}</td>
+
+<td>${fin || '-'}</td>
+
+<td>${salida || '-'}</td>
+
+<td>${formatoTiempo(permanencia)}</td>
+
+<td>${formatoTiempo(descarga)}</td>
+
+<td>${item["Usuario"] || '-'}</td>
+
+<td>
+<span class="badge ${
+estado==='COMPLETADO'
+?'ok'
+:'proc'
+}">
+${estado}
+</span>
+</td>
+
+</tr>
+
+`;
+
+if(llegada){
+
+const hora=llegada.substring(0,2)+':00';
+
+horas[hora]=(horas[hora]||0)+1;
+
+}
+
+});
+
+document.getElementById('totalCamiones').innerHTML=total;
+document.getElementById('enProceso').innerHTML=proceso;
+document.getElementById('completados').innerHTML=completados;
+document.getElementById('cantidadRecepcionada').innerHTML=cantidad;
+
+const promPerm=
+totalPermanencia
+? Math.round(sumaPermanencia/totalPermanencia)
+:0;
+
+const promDesc=
+totalDescarga
+? Math.round(sumaDescarga/totalDescarga)
+:0;
+
+document.getElementById('promedioPermanencia').innerHTML=
+promPerm+' min';
+
+document.getElementById('promedioDescarga').innerHTML=
+promDesc+' min';
+
+if(chart) chart.destroy();
+
+chart=new Chart(
+document.getElementById('chartHoras'),
+{
+type:'bar',
+data:{
+labels:Object.keys(horas),
+datasets:[{
+label:'Recepciones',
+data:Object.values(horas)
+}]
+},
+options:{
+responsive:true
+}
+}
+);
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
 
 cargarDatos();
 
-setInterval(cargarDatos,30000);
+setInterval(
+cargarDatos,
+30000
+);
 
 </script>
 
