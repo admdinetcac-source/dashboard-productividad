@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Control Tower Logística</title>
+
+<title>Panel de Control Operativo</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
+
+:root{
+    --bg:#f4f8fc;
+    --card:#ffffff;
+
+    --blue:#2563eb;
+    --blue-light:#dbeafe;
+
+    --green:#16a34a;
+    --green-light:#dcfce7;
+
+    --orange:#f97316;
+    --orange-light:#ffedd5;
+
+    --red:#ef4444;
+    --red-light:#fee2e2;
+
+    --border:#e2e8f0;
+
+    --text:#0f172a;
+    --text2:#64748b;
+}
+
 *{
     margin:0;
     padding:0;
@@ -18,66 +43,109 @@
 }
 
 body{
-    background:#f4f7fb;
+    background:var(--bg);
     padding:20px;
 }
 
 .header{
     background:white;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 2px 15px rgba(0,0,0,.08);
+    border-radius:20px;
+    padding:20px 30px;
     display:flex;
     justify-content:space-between;
     align-items:center;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
     margin-bottom:20px;
 }
 
-.header h1{
+.logo h1{
+    color:#1e40af;
+    font-size:30px;
+}
+
+.logo p{
+    color:var(--text2);
+}
+
+.info{
+    text-align:right;
+}
+
+.info #clock{
+    font-size:28px;
+    font-weight:700;
     color:#1e40af;
 }
 
-.clock{
-    font-size:24px;
+.dashboard{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.panel-header{
+    padding:15px 20px;
+    color:white;
     font-weight:700;
+    font-size:20px;
+}
+
+.recepciones-header{
+    background:var(--blue);
+}
+
+.despachos-header{
+    background:var(--green);
+}
+
+.panel-body{
+    padding:20px;
 }
 
 .kpis{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:15px;
+    gap:10px;
     margin-bottom:20px;
 }
 
 .kpi{
-    background:white;
-    padding:20px;
     border-radius:15px;
-    box-shadow:0 2px 10px rgba(0,0,0,.08);
+    padding:15px;
+    text-align:center;
 }
 
-.kpi h3{
-    font-size:14px;
-    color:#64748b;
+.kpi span{
+    display:block;
+    font-size:13px;
 }
 
-.kpi .value{
-    font-size:36px;
-    font-weight:700;
-    color:#2563eb;
+.kpi h2{
+    font-size:30px;
+    margin-top:5px;
 }
 
-.content{
-    display:grid;
-    grid-template-columns:2fr 1fr;
-    gap:20px;
+.blue{
+    background:var(--blue-light);
 }
 
-.card{
-    background:white;
-    border-radius:15px;
-    padding:20px;
-    box-shadow:0 2px 10px rgba(0,0,0,.08);
+.orange{
+    background:var(--orange-light);
+}
+
+.green{
+    background:var(--green-light);
+}
+
+.red{
+    background:var(--red-light);
 }
 
 table{
@@ -89,23 +157,25 @@ th{
     background:#eff6ff;
     padding:12px;
     text-align:left;
+    font-size:13px;
 }
 
 td{
     padding:12px;
-    border-bottom:1px solid #e5e7eb;
+    border-bottom:1px solid var(--border);
+    font-size:13px;
 }
 
 .badge{
     padding:6px 10px;
     border-radius:20px;
-    font-size:12px;
+    font-size:11px;
     font-weight:600;
 }
 
 .ok{
     background:#dcfce7;
-    color:#15803d;
+    color:#166534;
 }
 
 .proc{
@@ -115,96 +185,205 @@ td{
 
 .pend{
     background:#fee2e2;
-    color:#dc2626;
+    color:#b91c1c;
 }
 
-.chart{
-    height:350px;
+.indicators{
+    margin-top:20px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.indicator{
+    background:white;
+    border-radius:15px;
+    padding:15px;
+    box-shadow:0 3px 10px rgba(0,0,0,.06);
+}
+
+.indicator h3{
+    text-align:center;
+    margin-bottom:10px;
+    color:#334155;
+}
+
+.chart-small{
+    height:180px;
+}
+
+.footer{
+    margin-top:20px;
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.cumplimiento{
+    text-align:center;
+}
+
+.cumplimiento h1{
+    font-size:60px;
+    color:var(--green);
 }
 
 @media(max-width:1200px){
-    .content{
+
+    .dashboard{
         grid-template-columns:1fr;
+    }
+
+    .indicators{
+        grid-template-columns:repeat(2,1fr);
     }
 
     .kpis{
         grid-template-columns:repeat(2,1fr);
     }
+
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    <div>
-        <h1>🚚 Control Tower Logística</h1>
-        <p>Recepciones y Despachos en Tiempo Real</p>
+<header class="header">
+
+    <div class="logo">
+        <h1>🏭 PANEL DE CONTROL OPERATIVO</h1>
+        <p>ALMACÉN CENTRAL</p>
     </div>
 
-    <div class="clock" id="clock"></div>
-</div>
-
-<div class="kpis">
-
-    <div class="kpi">
-        <h3>Recepciones Programadas</h3>
-        <div class="value" id="recepProg">0</div>
+    <div class="info">
+        <div id="fecha"></div>
+        <div id="clock"></div>
     </div>
 
-    <div class="kpi">
-        <h3>En Proceso</h3>
-        <div class="value" id="recepProceso">0</div>
-    </div>
+</header>
 
-    <div class="kpi">
-        <h3>Completadas</h3>
-        <div class="value" id="recepComp">0</div>
-    </div>
+<div class="dashboard">
 
-    <div class="kpi">
-        <h3>Pendientes</h3>
-        <div class="value" id="recepPend">0</div>
-    </div>
+    <div class="panel">
 
-</div>
-
-<div class="content">
-
-    <div class="card">
-
-        <h2 style="margin-bottom:15px;">
-            Recepciones del Día
-        </h2>
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>Cliente</th>
-                    <th>Placa</th>
-                    <th>Hora Arribo</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-
-            <tbody id="tablaRecepciones">
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-    <div class="card">
-
-        <h2 style="margin-bottom:15px;">
-            Recepciones por Hora
-        </h2>
-
-        <div class="chart">
-            <canvas id="chartHoras"></canvas>
+        <div class="panel-header recepciones-header">
+            🚚 RECEPCIONES
         </div>
+
+        <div class="panel-body">
+
+            <div class="kpis">
+
+                <div class="kpi blue">
+                    <span>Programadas</span>
+                    <h2 id="recepProg">0</h2>
+                </div>
+
+                <div class="kpi orange">
+                    <span>Proceso</span>
+                    <h2 id="recepProceso">0</h2>
+                </div>
+
+                <div class="kpi green">
+                    <span>Completadas</span>
+                    <h2 id="recepComp">0</h2>
+                </div>
+
+                <div class="kpi red">
+                    <span>Pendientes</span>
+                    <h2 id="recepPend">0</h2>
+                </div>
+
+            </div>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Placa</th>
+                        <th>Hora</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tablaRecepciones"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-header despachos-header">
+            📦 DESPACHOS
+        </div>
+
+        <div class="panel-body">
+
+            <canvas id="chartHoras" height="250"></canvas>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="indicators">
+
+    <div class="indicator">
+        <h3>UCA</h3>
+        <canvas id="chart1" class="chart-small"></canvas>
+    </div>
+
+    <div class="indicator">
+        <h3>URU</h3>
+        <canvas id="chart2" class="chart-small"></canvas>
+    </div>
+
+    <div class="indicator">
+        <h3>OTI</h3>
+        <canvas id="chart3" class="chart-small"></canvas>
+    </div>
+
+    <div class="indicator">
+        <h3>CFR</h3>
+        <canvas id="chart4" class="chart-small"></canvas>
+    </div>
+
+</div>
+
+<div class="footer">
+
+    <div class="card">
+
+        <h2>📢 Mensaje del Día</h2>
+
+        <br>
+
+        <p>
+            La coordinación y el enfoque en el proceso nos acercan a la excelencia operativa.
+        </p>
+
+    </div>
+
+    <div class="card cumplimiento">
+
+        <h3>Cumplimiento General</h3>
+
+        <h1>91%</h1>
+
+        <p>Meta alcanzada</p>
 
     </div>
 
@@ -212,15 +391,25 @@ td{
 
 <script>
 
-function actualizarReloj(){
+function actualizarFechaHora(){
+
+    const ahora = new Date();
 
     document.getElementById('clock').innerHTML =
-        new Date().toLocaleTimeString('es-PE');
+        ahora.toLocaleTimeString('es-PE');
+
+    document.getElementById('fecha').innerHTML =
+        ahora.toLocaleDateString('es-PE',{
+            weekday:'long',
+            year:'numeric',
+            month:'long',
+            day:'numeric'
+        });
 
 }
 
-setInterval(actualizarReloj,1000);
-actualizarReloj();
+setInterval(actualizarFechaHora,1000);
+actualizarFechaHora();
 
 const URL_SHEET =
 'https://opensheet.elk.sh/1FKppkcwfb66pQ_2Fgw2DAJIDREmUcyL5hqUG0CsY9UE/RECEPCION';
@@ -231,23 +420,23 @@ async function cargarDatos(){
 
     try{
 
-        const response = await fetch(URL_SHEET);
+        const res = await fetch(URL_SHEET);
 
-        const datos = await response.json();
+        const datos = await res.json();
+
+        let proceso=0;
+        let completo=0;
+        let pendiente=0;
 
         document.getElementById('recepProg').innerHTML =
             datos.length;
 
-        let proceso = 0;
-        let completo = 0;
-        let pendiente = 0;
-
         const tabla =
             document.getElementById('tablaRecepciones');
 
-        tabla.innerHTML = '';
+        tabla.innerHTML='';
 
-        const horas = {};
+        const horas={};
 
         datos.forEach(item=>{
 
@@ -258,7 +447,7 @@ async function cargarDatos(){
             else if(estado.includes('complet')) completo++;
             else pendiente++;
 
-            const fila = `
+            tabla.innerHTML += `
             <tr>
                 <td>${item.CLIENTE || '-'}</td>
                 <td>${item.PLACA || '-'}</td>
@@ -271,21 +460,19 @@ async function cargarDatos(){
                         ? 'proc'
                         : 'pend'
                     }">
-                        ${item.STATUS || 'Pendiente'}
+                    ${item.STATUS || 'Pendiente'}
                     </span>
                 </td>
             </tr>
             `;
 
-            tabla.innerHTML += fila;
-
             if(item.H_ARRIBO){
 
-                let h =
-                item.H_ARRIBO.split(':')[0] + ':00';
+                let hora =
+                    item.H_ARRIBO.split(':')[0] + ':00';
 
-                horas[h] = (horas[h] || 0) + 1;
-
+                horas[hora] =
+                    (horas[hora] || 0) + 1;
             }
 
         });
@@ -299,53 +486,75 @@ async function cargarDatos(){
         document.getElementById('recepPend').innerHTML =
             pendiente;
 
-        graficarHoras(horas);
+        dibujarGrafico(horas);
 
     }
+
     catch(error){
-
         console.error(error);
-
     }
 
 }
 
-function graficarHoras(datos){
-
-    const labels =
-        Object.keys(datos);
-
-    const values =
-        Object.values(datos);
+function dibujarGrafico(datos){
 
     if(chartHoras)
         chartHoras.destroy();
 
     chartHoras = new Chart(
-
         document.getElementById('chartHoras'),
-
         {
             type:'bar',
 
             data:{
-                labels:labels,
-
+                labels:Object.keys(datos),
                 datasets:[{
                     label:'Recepciones',
-                    data:values
+                    data:Object.values(datos),
+                    backgroundColor:'#2563eb'
                 }]
             },
 
             options:{
-                responsive:true,
-                maintainAspectRatio:false
+                responsive:true
             }
         }
-
     );
 
 }
+
+function miniChart(id,color){
+
+    new Chart(document.getElementById(id),{
+
+        type:'line',
+
+        data:{
+            labels:['06','08','10','12','14','16'],
+            datasets:[{
+                data:[30,45,50,65,80,95],
+                borderColor:color,
+                fill:false,
+                tension:.4
+            }]
+        },
+
+        options:{
+            plugins:{
+                legend:{
+                    display:false
+                }
+            }
+        }
+
+    });
+
+}
+
+miniChart('chart1','#2563eb');
+miniChart('chart2','#16a34a');
+miniChart('chart3','#f97316');
+miniChart('chart4','#0ea5e9');
 
 cargarDatos();
 
