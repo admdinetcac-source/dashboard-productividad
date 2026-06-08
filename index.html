@@ -1,32 +1,31 @@
 <script>
 
-const URL_API = "https://script.google.com/macros/s/AKfycbyxCXys8vUowqW69RWGi9Dbv6CzB8O-_Zu4-xvQefI4RvNOPSn_Lory2Tbq-rB9bu4A/exec";
+const URL_API = "https://opensheet.elk.sh/1FKppkcwfb66pQ_2Fgw2DAJIDREmUcyL5hqUG0CsY9UE/RECEPCION";
 
-function procesarDatos(data){
+async function cargarDatos(){
 
-    console.log(data);
+    const response = await fetch(URL_API);
+    const datos = await response.json();
 
-    const registros = data.slice(1);
+    document.getElementById("total").innerText = datos.length;
 
-    document.getElementById("total").innerText = registros.length;
+    if(datos.length > 0){
 
-    if(registros.length > 0){
+        const ultimo = datos[datos.length - 1];
 
-        const ultimo = registros[registros.length - 1];
-
-        document.getElementById("placa").innerText = ultimo[2];
-
+        document.getElementById("placa").innerText =
+            ultimo.PLACA || "-";
     }
 
     let html = "";
 
-    registros.forEach(fila => {
+    datos.forEach(fila => {
 
         html += `
         <tr>
-            <td>${fila[2] || ""}</td>
-            <td>${fila[3] || ""}</td>
-            <td>${fila[10] || ""}</td>
+            <td>${fila.PLACA || ""}</td>
+            <td>${fila.CLIENTE || ""}</td>
+            <td>${fila["TIEMPO DE ATENCIÓN DEL CAMIÓN"] || ""}</td>
         </tr>
         `;
 
@@ -36,29 +35,8 @@ function procesarDatos(data){
 
 }
 
-function cargarDatos(){
-
-    const anterior = document.getElementById("jsonp");
-
-    if(anterior){
-        anterior.remove();
-    }
-
-    const script = document.createElement("script");
-
-    script.id = "jsonp";
-
-    script.src =
-        URL_API +
-        "?callback=procesarDatos&t=" +
-        new Date().getTime();
-
-    document.body.appendChild(script);
-
-}
-
 cargarDatos();
 
-setInterval(cargarDatos,60000);
+setInterval(cargarDatos,30000);
 
 </script>
