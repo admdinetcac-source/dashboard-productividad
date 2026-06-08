@@ -2,31 +2,16 @@
 <html lang="es">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Control Tower Recepciones</title>
+<title>CONTROL TOWER RECEPCIONES</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <style>
-
-:root{
---bg:#f4f8fc;
---card:#ffffff;
---blue:#2563eb;
---green:#16a34a;
---orange:#f97316;
---purple:#7c3aed;
---red:#ef4444;
---border:#e2e8f0;
---text:#0f172a;
---text2:#64748b;
-}
-
-*{
+  *{
 margin:0;
 padding:0;
 box-sizing:border-box;
@@ -34,8 +19,9 @@ font-family:'Outfit',sans-serif;
 }
 
 body{
-background:var(--bg);
+background:#f3f6fb;
 padding:20px;
+color:#0f172a;
 }
 
 .header{
@@ -45,23 +31,23 @@ border-radius:20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-box-shadow:0 3px 15px rgba(0,0,0,.08);
+box-shadow:0 3px 12px rgba(0,0,0,.08);
 margin-bottom:20px;
 }
 
 .header h1{
-color:#1e40af;
+font-size:28px;
+color:#2563eb;
 }
 
-#clock{
+.clock{
 font-size:28px;
 font-weight:700;
-color:#2563eb;
 }
 
 .kpis{
 display:grid;
-grid-template-columns:repeat(4,1fr);
+grid-template-columns:repeat(6,1fr);
 gap:15px;
 margin-bottom:20px;
 }
@@ -70,51 +56,46 @@ margin-bottom:20px;
 background:white;
 padding:20px;
 border-radius:20px;
-box-shadow:0 3px 15px rgba(0,0,0,.08);
+box-shadow:0 3px 12px rgba(0,0,0,.08);
 text-align:center;
 }
 
-.kpi span{
-display:block;
-color:var(--text2);
-font-size:13px;
+.kpi h3{
+font-size:12px;
+color:#64748b;
+margin-bottom:10px;
 }
 
 .kpi h2{
-margin-top:10px;
 font-size:34px;
-}
-
-.main{
-display:grid;
-grid-template-columns:2fr 1fr;
-gap:20px;
 }
 
 .card{
 background:white;
-border-radius:20px;
 padding:20px;
-box-shadow:0 3px 15px rgba(0,0,0,.08);
+border-radius:20px;
+box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
 table{
 width:100%;
 border-collapse:collapse;
-margin-top:15px;
+}
+
+thead{
+background:#eff6ff;
 }
 
 th{
-background:#eff6ff;
 padding:12px;
-font-size:12px;
 text-align:left;
+font-size:13px;
 }
 
 td{
-padding:10px;
-font-size:12px;
-border-bottom:1px solid #eee;
+padding:12px;
+border-bottom:1px solid #e2e8f0;
+font-size:13px;
 }
 
 .badge{
@@ -124,18 +105,49 @@ font-size:11px;
 font-weight:600;
 }
 
-.ok{
-background:#dcfce7;
-color:#166534;
-}
-
-.proc{
+.inicio{
 background:#dbeafe;
 color:#1d4ed8;
 }
 
+.progreso{
+background:#ffedd5;
+color:#c2410c;
+}
+
+.completo{
+background:#dcfce7;
+color:#166534;
+}
+
+.noiniciado{
+background:#f1f5f9;
+color:#475569;
+}
+
 .footer{
 margin-top:20px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+}
+
+.metric{
+background:white;
+padding:20px;
+border-radius:20px;
+box-shadow:0 3px 12px rgba(0,0,0,.08);
+text-align:center;
+}
+
+.metric h3{
+font-size:13px;
+color:#64748b;
+}
+
+.metric h2{
+font-size:28px;
+margin-top:10px;
 }
 
 @media(max-width:1200px){
@@ -144,13 +156,12 @@ margin-top:20px;
 grid-template-columns:repeat(2,1fr);
 }
 
-.main{
+.footer{
 grid-template-columns:1fr;
 }
 
 }
-
-</style>
+  </style>
 
 </head>
 
@@ -163,88 +174,77 @@ grid-template-columns:1fr;
 <div id="fecha"></div>
 </div>
 
-<div id="clock"></div>
+<div class="clock" id="clock"></div>
 
 </div>
 
 <div class="kpis">
 
 <div class="kpi">
-<span>Total Camiones</span>
-<h2 id="totalCamiones">0</h2>
+<h3>Total Atenciones</h3>
+<h2 id="total">0</h2>
 </div>
 
 <div class="kpi">
-<span>En Progreso</span>
-<h2 id="enProceso">0</h2>
+<h3>Pendiente Descarga</h3>
+<h2 id="pendiente">0</h2>
 </div>
 
 <div class="kpi">
-<span>Completados</span>
-<h2 id="completados">0</h2>
+<h3>Descargando</h3>
+<h2 id="progreso">0</h2>
 </div>
 
 <div class="kpi">
-<span>Cantidad Recepcionada</span>
-<h2 id="cantidadRecepcionada">0</h2>
+<h3>Descarga Completa</h3>
+<h2 id="completo">0</h2>
+</div>
+
+<div class="kpi">
+<h3>Pend. Acondicionado</h3>
+<h2 id="acondPend">0</h2>
+</div>
+
+<div class="kpi">
+<h3>Acond. Completo</h3>
+<h2 id="acondComp">0</h2>
 </div>
 
 </div>
-
-<div class="main">
 
 <div class="card">
 
-<h3>Recepciones en Tiempo Real</h3>
+<h2>Operación en Tiempo Real</h2>
 
 <table>
 
 <thead>
-
 <tr>
+<th>Atención</th>
 <th>Placa</th>
-<th>Llegada</th>
-<th>Inicio</th>
-<th>Fin</th>
-<th>Salida</th>
-<th>Permanencia</th>
-<th>Descarga</th>
-<th>Usuario</th>
-<th>Estado</th>
+<th>Estado Camión</th>
+<th>Tiempo Transcurrido</th>
+<th>Estado Acondicionado</th>
+<th>Tiempo Acondicionado</th>
 </tr>
-
 </thead>
 
-<tbody id="tablaRecepciones"></tbody>
+<tbody id="tabla"></tbody>
 
 </table>
 
 </div>
 
-<div class="card">
-
-<h3>Recepciones por Hora</h3>
-
-<canvas id="chartHoras"></canvas>
-
-</div>
-
-</div>
-
 <div class="footer">
 
-<div class="card">
+<div class="metric">
+<h3>Promedio Atención</h3>
+<h2 id="promAtencion">0 min</h2>
+</div>
 
-<h3>Indicadores Operativos</h3>
-
-<br>
-
-<p><b>Tiempo promedio permanencia:</b> <span id="promedioPermanencia">0 min</span></p>
-
-<br>
-
-<p><b>Tiempo promedio descarga:</b> <span id="promedioDescarga">0 min</span></p>
-
+<div class="metric">
+<h3>Promedio Descarga</h3>
+<h2 id="promDescarga">0 min</h2>
 </div>
 
 </div>
@@ -252,229 +252,228 @@ grid-template-columns:1fr;
 <script>
 
 const URL =
-'https://opensheet.elk.sh/1FKppkcwfb66pQ_2Fgw2DAJIDREmUcyL5hqUG0CsY9UE/RECEPCION';
+"https://opensheet.elk.sh/1FKppkcwfb66pQ_2Fgw2DAJIDREmUcyL5hqUG0CsY9UE/RECEPCION";
 
 function reloj(){
 
-const ahora=new Date();
+const ahora = new Date();
 
-document.getElementById('clock').innerHTML=
-ahora.toLocaleTimeString('es-PE');
+document.getElementById("clock").innerHTML =
+ahora.toLocaleTimeString("es-PE");
 
-document.getElementById('fecha').innerHTML=
-ahora.toLocaleDateString('es-PE',{
-weekday:'long',
-day:'numeric',
-month:'long',
-year:'numeric'
-});
+document.getElementById("fecha").innerHTML =
+ahora.toLocaleDateString("es-PE");
 
 }
 
 setInterval(reloj,1000);
 reloj();
 
-function minutosEntre(inicio,fin){
+function minutosEntre(a,b){
 
-if(!inicio || !fin) return null;
+if(!a || !b) return null;
 
-try{
+const d1 = new Date(`2000-01-01 ${a}`);
+const d2 = new Date(`2000-01-01 ${b}`);
 
-const d1=new Date(`2000-01-01 ${inicio}`);
-const d2=new Date(`2000-01-01 ${fin}`);
+const diff = (d2-d1)/60000;
 
-const minutos=(d2-d1)/60000;
+if(diff < 0) return null;
 
-if(minutos<0) return null;
-
-return minutos;
-
-}catch{
-
-return null;
+return diff;
 
 }
 
-}
+function formato(min){
 
-function formatoTiempo(min){
+if(min===null) return "-";
 
-if(min===null) return '-';
-
-const h=Math.floor(min/60);
-const m=Math.floor(min%60);
+const h = Math.floor(min/60);
+const m = Math.floor(min%60);
 
 return `${h}h ${m}m`;
 
 }
 
-let chart;
+async function cargar(){
 
-async function cargarDatos(){
+const res = await fetch(URL);
+const datos = await res.json();
 
-try{
+let total=0;
+let pendiente=0;
+let progreso=0;
+let completo=0;
 
-const res=await fetch(URL);
-const datos=await res.json();
+let acondPend=0;
+let acondComp=0;
 
-let total=datos.length;
-let proceso=0;
-let completados=0;
-let cantidad=0;
+let sumaAt=0;
+let contAt=0;
 
-let sumaPermanencia=0;
-let totalPermanencia=0;
+let sumaDesc=0;
+let contDesc=0;
 
-let sumaDescarga=0;
-let totalDescarga=0;
-
-let horas={};
-
-const tabla=
-document.getElementById('tablaRecepciones');
+const tabla =
+document.getElementById("tabla");
 
 tabla.innerHTML='';
 
 datos.forEach(item=>{
 
-const llegada=item["Hora Llegada"] || '';
-const inicio=item["Inicio Descarga"] || '';
-const fin=item["Fin Descarga"] || '';
-const salida=item["Hora Salida"] || '';
+total++;
 
-const permanencia=
-minutosEntre(llegada,salida);
+const llegada =
+item["Hora Llegada"] || '';
 
-const descarga=
-minutosEntre(inicio,fin);
+const inicio =
+item["Inicio Descarga"] || '';
 
-if(permanencia!==null){
+const fin =
+item["Fin Descarga"] || '';
 
-sumaPermanencia+=permanencia;
-totalPermanencia++;
+let estado='';
+let clase='';
 
-}
+if(fin){
 
-if(descarga!==null){
+estado='COMPLETO';
+clase='completo';
+completo++;
 
-sumaDescarga+=descarga;
-totalDescarga++;
+}else if(inicio){
 
-}
+estado='EN PROGRESO';
+clase='progreso';
+progreso++;
 
-let estado='EN PROGRESO';
+}else if(llegada){
 
-if(salida){
-
-estado='COMPLETADO';
-completados++;
+estado='INICIO';
+clase='inicio';
+pendiente++;
 
 }else{
 
-proceso++;
+estado='PENDIENTE';
+clase='noiniciado';
 
 }
 
-cantidad+=Number(
-item["Cantidad Recepcionada"] || 0
-);
+let tiempo='-';
 
-tabla.innerHTML+=`
+if(fin){
+
+const at =
+minutosEntre(llegada,fin);
+
+tiempo =
+formato(at);
+
+if(at){
+
+sumaAt+=at;
+contAt++;
+
+}
+
+const des =
+minutosEntre(inicio,fin);
+
+if(des){
+
+sumaDesc+=des;
+contDesc++;
+
+}
+
+}
+
+let estadoAcond =
+"NO INICIADO";
+
+let claseAcond =
+"noiniciado";
+
+let tiempoAcond =
+"-";
+
+if(item["Fin Acondicionado"]){
+
+estadoAcond="COMPLETO";
+claseAcond="completo";
+acondComp++;
+
+}else{
+
+acondPend++;
+
+}
+
+tabla.innerHTML += `
 
 <tr>
 
-<td>${item["Placa"] || '-'}</td>
+<td>${item["N° Atención"] || item["ID_DESP"]}</td>
 
-<td>${llegada || '-'}</td>
-
-<td>${inicio || '-'}</td>
-
-<td>${fin || '-'}</td>
-
-<td>${salida || '-'}</td>
-
-<td>${formatoTiempo(permanencia)}</td>
-
-<td>${formatoTiempo(descarga)}</td>
-
-<td>${item["Usuario"] || '-'}</td>
+<td>${item["Placa"] || "-"}</td>
 
 <td>
-<span class="badge ${
-estado==='COMPLETADO'
-?'ok'
-:'proc'
-}">
+<span class="badge ${clase}">
 ${estado}
 </span>
 </td>
+
+<td>${tiempo}</td>
+
+<td>
+<span class="badge ${claseAcond}">
+${estadoAcond}
+</span>
+</td>
+
+<td>${tiempoAcond}</td>
 
 </tr>
 
 `;
 
-if(llegada){
-
-const hora=llegada.substring(0,2)+':00';
-
-horas[hora]=(horas[hora]||0)+1;
-
-}
-
 });
 
-document.getElementById('totalCamiones').innerHTML=total;
-document.getElementById('enProceso').innerHTML=proceso;
-document.getElementById('completados').innerHTML=completados;
-document.getElementById('cantidadRecepcionada').innerHTML=cantidad;
+document.getElementById("total").innerHTML =
+total;
 
-const promPerm=
-totalPermanencia
-? Math.round(sumaPermanencia/totalPermanencia)
-:0;
+document.getElementById("pendiente").innerHTML =
+pendiente;
 
-const promDesc=
-totalDescarga
-? Math.round(sumaDescarga/totalDescarga)
-:0;
+document.getElementById("progreso").innerHTML =
+progreso;
 
-document.getElementById('promedioPermanencia').innerHTML=
-promPerm+' min';
+document.getElementById("completo").innerHTML =
+completo;
 
-document.getElementById('promedioDescarga').innerHTML=
-promDesc+' min';
+document.getElementById("acondPend").innerHTML =
+acondPend;
 
-if(chart) chart.destroy();
+document.getElementById("acondComp").innerHTML =
+acondComp;
 
-chart=new Chart(
-document.getElementById('chartHoras'),
-{
-type:'bar',
-data:{
-labels:Object.keys(horas),
-datasets:[{
-label:'Recepciones',
-data:Object.values(horas)
-}]
-},
-options:{
-responsive:true
-}
-}
-);
+document.getElementById("promAtencion").innerHTML =
+contAt
+? Math.round(sumaAt/contAt)+" min"
+: "0 min";
 
-}catch(error){
-
-console.error(error);
+document.getElementById("promDescarga").innerHTML =
+contDesc
+? Math.round(sumaDesc/contDesc)+" min"
+: "0 min";
 
 }
 
-}
-
-cargarDatos();
+cargar();
 
 setInterval(
-cargarDatos,
+cargar,
 30000
 );
 
