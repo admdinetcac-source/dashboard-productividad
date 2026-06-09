@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Panel de Control Operativo</title>
+<title>PRODUCTIVIDADES IPESA</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -18,67 +20,94 @@ font-family:'Outfit',sans-serif;
 }
 
 body{
-background:#f5f7fb;
-padding:20px;
+background:#eef6ff;
+padding:10px;
 color:#0f172a;
 }
 
 .header{
-background:white;
-padding:20px;
-border-radius:20px;
+background:#0284c7;
+color:white;
+padding:15px 20px;
+border-radius:16px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:20px;
-box-shadow:0 4px 15px rgba(0,0,0,.08);
+margin-bottom:10px;
 }
 
-.header h1{
+.header-left h1{
 font-size:28px;
 }
 
-.clock{
-font-size:26px;
-font-weight:700;
-}
-
-.section{
-background:white;
-padding:20px;
-border-radius:20px;
-margin-bottom:20px;
-box-shadow:0 4px 15px rgba(0,0,0,.08);
-}
-
-.section-title{
-font-size:22px;
-font-weight:700;
-margin-bottom:15px;
-}
-
-.cards{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:15px;
-margin-bottom:20px;
-}
-
-.card{
-background:#f8fafc;
-padding:20px;
-border-radius:15px;
-text-align:center;
-}
-
-.card h4{
+.header-left p{
 font-size:13px;
-color:#64748b;
-margin-bottom:8px;
+opacity:.9;
 }
 
-.card h2{
-font-size:34px;
+.header-right{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.logo{
+height:70px;
+width:auto;
+background:white;
+padding:5px;
+border-radius:10px;
+}
+
+.fechaHora{
+font-size:18px;
+font-weight:600;
+text-align:right;
+}
+
+.kpis{
+display:grid;
+grid-template-columns:repeat(6,1fr);
+gap:10px;
+margin-bottom:10px;
+}
+
+.kpi{
+background:white;
+border-radius:14px;
+padding:12px;
+text-align:center;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.kpi h4{
+font-size:12px;
+color:#475569;
+margin-bottom:5px;
+}
+
+.kpi h2{
+font-size:28px;
+color:#0284c7;
+}
+
+.contenedor{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.panel{
+background:white;
+border-radius:16px;
+padding:10px;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.panel h2{
+color:#0284c7;
+margin-bottom:10px;
+font-size:20px;
 }
 
 table{
@@ -87,30 +116,30 @@ border-collapse:collapse;
 }
 
 thead{
-background:#f1f5f9;
+background:#e0f2fe;
 }
 
 th{
-padding:12px;
+padding:8px;
+font-size:11px;
 text-align:left;
-font-size:12px;
 }
 
 td{
-padding:12px;
+padding:8px;
+font-size:11px;
 border-bottom:1px solid #e2e8f0;
-font-size:12px;
 }
 
 .estado{
-padding:6px 10px;
-border-radius:15px;
-font-size:11px;
+padding:4px 8px;
+border-radius:20px;
+font-size:10px;
 font-weight:600;
 }
 
 .no{
-background:#e2e8f0;
+background:#cbd5e1;
 }
 
 .proceso{
@@ -121,73 +150,96 @@ background:#fde68a;
 background:#bbf7d0;
 }
 
-@media(max-width:1200px){
+@media(max-width:1000px){
 
-.cards{
+.kpis{
+grid-template-columns:repeat(2,1fr);
+}
+
+.contenedor{
 grid-template-columns:1fr;
 }
 
-table{
-display:block;
-overflow:auto;
+.logo{
+height:50px;
 }
 
 }
 
 </style>
+
 </head>
 
 <body>
+ <div class="header">
 
-<div class="header">
-
-<div>
-<h1>PANEL DE CONTROL OPERATIVO</h1>
-<div>ALMACÉN CENTRAL</div>
+<div class="header-left">
+<h1>PRODUCTIVIDADES IPESA</h1>
+<p>CONTROL OPERATIVO EN TIEMPO REAL</p>
 </div>
 
-<div class="clock" id="clock"></div>
+<div class="header-right">
+
+<img src="logo-ipesa.png" class="logo">
+
+<div class="fechaHora" id="fechaHora"></div>
 
 </div>
-<div class="section">
 
-<div class="section-title">
-🚚 RECEPCIONES
 </div>
 
-<div class="cards">
+<div class="kpis">
 
-<div class="card">
-<h4>Camiones Atendidos</h4>
+<div class="kpi">
+<h4>Recepciones</h4>
 <h2 id="rAtendidos">0</h2>
 </div>
 
-<div class="card">
-<h4>Camiones Pendientes</h4>
+<div class="kpi">
+<h4>Recepciones Pendientes</h4>
 <h2 id="rPendientes">0</h2>
 </div>
 
-<div class="card">
-<h4>Pallets del Día</h4>
+<div class="kpi">
+<h4>Pallets Recepcionados</h4>
 <h2 id="rPallets">0</h2>
 </div>
 
+<div class="kpi">
+<h4>Despachos</h4>
+<h2 id="dAtendidos">0</h2>
 </div>
+
+<div class="kpi">
+<h4>Despachos Pendientes</h4>
+<h2 id="dPendientes">0</h2>
+</div>
+
+<div class="kpi">
+<h4>Pallets Despachados</h4>
+<h2 id="dPallets">0</h2>
+</div>
+
+</div>
+
+<div class="contenedor">
+
+<div class="panel">
+
+<h2>🚚 RECEPCIONES</h2>
 
 <table>
 
 <thead>
 
 <tr>
-<th>Atención</th>
+<th>N° Atención</th>
 <th>Placa</th>
-<th>Cod. Motivo</th>
-<th>Atención</th>
+<th>Motivo</th>
+<th>Status Atención</th>
 <th>Tiempo Atención</th>
-<th>Descarga</th>
-<th>Tiempo Descarga</th>
-<th>Acondicionado</th>
-<th>Tiempo Acondicionado</th>
+<th>Status Acond.</th>
+<th>Tiempo Acond.</th>
 </tr>
 
 </thead>
@@ -198,45 +250,24 @@ overflow:auto;
 
 </div>
 
-<div class="section">
+<div class="panel">
 
-<div class="section-title">
-🚛 DESPACHOS
-</div>
-
-<div class="cards">
-
-<div class="card">
-<h4>Despachos del Día</h4>
-<h2 id="dAtendidos">0</h2>
-</div>
-
-<div class="card">
-<h4>Despachos Pendientes</h4>
-<h2 id="dPendientes">0</h2>
-</div>
-
-<div class="card">
-<h4>Pallets del Día</h4>
-<h2 id="dPallets">0</h2>
-</div>
-
-</div>
+<h2>🚛 DESPACHOS</h2>
 
 <table>
 
 <thead>
 
 <tr>
-<th>Atención</th>
+<th>N° Atención</th>
 <th>Placa</th>
 <th>Motivo</th>
-<th>Picking</th>
+<th>Status Picking</th>
 <th>Tiempo Picking</th>
-<th>Packing</th>
+<th>Status Packing</th>
 <th>Tiempo Packing</th>
-<th>Carga</th>
-<th>Tiempo Carga</th>
+<th>Status Atención</th>
+<th>Tiempo Atención</th>
 </tr>
 
 </thead>
@@ -244,6 +275,8 @@ overflow:auto;
 <tbody id="tablaDespacho"></tbody>
 
 </table>
+
+</div>
 
 </div>
 <script>
@@ -254,25 +287,29 @@ const URL_RECEPCION =
 const URL_DESPACHO =
 'https://opensheet.elk.sh/1FKppkcwfb66pQ_2Fgw2DAJIDREmUcyL5hqUG0CsY9UE/DESPACHO';
 
-function reloj(){
+function actualizarFechaHora(){
 
-document.getElementById('clock').innerHTML =
-new Date().toLocaleTimeString('es-PE');
+const ahora = new Date();
+
+const fecha =
+ahora.toLocaleDateString('es-PE');
+
+const hora =
+ahora.toLocaleTimeString('es-PE');
+
+document.getElementById('fechaHora').innerHTML =
+`${fecha}<br>${hora}`;
 
 }
 
-setInterval(reloj,1000);
-reloj();
+setInterval(actualizarFechaHora,1000);
+actualizarFechaHora();
 
 function estado(inicio,fin){
 
-if(fin){
-return ['COMPLETO','ok'];
-}
+if(fin) return ['COMPLETO','ok'];
 
-if(inicio){
-return ['EN PROGRESO','proceso'];
-}
+if(inicio) return ['EN PROGRESO','proceso'];
 
 return ['NO INICIADO','no'];
 
@@ -280,51 +317,46 @@ return ['NO INICIADO','no'];
 
 function diferencia(inicio,fin){
 
-if(!inicio){
-return '-';
-}
+if(!inicio) return '-';
 
 try{
 
-const ini = inicio.split(':');
+const i = inicio.split(':');
 
 const inicioMin =
-(Number(ini[0]) * 60) +
-Number(ini[1]);
+(Number(i[0])*60)+Number(i[1]);
 
 let finMin;
 
 if(fin){
 
-const finArr = fin.split(':');
+const f = fin.split(':');
 
 finMin =
-(Number(finArr[0]) * 60) +
-Number(finArr[1]);
+(Number(f[0])*60)+Number(f[1]);
 
 }else{
 
 const ahora = new Date();
 
 finMin =
-(ahora.getHours() * 60) +
+(ahora.getHours()*60)+
 ahora.getMinutes();
 
 }
 
-const total = finMin - inicioMin;
+const total =
+finMin-inicioMin;
 
-if(total < 0){
-return '-';
-}
+if(total<0) return '-';
 
-const horas =
-Math.floor(total / 60);
+const h =
+Math.floor(total/60);
 
-const minutos =
-total % 60;
+const m =
+total%60;
 
-return `${horas}h ${minutos}m`;
+return `${h}h ${m}m`;
 
 }catch{
 
@@ -362,11 +394,7 @@ const despacho =
 await fetch(URL_DESPACHO)
 .then(r=>r.json());
 
-/* ==========================
-   RECEPCIONES DEL DÍA
-========================== */
-
-const recHoy = recepcion.filter(r => {
+const recHoy = recepcion.filter(r=>{
 
 const fecha =
 (r["Fecha Llegada"] || "")
@@ -376,28 +404,20 @@ return fecha === hoyActual;
 
 });
 
-/* ==========================
-   DESPACHOS DEL DÍA
-========================== */
-
-const desHoy = despacho.filter(r => {
+const desHoy = despacho.filter(d=>{
 
 const fecha =
-(r["Fecha Llegada"] || "")
+(d["Fecha Llegada"] || "")
 .split(" ")[0];
 
 return fecha === hoyActual;
 
 });
 
-/* ==========================
-   KPIS RECEPCIÓN
-========================== */
+let palletsRec=0;
+let pendientesRec=0;
 
-let palletsRec = 0;
-let pendientesRec = 0;
-
-document.getElementById("tablaRecepcion").innerHTML = '';
+document.getElementById("tablaRecepcion").innerHTML='';
 
 recHoy.forEach(r=>{
 
@@ -407,74 +427,38 @@ r["Hora Llegada"],
 r["Fin Descarga"]
 );
 
-const descarga =
-estado(
-r["Inicio Descarga"],
-r["Fin Descarga"]
-);
-
-const acondicionado =
+const acond =
 estado(
 r["Inicio Acondicionado"],
 r["Fin Acondicionado"]
 );
 
-if(!r["Fin Descarga"]){
+if(!r["Fin Descarga"])
 pendientesRec++;
-}
 
-palletsRec += Number(
-r["Cantidad Pallet"] || 0
-);
+palletsRec +=
+Number(r["Cantidad Pallet"] || 0);
 
 document.getElementById("tablaRecepcion").innerHTML += `
 
 <tr>
-
-<td>${r["N° Atención"] || r["ID_DESP"] || "-"}</td>
-
+<td>${r["N° Atención"] || r["ID_DESP"]}</td>
 <td>${r["Placa"] || "-"}</td>
-
 <td>${r["Cod. Motivo"] || "-"}</td>
 
-<td>
-<span class="estado ${atencion[1]}">
-${atencion[0]}
-</span>
-</td>
+<td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
 
-<td>
-${diferencia(
+<td>${diferencia(
 r["Hora Llegada"],
 r["Fin Descarga"]
-)}
-</td>
+)}</td>
 
-<td>
-<span class="estado ${descarga[1]}">
-${descarga[0]}
-</span>
-</td>
+<td><span class="estado ${acond[1]}">${acond[0]}</span></td>
 
-<td>
-${diferencia(
-r["Inicio Descarga"],
-r["Fin Descarga"]
-)}
-</td>
-
-<td>
-<span class="estado ${acondicionado[1]}">
-${acondicionado[0]}
-</span>
-</td>
-
-<td>
-${diferencia(
+<td>${diferencia(
 r["Inicio Acondicionado"],
 r["Fin Acondicionado"]
-)}
-</td>
+)}</td>
 
 </tr>
 
@@ -491,14 +475,10 @@ pendientesRec;
 document.getElementById("rPallets").innerHTML =
 palletsRec;
 
-/* ==========================
-   KPIS DESPACHO
-========================== */
+let palletsDes=0;
+let pendientesDes=0;
 
-let palletsDes = 0;
-let pendientesDes = 0;
-
-document.getElementById("tablaDespacho").innerHTML = '';
+document.getElementById("tablaDespacho").innerHTML='';
 
 desHoy.forEach(d=>{
 
@@ -514,68 +494,48 @@ d["Inicio Packing"],
 d["Fin Packing"]
 );
 
-const carga =
+const atencion =
 estado(
-d["Inicio Carga"],
+d["Hora Llegada"],
 d["Fin Carga"]
 );
 
-if(!d["Fin Carga"]){
+if(!d["Fin Carga"])
 pendientesDes++;
-}
 
-palletsDes += Number(
-d["Cantidad Pallet"] || 0
-);
+palletsDes +=
+Number(d["Cantidad Pallet"] || 0);
 
 document.getElementById("tablaDespacho").innerHTML += `
 
 <tr>
 
-<td>${d["N° Atención"] || d["ID_DESP"] || "-"}</td>
+<td>${d["N° Atención"] || d["ID_DESP"]}</td>
 
 <td>${d["Placa"] || "-"}</td>
 
 <td>${d["Cod. Motivo"] || d["Motivo"] || "-"}</td>
 
-<td>
-<span class="estado ${picking[1]}">
-${picking[0]}
-</span>
-</td>
+<td><span class="estado ${picking[1]}">${picking[0]}</span></td>
 
-<td>
-${diferencia(
+<td>${diferencia(
 d["Inicio Picking"],
 d["Fin Picking"]
-)}
-</td>
+)}</td>
 
-<td>
-<span class="estado ${packing[1]}">
-${packing[0]}
-</span>
-</td>
+<td><span class="estado ${packing[1]}">${packing[0]}</span></td>
 
-<td>
-${diferencia(
+<td>${diferencia(
 d["Inicio Packing"],
 d["Fin Packing"]
-)}
-</td>
+)}</td>
 
-<td>
-<span class="estado ${carga[1]}">
-${carga[0]}
-</span>
-</td>
+<td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
 
-<td>
-${diferencia(
-d["Inicio Carga"],
+<td>${diferencia(
+d["Hora Llegada"],
 d["Fin Carga"]
-)}
-</td>
+)}</td>
 
 </tr>
 
@@ -596,10 +556,7 @@ palletsDes;
 
 cargar();
 
-setInterval(
-cargar,
-30000
-);
+setInterval(cargar,30000);
 
 </script>
 
