@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PRODUCTIVIDADES IPESA</title>
+<title>OPERACIONES IPESA HYDRO</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -21,93 +21,147 @@ font-family:'Outfit',sans-serif;
 
 body{
 background:#eef6ff;
-padding:10px;
 color:#0f172a;
+padding:12px;
+min-height:100vh;
 }
 
 .header{
-background:#0284c7;
-color:white;
-padding:15px 20px;
-border-radius:16px;
+background:linear-gradient(90deg,#0057b8,#0284c7);
+border-radius:20px;
+padding:18px 25px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:10px;
+color:white;
+margin-bottom:12px;
+box-shadow:0 6px 20px rgba(0,0,0,.15);
 }
 
-.header-left h1{
-font-size:28px;
-}
-
-.header-left p{
-font-size:13px;
-opacity:.9;
-}
-
-.header-right{
+.header-left{
 display:flex;
 align-items:center;
 gap:20px;
 }
 
-.logo{
-height:70px;
+.logo-principal{
+height:110px;
 width:auto;
 background:white;
-padding:5px;
-border-radius:10px;
+padding:8px;
+border-radius:12px;
+}
+
+.titulo h1{
+font-size:48px;
+font-weight:800;
+letter-spacing:1px;
+}
+
+.titulo p{
+font-size:24px;
+font-weight:700;
+margin-top:4px;
+}
+
+.header-right{
+display:flex;
+align-items:center;
+gap:25px;
+}
+
+.slogan{
+font-size:24px;
+font-weight:800;
+text-align:center;
+max-width:320px;
 }
 
 .fechaHora{
-font-size:18px;
-font-weight:600;
-text-align:right;
+background:white;
+color:#0f172a;
+padding:15px 20px;
+border-radius:16px;
+font-size:20px;
+font-weight:700;
+text-align:center;
+min-width:220px;
+}
+
+.resumen{
+background:white;
+border-radius:18px;
+padding:12px;
+margin-bottom:12px;
+box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.resumen h2{
+text-align:center;
+font-size:24px;
+color:#0057b8;
+margin-bottom:10px;
 }
 
 .kpis{
 display:grid;
 grid-template-columns:repeat(6,1fr);
 gap:10px;
-margin-bottom:10px;
 }
 
 .kpi{
-background:white;
-border-radius:14px;
-padding:12px;
+border-radius:16px;
+padding:15px;
 text-align:center;
-box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
 .kpi h4{
-font-size:12px;
-color:#475569;
-margin-bottom:5px;
+font-size:14px;
+margin-bottom:8px;
 }
 
 .kpi h2{
-font-size:28px;
-color:#0284c7;
+font-size:38px;
+font-weight:800;
 }
 
-.contenedor{
+.kpi-rec{
+background:#dbeafe;
+border-left:8px solid #0284c7;
+}
+
+.kpi-des{
+background:#dcfce7;
+border-left:8px solid #16a34a;
+}
+
+.paneles{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:10px;
+gap:12px;
 }
 
 .panel{
 background:white;
-border-radius:16px;
-padding:10px;
-box-shadow:0 2px 8px rgba(0,0,0,.08);
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
-.panel h2{
-color:#0284c7;
-margin-bottom:10px;
-font-size:20px;
+.panel-title{
+padding:14px;
+font-size:26px;
+font-weight:800;
+text-align:center;
+color:white;
+}
+
+.rec-title{
+background:linear-gradient(90deg,#0284c7,#0ea5e9);
+}
+
+.des-title{
+background:linear-gradient(90deg,#16a34a,#22c55e);
 }
 
 table{
@@ -116,122 +170,216 @@ border-collapse:collapse;
 }
 
 thead{
-background:#e0f2fe;
+background:#f1f5f9;
 }
 
 th{
-padding:8px;
-font-size:11px;
-text-align:left;
+padding:12px;
+font-size:13px;
+font-weight:800;
 }
 
 td{
-padding:8px;
-font-size:11px;
+padding:12px;
+font-size:14px;
+font-weight:600;
 border-bottom:1px solid #e2e8f0;
+text-align:center;
 }
 
 .estado{
-padding:4px 8px;
+padding:6px 12px;
 border-radius:20px;
-font-size:10px;
-font-weight:600;
+font-size:12px;
+font-weight:800;
+display:inline-block;
 }
 
 .no{
-background:#cbd5e1;
+background:#e2e8f0;
+color:#334155;
 }
 
 .proceso{
 background:#fde68a;
+color:#92400e;
 }
 
 .ok{
 background:#bbf7d0;
+color:#166534;
 }
 
-@media(max-width:1000px){
+.footer{
+margin-top:12px;
+background:linear-gradient(90deg,#0057b8,#0284c7);
+border-radius:20px;
+padding:20px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+color:white;
+}
+
+.footer-msg{
+font-size:28px;
+font-weight:700;
+font-style:italic;
+max-width:700px;
+}
+
+.mascota{
+height:140px;
+width:auto;
+}
+
+.qr{
+height:120px;
+width:auto;
+}
+
+@media(max-width:1200px){
+
+.kpis{
+grid-template-columns:repeat(3,1fr);
+}
+
+.paneles{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:768px){
+
+.header{
+flex-direction:column;
+gap:15px;
+}
+
+.header-left{
+flex-direction:column;
+text-align:center;
+}
+
+.header-right{
+flex-direction:column;
+}
+
+.logo-principal{
+height:80px;
+}
+
+.titulo h1{
+font-size:28px;
+}
+
+.slogan{
+font-size:18px;
+}
 
 .kpis{
 grid-template-columns:repeat(2,1fr);
 }
 
-.contenedor{
-grid-template-columns:1fr;
+.footer{
+flex-direction:column;
+gap:20px;
+text-align:center;
 }
 
-.logo{
-height:50px;
+.footer-msg{
+font-size:20px;
+}
+
+.panel{
+overflow-x:auto;
 }
 
 }
 
 </style>
-
 </head>
 
 <body>
- <div class="header">
+
+<div class="header">
 
 <div class="header-left">
-<h1>PRODUCTIVIDADES IPESA</h1>
+
+<img src="logo-dinet.png" class="logo-principal">
+
+<div class="titulo">
+<h1>OPERACIONES IPESA HYDRO</h1>
 <p>CONTROL OPERATIVO EN TIEMPO REAL</p>
+</div>
+
 </div>
 
 <div class="header-right">
 
-<img src="logo-ipesa.png" class="logo">
+<div class="slogan">
+¡CUMPLIMOS HOY,<br>
+SUPERAMOS JUNTOS!
+</div>
 
-<div class="fechaHora" id="fechaHora"></div>
+<div id="fechaHora" class="fechaHora"></div>
 
 </div>
 
 </div>
+
+<div class="resumen">
+
+<h2>📊 RESUMEN DIARIO</h2>
 
 <div class="kpis">
 
-<div class="kpi">
-<h4>Recepciones</h4>
+<div class="kpi kpi-rec">
+<h4>🚚 RECEPCIONES</h4>
 <h2 id="rAtendidos">0</h2>
 </div>
 
-<div class="kpi">
-<h4>Recepciones Pendientes</h4>
+<div class="kpi kpi-rec">
+<h4>⏳ REC. PENDIENTES</h4>
 <h2 id="rPendientes">0</h2>
 </div>
 
-<div class="kpi">
-<h4>Pallets Recepcionados</h4>
+<div class="kpi kpi-rec">
+<h4>📦 PALLETS RECEPCIONADOS</h4>
 <h2 id="rPallets">0</h2>
 </div>
 
-<div class="kpi">
-<h4>Despachos</h4>
+<div class="kpi kpi-des">
+<h4>🚛 DESPACHOS</h4>
 <h2 id="dAtendidos">0</h2>
 </div>
 
-<div class="kpi">
-<h4>Despachos Pendientes</h4>
+<div class="kpi kpi-des">
+<h4>⏳ DESP. PENDIENTES</h4>
 <h2 id="dPendientes">0</h2>
 </div>
 
-<div class="kpi">
-<h4>Pallets Despachados</h4>
+<div class="kpi kpi-des">
+<h4>📦 PALLETS DESPACHADOS</h4>
 <h2 id="dPallets">0</h2>
 </div>
 
 </div>
 
-<div class="contenedor">
+</div>
+
+<div class="paneles">
 
 <div class="panel">
 
-<h2>🚚 RECEPCIONES</h2>
+<div class="panel-title rec-title">
+🚚 RECEPCIONES
+</div>
 
 <table>
 
 <thead>
-
 <tr>
 <th>N° Atención</th>
 <th>Placa</th>
@@ -241,23 +389,23 @@ height:50px;
 <th>Status Acond.</th>
 <th>Tiempo Acond.</th>
 </tr>
-
 </thead>
 
-<tbody id="tablaRecepcion"></tbody>
+<tbody id="tablaRecepcion">
+</tbody>
 
 </table>
 
 </div>
-
 <div class="panel">
 
-<h2>🚛 DESPACHOS</h2>
+<div class="panel-title des-title">
+🚛 DESPACHOS
+</div>
 
 <table>
 
 <thead>
-
 <tr>
 <th>N° Atención</th>
 <th>Placa</th>
@@ -269,16 +417,34 @@ height:50px;
 <th>Status Atención</th>
 <th>Tiempo Atención</th>
 </tr>
-
 </thead>
 
-<tbody id="tablaDespacho"></tbody>
+<tbody id="tablaDespacho">
+</tbody>
 
 </table>
 
 </div>
 
 </div>
+
+<div class="footer">
+
+<div class="footer-msg">
+Tu trabajo mueve la operación,
+tu compromiso impulsa la excelencia operativa.
+</div>
+
+<img
+src="mascota-dinet.png"
+class="mascota">
+
+<img
+src="qr.png"
+class="qr">
+
+</div>
+
 <script>
 
 const URL_RECEPCION =
@@ -297,7 +463,7 @@ ahora.toLocaleDateString('es-PE');
 const hora =
 ahora.toLocaleTimeString('es-PE');
 
-document.getElementById('fechaHora').innerHTML =
+document.getElementById("fechaHora").innerHTML =
 `${fecha}<br>${hora}`;
 
 }
@@ -307,9 +473,13 @@ actualizarFechaHora();
 
 function estado(inicio,fin){
 
-if(fin) return ['COMPLETO','ok'];
+if(fin){
+return ['COMPLETO','ok'];
+}
 
-if(inicio) return ['EN PROGRESO','proceso'];
+if(inicio){
+return ['EN PROGRESO','proceso'];
+}
 
 return ['NO INICIADO','no'];
 
@@ -317,14 +487,17 @@ return ['NO INICIADO','no'];
 
 function diferencia(inicio,fin){
 
-if(!inicio) return '-';
+if(!inicio){
+return '-';
+}
 
 try{
 
-const i = inicio.split(':');
+const ini = inicio.split(':');
 
 const inicioMin =
-(Number(i[0])*60)+Number(i[1]);
+(Number(ini[0])*60)+
+Number(ini[1]);
 
 let finMin;
 
@@ -333,7 +506,8 @@ if(fin){
 const f = fin.split(':');
 
 finMin =
-(Number(f[0])*60)+Number(f[1]);
+(Number(f[0])*60)+
+Number(f[1]);
 
 }else{
 
@@ -346,17 +520,19 @@ ahora.getMinutes();
 }
 
 const total =
-finMin-inicioMin;
+finMin - inicioMin;
 
-if(total<0) return '-';
+if(total < 0){
+return '-';
+}
 
-const h =
+const horas =
 Math.floor(total/60);
 
-const m =
+const minutos =
 total%60;
 
-return `${h}h ${m}m`;
+return `${horas}h ${minutos}m`;
 
 }catch{
 
@@ -414,8 +590,10 @@ return fecha === hoyActual;
 
 });
 
-let palletsRec=0;
-let pendientesRec=0;
+/* RECEPCIONES */
+
+let palletsRec = 0;
+let pendientesRec = 0;
 
 document.getElementById("tablaRecepcion").innerHTML='';
 
@@ -433,8 +611,9 @@ r["Inicio Acondicionado"],
 r["Fin Acondicionado"]
 );
 
-if(!r["Fin Descarga"])
+if(!r["Fin Descarga"]){
 pendientesRec++;
+}
 
 palletsRec +=
 Number(r["Cantidad Pallet"] || 0);
@@ -442,23 +621,38 @@ Number(r["Cantidad Pallet"] || 0);
 document.getElementById("tablaRecepcion").innerHTML += `
 
 <tr>
-<td>${r["N° Atención"] || r["ID_DESP"]}</td>
+
+<td>${r["N° Atención"] || r["ID_DESP"] || "-"}</td>
+
 <td>${r["Placa"] || "-"}</td>
+
 <td>${r["Cod. Motivo"] || "-"}</td>
 
-<td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
+<td>
+<span class="estado ${atencion[1]}">
+${atencion[0]}
+</span>
+</td>
 
-<td>${diferencia(
+<td>
+${diferencia(
 r["Hora Llegada"],
 r["Fin Descarga"]
-)}</td>
+)}
+</td>
 
-<td><span class="estado ${acond[1]}">${acond[0]}</span></td>
+<td>
+<span class="estado ${acond[1]}">
+${acond[0]}
+</span>
+</td>
 
-<td>${diferencia(
+<td>
+${diferencia(
 r["Inicio Acondicionado"],
 r["Fin Acondicionado"]
-)}</td>
+)}
+</td>
 
 </tr>
 
@@ -475,8 +669,10 @@ pendientesRec;
 document.getElementById("rPallets").innerHTML =
 palletsRec;
 
-let palletsDes=0;
-let pendientesDes=0;
+/* DESPACHOS */
+
+let palletsDes = 0;
+let pendientesDes = 0;
 
 document.getElementById("tablaDespacho").innerHTML='';
 
@@ -500,8 +696,9 @@ d["Hora Llegada"],
 d["Fin Carga"]
 );
 
-if(!d["Fin Carga"])
+if(!d["Fin Carga"]){
 pendientesDes++;
+}
 
 palletsDes +=
 Number(d["Cantidad Pallet"] || 0);
@@ -510,32 +707,50 @@ document.getElementById("tablaDespacho").innerHTML += `
 
 <tr>
 
-<td>${d["N° Atención"] || d["ID_DESP"]}</td>
+<td>${d["N° Atención"] || d["ID_DESP"] || "-"}</td>
 
 <td>${d["Placa"] || "-"}</td>
 
 <td>${d["Cod. Motivo"] || d["Motivo"] || "-"}</td>
 
-<td><span class="estado ${picking[1]}">${picking[0]}</span></td>
+<td>
+<span class="estado ${picking[1]}">
+${picking[0]}
+</span>
+</td>
 
-<td>${diferencia(
+<td>
+${diferencia(
 d["Inicio Picking"],
 d["Fin Picking"]
-)}</td>
+)}
+</td>
 
-<td><span class="estado ${packing[1]}">${packing[0]}</span></td>
+<td>
+<span class="estado ${packing[1]}">
+${packing[0]}
+</span>
+</td>
 
-<td>${diferencia(
+<td>
+${diferencia(
 d["Inicio Packing"],
 d["Fin Packing"]
-)}</td>
+)}
+</td>
 
-<td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
+<td>
+<span class="estado ${atencion[1]}">
+${atencion[0]}
+</span>
+</td>
 
-<td>${diferencia(
+<td>
+${diferencia(
 d["Hora Llegada"],
 d["Fin Carga"]
-)}</td>
+)}
+</td>
 
 </tr>
 
@@ -556,7 +771,10 @@ palletsDes;
 
 cargar();
 
-setInterval(cargar,30000);
+setInterval(
+cargar,
+30000
+);
 
 </script>
 
