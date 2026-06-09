@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -20,7 +18,7 @@ font-family:'Outfit',sans-serif;
 }
 
 body{
-background:#f4f7fb;
+background:#f5f7fb;
 padding:20px;
 color:#0f172a;
 }
@@ -37,22 +35,15 @@ box-shadow:0 4px 15px rgba(0,0,0,.08);
 }
 
 .header h1{
-font-size:30px;
-font-weight:700;
-}
-
-.subtitulo{
-color:#64748b;
-font-size:14px;
-margin-top:5px;
+font-size:28px;
 }
 
 .clock{
-font-size:28px;
+font-size:26px;
 font-weight:700;
 }
 
-.seccion{
+.section{
 background:white;
 padding:20px;
 border-radius:20px;
@@ -60,9 +51,10 @@ margin-bottom:20px;
 box-shadow:0 4px 15px rgba(0,0,0,.08);
 }
 
-.seccion h2{
-margin-bottom:15px;
+.section-title{
 font-size:22px;
+font-weight:700;
+margin-bottom:15px;
 }
 
 .cards{
@@ -79,13 +71,13 @@ border-radius:15px;
 text-align:center;
 }
 
-.card h3{
+.card h4{
 font-size:13px;
 color:#64748b;
 margin-bottom:8px;
 }
 
-.card h1{
+.card h2{
 font-size:34px;
 }
 
@@ -115,7 +107,6 @@ padding:6px 10px;
 border-radius:15px;
 font-size:11px;
 font-weight:600;
-display:inline-block;
 }
 
 .no{
@@ -144,7 +135,6 @@ overflow:auto;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -153,7 +143,7 @@ overflow:auto;
 
 <div>
 <h1>PANEL DE CONTROL OPERATIVO</h1>
-<div class="subtitulo">ALMACÉN CENTRAL</div>
+<div>ALMACÉN CENTRAL</div>
 </div>
 
 <div class="clock" id="clock"></div>
@@ -276,11 +266,13 @@ reloj();
 
 function estado(inicio,fin){
 
-if(fin)
+if(fin){
 return ['COMPLETO','ok'];
+}
 
-if(inicio)
+if(inicio){
 return ['EN PROGRESO','proceso'];
+}
 
 return ['NO INICIADO','no'];
 
@@ -288,32 +280,51 @@ return ['NO INICIADO','no'];
 
 function diferencia(inicio,fin){
 
-if(!inicio)
+if(!inicio){
 return '-';
+}
 
 try{
 
-const h1 =
-new Date(`2000-01-01 ${inicio}`);
+const ini = inicio.split(':');
 
-const h2 =
-fin
-? new Date(`2000-01-01 ${fin}`)
-: new Date();
+const inicioMin =
+(Number(ini[0]) * 60) +
+Number(ini[1]);
 
-const mins =
-Math.floor((h2-h1)/60000);
+let finMin;
 
-if(mins<0)
+if(fin){
+
+const finArr = fin.split(':');
+
+finMin =
+(Number(finArr[0]) * 60) +
+Number(finArr[1]);
+
+}else{
+
+const ahora = new Date();
+
+finMin =
+(ahora.getHours() * 60) +
+ahora.getMinutes();
+
+}
+
+const total = finMin - inicioMin;
+
+if(total < 0){
 return '-';
+}
 
-const h =
-Math.floor(mins/60);
+const horas =
+Math.floor(total / 60);
 
-const m =
-mins%60;
+const minutos =
+total % 60;
 
-return `${h}h ${m}m`;
+return `${horas}h ${minutos}m`;
 
 }catch{
 
@@ -325,8 +336,7 @@ return '-';
 
 function hoy(){
 
-const d =
-new Date();
+const d = new Date();
 
 const dia =
 String(d.getDate()).padStart(2,'0');
@@ -352,79 +362,119 @@ const despacho =
 await fetch(URL_DESPACHO)
 .then(r=>r.json());
 
-const recHoy =
-recepcion.filter(r=>
-(r["Fecha Solicitud"] || "")
-startsWith?.(hoyActual) || (r["Fecha Solicitud"] || "").includes(hoyActual)
-);
+/* ==========================
+   RECEPCIONES DEL DÍA
+========================== */
 
-const desHoy =
-despacho.filter(r=>
-(r["Fecha Solicitud"] || "")
-startsWith?.(hoyActual) || (r["Fecha Solicitud"] || "").includes(hoyActual)
-);
+const recHoy = recepcion.filter(r => {
 
-let palletsRec=0;
-let pendientesRec=0;
+const fecha =
+(r["Fecha Llegada"] || "")
+.split(" ")[0];
 
-document.getElementById("tablaRecepcion").innerHTML='';
+return fecha === hoyActual;
+
+});
+
+/* ==========================
+   DESPACHOS DEL DÍA
+========================== */
+
+const desHoy = despacho.filter(r => {
+
+const fecha =
+(r["Fecha Llegada"] || "")
+.split(" ")[0];
+
+return fecha === hoyActual;
+
+});
+
+/* ==========================
+   KPIS RECEPCIÓN
+========================== */
+
+let palletsRec = 0;
+let pendientesRec = 0;
+
+document.getElementById("tablaRecepcion").innerHTML = '';
 
 recHoy.forEach(r=>{
 
-const at =
+const atencion =
 estado(
 r["Hora Llegada"],
 r["Fin Descarga"]
 );
 
-const des =
+const descarga =
 estado(
 r["Inicio Descarga"],
 r["Fin Descarga"]
 );
 
-const acond =
+const acondicionado =
 estado(
 r["Inicio Acondicionado"],
 r["Fin Acondicionado"]
 );
 
-if(!r["Fin Descarga"])
+if(!r["Fin Descarga"]){
 pendientesRec++;
+}
 
-palletsRec +=
-Number(r["Cantidad Pallet"] || 0);
+palletsRec += Number(
+r["Cantidad Pallet"] || 0
+);
 
 document.getElementById("tablaRecepcion").innerHTML += `
 
 <tr>
 
-<td>${r["N° Atención"] || r["ID_DESP"]}</td>
+<td>${r["N° Atención"] || r["ID_DESP"] || "-"}</td>
 
-<td>${r["Placa"] || '-'}</td>
+<td>${r["Placa"] || "-"}</td>
 
-<td>${r["Cod. Motivo"] || '-'}</td>
+<td>${r["Cod. Motivo"] || "-"}</td>
 
-<td><span class="estado ${at[1]}">${at[0]}</span></td>
+<td>
+<span class="estado ${atencion[1]}">
+${atencion[0]}
+</span>
+</td>
 
-<td>${diferencia(
+<td>
+${diferencia(
 r["Hora Llegada"],
 r["Fin Descarga"]
-)}</td>
+)}
+</td>
 
-<td><span class="estado ${des[1]}">${des[0]}</span></td>
+<td>
+<span class="estado ${descarga[1]}">
+${descarga[0]}
+</span>
+</td>
 
-<td>${diferencia(
+<td>
+${diferencia(
 r["Inicio Descarga"],
 r["Fin Descarga"]
-)}</td>
+)}
+</td>
 
-<td><span class="estado ${acond[1]}">${acond[0]}</span></td>
+<td>
+<span class="estado ${acondicionado[1]}">
+${acondicionado[0]}
+</span>
+</td>
 
-<td>${diferencia(
+<td>
+${diferencia(
 r["Inicio Acondicionado"],
 r["Fin Acondicionado"]
-)}</td>
+)}
+</td>
 
 </tr>
 
@@ -441,20 +491,24 @@ pendientesRec;
 document.getElementById("rPallets").innerHTML =
 palletsRec;
 
-let palletsDes=0;
-let pendientesDes=0;
+/* ==========================
+   KPIS DESPACHO
+========================== */
 
-document.getElementById("tablaDespacho").innerHTML='';
+let palletsDes = 0;
+let pendientesDes = 0;
+
+document.getElementById("tablaDespacho").innerHTML = '';
 
 desHoy.forEach(d=>{
 
-const pick =
+const picking =
 estado(
 d["Inicio Picking"],
 d["Fin Picking"]
 );
 
-const pack =
+const packing =
 estado(
 d["Inicio Packing"],
 d["Fin Packing"]
@@ -466,42 +520,62 @@ d["Inicio Carga"],
 d["Fin Carga"]
 );
 
-if(!d["Fin Carga"])
+if(!d["Fin Carga"]){
 pendientesDes++;
+}
 
-palletsDes +=
-Number(d["Cantidad Pallet"] || 0);
+palletsDes += Number(
+d["Cantidad Pallet"] || 0
+);
 
 document.getElementById("tablaDespacho").innerHTML += `
 
 <tr>
 
-<td>${d["N° Atención"] || d["ID_DESP"]}</td>
+<td>${d["N° Atención"] || d["ID_DESP"] || "-"}</td>
 
-<td>${d["Placa"] || '-'}</td>
+<td>${d["Placa"] || "-"}</td>
 
-<td>${d["Cod. Motivo"] || d["Motivo"] || '-'}</td>
+<td>${d["Cod. Motivo"] || d["Motivo"] || "-"}</td>
 
-<td><span class="estado ${pick[1]}">${pick[0]}</span></td>
+<td>
+<span class="estado ${picking[1]}">
+${picking[0]}
+</span>
+</td>
 
-<td>${diferencia(
+<td>
+${diferencia(
 d["Inicio Picking"],
 d["Fin Picking"]
-)}</td>
+)}
+</td>
 
-<td><span class="estado ${pack[1]}">${pack[0]}</span></td>
+<td>
+<span class="estado ${packing[1]}">
+${packing[0]}
+</span>
+</td>
 
-<td>${diferencia(
+<td>
+${diferencia(
 d["Inicio Packing"],
 d["Fin Packing"]
-)}</td>
+)}
+</td>
 
-<td><span class="estado ${carga[1]}">${carga[0]}</span></td>
+<td>
+<span class="estado ${carga[1]}">
+${carga[0]}
+</span>
+</td>
 
-<td>${diferencia(
+<td>
+${diferencia(
 d["Inicio Carga"],
 d["Fin Carga"]
-)}</td>
+)}
+</td>
 
 </tr>
 
