@@ -1,782 +1,673 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>OPERACIONES IPESA HYDRO</title>
-
+<title>TV OPERACIONES IPESA HYDRO</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Outfit',sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
 }
 
-body{
-background:#eef6ff;
-color:#0f172a;
-padding:12px;
-min-height:100vh;
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
 }
 
-.header{
-background:linear-gradient(90deg,#0057b8,#0284c7);
-border-radius:20px;
-padding:18px 25px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-color:white;
-margin-bottom:12px;
-box-shadow:0 6px 20px rgba(0,0,0,.15);
+/* ============================================================
+   CONTENEDOR PRINCIPAL — APILADO VERTICAL
+   video top-right corner + pantalla debajo
+============================================================ */
+.tv-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.header-left{
-display:flex;
-align-items:center;
-gap:20px;
+/* ── VIDEO FLOTANTE esquina superior derecha ── */
+.video-flotante {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 220px;
+  height: 80px;
+  z-index: 9999;
+  background: #072040;
+  overflow: hidden;
+  border-bottom-left-radius: 14px;
+  box-shadow: -4px 4px 20px rgba(0,0,0,.5);
 }
 
-.logo-principal{
-height:110px;
-width:auto;
-background:white;
-padding:8px;
-border-radius:12px;
+.video-flotante video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.titulo h1{
-font-size:48px;
-font-weight:800;
-letter-spacing:1px;
+/* pixel invisible anti-standby */
+#keepAlive {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  opacity: 0.02;
+  top: 0;
+  left: 0;
+  pointer-events: none;
 }
 
-.titulo p{
-font-size:24px;
-font-weight:700;
-margin-top:4px;
+/* ============================================================
+   PANTALLAS — cada una ocupa 100% del área
+============================================================ */
+.pantalla {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.7s ease;
+  background: #eef6ff;
+  overflow: hidden;
 }
 
-.header-right{
-display:flex;
-align-items:center;
-gap:25px;
+.pantalla.activa {
+  opacity: 1;
+  pointer-events: all;
 }
 
-.slogan{
-font-size:24px;
-font-weight:800;
-text-align:center;
-max-width:320px;
+/* iframe para pantallas 2 y 3 */
+.pantalla iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
 }
 
-.fechaHora{
-background:white;
-color:#0f172a;
-padding:15px 20px;
-border-radius:16px;
-font-size:20px;
-font-weight:700;
-text-align:center;
-min-width:220px;
+/* ============================================================
+   INDICADOR DE PANTALLA (dots)
+============================================================ */
+.dots {
+  position: fixed;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 9998;
 }
 
-.resumen{
-background:white;
-border-radius:18px;
-padding:12px;
-margin-bottom:12px;
-box-shadow:0 4px 12px rgba(0,0,0,.08);
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.35);
+  transition: background .4s, transform .4s;
 }
 
-.resumen h2{
-text-align:center;
-font-size:24px;
-color:#0057b8;
-margin-bottom:10px;
+.dot.activo {
+  background: #fff;
+  transform: scale(1.4);
 }
 
-.kpis{
-display:grid;
-grid-template-columns:repeat(6,1fr);
-gap:10px;
+/* BARRA DE PROGRESO */
+.barra-progreso {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background: #0ea5e9;
+  z-index: 9998;
+  width: 0%;
+  transition: width linear;
 }
 
-.kpi{
-border-radius:16px;
-padding:15px;
-text-align:center;
+/* ============================================================
+   PANTALLA 1 — OPERACIONES (misma lógica del código original)
+============================================================ */
+#pantalla-1 {
+  padding: 12px;
+  overflow-y: auto;
 }
 
-.kpi h4{
-font-size:14px;
-margin-bottom:8px;
+.header {
+  background: linear-gradient(90deg,#0057b8,#0284c7);
+  border-radius: 20px;
+  padding: 18px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  margin-bottom: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.15);
+  /* dejar espacio para el video flotante */
+  padding-right: 240px;
 }
 
-.kpi h2{
-font-size:38px;
-font-weight:800;
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.kpi-rec{
-background:#dbeafe;
-border-left:8px solid #0284c7;
+.logo-principal {
+  height: 80px;
+  width: auto;
+  background: white;
+  padding: 8px;
+  border-radius: 12px;
 }
 
-.kpi-des{
-background:#dcfce7;
-border-left:8px solid #16a34a;
+.titulo h1 {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
-.paneles{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
+.titulo p {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 4px;
 }
 
-.panel{
-background:white;
-border-radius:18px;
-overflow:hidden;
-box-shadow:0 4px 12px rgba(0,0,0,.08);
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
 }
 
-.panel-title{
-padding:14px;
-font-size:26px;
-font-weight:800;
-text-align:center;
-color:white;
+.slogan {
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+  max-width: 280px;
 }
 
-.rec-title{
-background:linear-gradient(90deg,#0284c7,#0ea5e9);
+.fechaHora {
+  background: white;
+  color: #0f172a;
+  padding: 12px 18px;
+  border-radius: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  min-width: 200px;
 }
 
-.des-title{
-background:linear-gradient(90deg,#16a34a,#22c55e);
+.resumen {
+  background: white;
+  border-radius: 18px;
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
 }
 
-table{
-width:100%;
-border-collapse:collapse;
+.resumen h2 {
+  text-align: center;
+  font-size: 22px;
+  color: #0057b8;
+  margin-bottom: 10px;
 }
 
-thead{
-background:#f1f5f9;
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  gap: 10px;
 }
 
-th{
-padding:12px;
-font-size:13px;
-font-weight:800;
+.kpi {
+  border-radius: 16px;
+  padding: 14px;
+  text-align: center;
 }
 
-td{
-padding:12px;
-font-size:14px;
-font-weight:600;
-border-bottom:1px solid #e2e8f0;
-text-align:center;
+.kpi h4 {
+  font-size: 13px;
+  margin-bottom: 6px;
 }
 
-.estado{
-padding:6px 12px;
-border-radius:20px;
-font-size:12px;
-font-weight:800;
-display:inline-block;
+.kpi h2 {
+  font-size: 34px;
+  font-weight: 800;
 }
 
-.no{
-background:#e2e8f0;
-color:#334155;
+.kpi-rec {
+  background: #dbeafe;
+  border-left: 8px solid #0284c7;
 }
 
-.proceso{
-background:#fde68a;
-color:#92400e;
+.kpi-des {
+  background: #dcfce7;
+  border-left: 8px solid #16a34a;
 }
 
-.ok{
-background:#bbf7d0;
-color:#166534;
+.paneles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-.footer{
-margin-top:12px;
-background:linear-gradient(90deg,#0057b8,#0284c7);
-border-radius:20px;
-padding:20px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-color:white;
+.panel {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
 }
 
-.footer-msg{
-font-size:28px;
-font-weight:700;
-font-style:italic;
-max-width:700px;
+.panel-title {
+  padding: 12px;
+  font-size: 22px;
+  font-weight: 800;
+  text-align: center;
+  color: white;
 }
 
-.mascota{
-height:140px;
-width:auto;
+.rec-title { background: linear-gradient(90deg,#0284c7,#0ea5e9); }
+.des-title { background: linear-gradient(90deg,#16a34a,#22c55e); }
+
+table { width: 100%; border-collapse: collapse; }
+thead { background: #f1f5f9; }
+th { padding: 10px; font-size: 12px; font-weight: 800; }
+td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid #e2e8f0; text-align: center; }
+
+.estado {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  display: inline-block;
 }
 
-.qr{
-height:120px;
-width:auto;
+.no      { background: #e2e8f0; color: #334155; }
+.proceso { background: #fde68a; color: #92400e; }
+.ok      { background: #bbf7d0; color: #166534; }
+
+.footer-ops {
+  margin-top: 12px;
+  background: linear-gradient(90deg,#0057b8,#0284c7);
+  border-radius: 20px;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
 }
 
-@media(max-width:1200px){
-
-.kpis{
-grid-template-columns:repeat(3,1fr);
+.footer-msg {
+  font-size: 22px;
+  font-weight: 700;
+  font-style: italic;
+  max-width: 600px;
 }
 
-.paneles{
-grid-template-columns:1fr;
-}
-
-}
-
-@media(max-width:768px){
-
-.header{
-flex-direction:column;
-gap:15px;
-}
-
-.header-left{
-flex-direction:column;
-text-align:center;
-}
-
-.header-right{
-flex-direction:column;
-}
-
-.logo-principal{
-height:80px;
-}
-
-.titulo h1{
-font-size:28px;
-}
-
-.slogan{
-font-size:18px;
-}
-
-.kpis{
-grid-template-columns:repeat(2,1fr);
-}
-
-.footer{
-flex-direction:column;
-gap:20px;
-text-align:center;
-}
-
-.footer-msg{
-font-size:20px;
-}
-
-.panel{
-overflow-x:auto;
-}
-
-}
+.mascota { height: 100px; width: auto; }
+.qr      { height: 90px;  width: auto; }
 
 </style>
 </head>
-
 <body>
 
-<div class="header">
-
-<div class="header-left">
-
-<img src="logo-dinet.png" class="logo-principal">
-
-<div class="titulo">
-<h1>OPERACIONES IPESA HYDRO</h1>
-<p>CONTROL OPERATIVO EN TIEMPO REAL</p>
+<!-- ── VIDEO FLOTANTE anti-apagado ── -->
+<div class="video-flotante">
+  <video autoplay muted loop playsinline>
+    <source src="VIDEO_TV.mp4" type="video/mp4">
+  </video>
 </div>
 
-</div>
+<!-- pixel anti-standby -->
+<div id="keepAlive"></div>
 
-<div class="header-right">
+<!-- ── BARRA PROGRESO ── -->
+<div class="barra-progreso" id="barraProgreso"></div>
 
-<div class="slogan">
-¡CUMPLIMOS HOY,<br>
-SUPERAMOS JUNTOS!
-</div>
+<!-- ── INDICADORES ── -->
+<div class="dots" id="dots"></div>
 
-<div id="fechaHora" class="fechaHora"></div>
+<!-- ============================================================
+     WRAPPER
+============================================================ -->
+<div class="tv-wrapper">
 
-</div>
+  <!-- ══════════════════════════════════════
+       PANTALLA 1 — OPERACIONES IPESA HYDRO
+  ══════════════════════════════════════ -->
+  <div class="pantalla activa" id="pantalla-1">
 
-</div>
+    <div class="header">
+      <div class="header-left">
+        <img src="logo-dinet.png" class="logo-principal" alt="Logo">
+        <div class="titulo">
+          <h1>OPERACIONES IPESA HYDRO</h1>
+          <p>CONTROL OPERATIVO EN TIEMPO REAL</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="slogan">¡CUMPLIMOS HOY,<br>SUPERAMOS JUNTOS!</div>
+        <div id="fechaHora" class="fechaHora"></div>
+      </div>
+    </div>
 
-<div class="resumen">
+    <div class="resumen">
+      <h2>📊 RESUMEN DIARIO</h2>
+      <div class="kpis">
+        <div class="kpi kpi-rec"><h4>🚚 RECEPCIONES</h4><h2 id="rAtendidos">0</h2></div>
+        <div class="kpi kpi-rec"><h4>⏳ REC. PENDIENTES</h4><h2 id="rPendientes">0</h2></div>
+        <div class="kpi kpi-rec"><h4>📦 PALLETS REC.</h4><h2 id="rPallets">0</h2></div>
+        <div class="kpi kpi-des"><h4>🚛 DESPACHOS</h4><h2 id="dAtendidos">0</h2></div>
+        <div class="kpi kpi-des"><h4>⏳ DESP. PENDIENTES</h4><h2 id="dPendientes">0</h2></div>
+        <div class="kpi kpi-des"><h4>📦 PALLETS DESP.</h4><h2 id="dPallets">0</h2></div>
+      </div>
+    </div>
 
-<h2>📊 RESUMEN DIARIO</h2>
+    <div class="paneles">
+      <div class="panel">
+        <div class="panel-title rec-title">🚚 RECEPCIONES</div>
+        <table>
+          <thead>
+            <tr>
+              <th>N° Atención</th><th>Placa</th><th>Motivo</th>
+              <th>Status Atención</th><th>Tiempo Atención</th>
+              <th>Status Acond.</th><th>Tiempo Acond.</th>
+            </tr>
+          </thead>
+          <tbody id="tablaRecepcion"></tbody>
+        </table>
+      </div>
 
-<div class="kpis">
+      <div class="panel">
+        <div class="panel-title des-title">🚛 DESPACHOS</div>
+        <table>
+          <thead>
+            <tr>
+              <th>N° Atención</th><th>Placa</th><th>Motivo</th>
+              <th>Status Picking</th><th>Tiempo Picking</th>
+              <th>Status Packing</th><th>Tiempo Packing</th>
+              <th>Status Atención</th><th>Tiempo Atención</th>
+            </tr>
+          </thead>
+          <tbody id="tablaDespacho"></tbody>
+        </table>
+      </div>
+    </div>
 
-<div class="kpi kpi-rec">
-<h4>🚚 RECEPCIONES</h4>
-<h2 id="rAtendidos">0</h2>
-</div>
+    <div class="footer-ops">
+      <div class="footer-msg">
+        Tu trabajo mueve la operación,<br>
+        tu compromiso impulsa la excelencia operativa.
+      </div>
+      <img src="mascota-dinet.png" class="mascota" alt="Mascota">
+      <img src="qr.png" class="qr" alt="QR">
+    </div>
 
-<div class="kpi kpi-rec">
-<h4>⏳ REC. PENDIENTES</h4>
-<h2 id="rPendientes">0</h2>
-</div>
+  </div><!-- /pantalla-1 -->
 
-<div class="kpi kpi-rec">
-<h4>📦 PALLETS RECEPCIONADOS</h4>
-<h2 id="rPallets">0</h2>
-</div>
 
-<div class="kpi kpi-des">
-<h4>🚛 DESPACHOS</h4>
-<h2 id="dAtendidos">0</h2>
-</div>
+  <!-- ══════════════════════════════════════
+       PANTALLA 2 — POWER BI / URL #2
+       👉 Cambia el src por tu URL real
+  ══════════════════════════════════════ -->
+  <div class="pantalla" id="pantalla-2">
+    <iframe
+      id="iframe-2"
+      src=""
+      title="Pantalla 2"
+      allow="autoplay; fullscreen">
+    </iframe>
+  </div>
 
-<div class="kpi kpi-des">
-<h4>⏳ DESP. PENDIENTES</h4>
-<h2 id="dPendientes">0</h2>
-</div>
 
-<div class="kpi kpi-des">
-<h4>📦 PALLETS DESPACHADOS</h4>
-<h2 id="dPallets">0</h2>
-</div>
+  <!-- ══════════════════════════════════════
+       PANTALLA 3 — POWER BI / URL #3
+       👉 Cambia el src por tu URL real
+  ══════════════════════════════════════ -->
+  <div class="pantalla" id="pantalla-3">
+    <iframe
+      id="iframe-3"
+      src=""
+      title="Pantalla 3"
+      allow="autoplay; fullscreen">
+    </iframe>
+  </div>
 
-</div>
+</div><!-- /tv-wrapper -->
 
-</div>
-
-<div class="paneles">
-
-<div class="panel">
-
-<div class="panel-title rec-title">
-🚚 RECEPCIONES
-</div>
-
-<table>
-
-<thead>
-<tr>
-<th>N° Atención</th>
-<th>Placa</th>
-<th>Motivo</th>
-<th>Status Atención</th>
-<th>Tiempo Atención</th>
-<th>Status Acond.</th>
-<th>Tiempo Acond.</th>
-</tr>
-</thead>
-
-<tbody id="tablaRecepcion">
-</tbody>
-
-</table>
-
-</div>
-<div class="panel">
-
-<div class="panel-title des-title">
-🚛 DESPACHOS
-</div>
-
-<table>
-
-<thead>
-<tr>
-<th>N° Atención</th>
-<th>Placa</th>
-<th>Motivo</th>
-<th>Status Picking</th>
-<th>Tiempo Picking</th>
-<th>Status Packing</th>
-<th>Tiempo Packing</th>
-<th>Status Atención</th>
-<th>Tiempo Atención</th>
-</tr>
-</thead>
-
-<tbody id="tablaDespacho">
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-<div class="footer">
-
-<div class="footer-msg">
-Tu trabajo mueve la operación,
-tu compromiso impulsa la excelencia operativa.
-</div>
-
-<img
-src="mascota-dinet.png"
-class="mascota">
-
-<img
-src="qr.png"
-class="qr">
-
-</div>
 
 <script>
+/* ===========================================================
+   ██████╗  ██████╗ ███╗   ██╗███████╗██╗ ██████╗
+   ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝
+   ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗
+   ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║
+   ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝
+    ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝
+=========================================================== */
 
-const URL_RECEPCION =
-'https://opensheet.elk.sh/1FKppkcwfb66pQ_2Fgw2DAJIDREmUcyL5hqUG0CsY9UE/RECEPCION';
+/* ─────────────────────────────────────────────────────────
+   ⚙️  CONFIGURACIÓN — ajusta aquí
+───────────────────────────────────────────────────────── */
+const CONFIG = {
 
-const URL_DESPACHO =
-'https://opensheet.elk.sh/1FKppkcwfb66pQ_2Fgw2DAJIDREmUcyL5hqUG0CsY9UE/DESPACHO';
+  /* Duración de cada pantalla en segundos */
+  duracion: [
+    60,   // pantalla 1 — Operaciones
+    60,   // pantalla 2
+    60    // pantalla 3
+  ],
 
-function actualizarFechaHora(){
+  /* URLs para pantallas 2 y 3
+     Reemplaza con tus links de Power BI u otros dashboards   */
+  urls: {
+    2: "https://app.powerbi.com/view?r=eyJrIjoiNjc0YTY5NTAtMzY3NC00Njc1LWI3NDgtYmJiNGIzMmE1ZWRhIiwidCI6IjhiNThmMjM4LWFmOGEtNDE3Ny1hM2U0LTg3YTllY2YxMGRkMyIsImMiOjR9&pageName=ReportSection463df0311d1c33dbb41a",
+    3: "https://app.powerbi.com/view?r=eyJrIjoiNjc0YTY5NTAtMzY3NC00Njc1LWI3NDgtYmJiNGIzMmE1ZWRhIiwidCI6IjhiNThmMjM4LWFmOGEtNDE3Ny1hM2U0LTg3YTllY2YxMGRkMyIsImMiOjR9&pageName=227e2ce0bbc8860ab032"
+  }
+};
 
-const ahora = new Date();
+/* ─────────────────────────────────────────────────────────
+   ROTADOR
+───────────────────────────────────────────────────────── */
+const TOTAL = 3;
+let pantallaActual = 0;
+let timerRotacion = null;
+let timerBarra = null;
 
-const fecha =
-ahora.toLocaleDateString('es-PE');
+const barraEl = document.getElementById('barraProgreso');
 
-const hora =
-ahora.toLocaleTimeString('es-PE');
-
-document.getElementById("fechaHora").innerHTML =
-`${fecha}<br>${hora}`;
-
+// Crear dots
+const dotsEl = document.getElementById('dots');
+for (let i = 0; i < TOTAL; i++) {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' activo' : '');
+  dotsEl.appendChild(d);
 }
 
-setInterval(actualizarFechaHora,1000);
+function mostrarPantalla(idx) {
+  // Ocultar todas
+  document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
+  // Mostrar la activa
+  document.getElementById('pantalla-' + (idx + 1)).classList.add('activa');
+
+  // Dots
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('activo', i === idx);
+  });
+
+  // Cargar iframe solo cuando se va a mostrar (lazy load)
+  if (idx === 1) {
+    const f = document.getElementById('iframe-2');
+    if (!f.src || f.src === window.location.href) f.src = CONFIG.urls[2];
+  }
+  if (idx === 2) {
+    const f = document.getElementById('iframe-3');
+    if (!f.src || f.src === window.location.href) f.src = CONFIG.urls[3];
+  }
+
+  // Barra de progreso
+  const durMs = CONFIG.duracion[idx] * 1000;
+  barraEl.style.transition = 'none';
+  barraEl.style.width = '0%';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      barraEl.style.transition = `width ${durMs}ms linear`;
+      barraEl.style.width = '100%';
+    });
+  });
+
+  // Programar siguiente
+  clearTimeout(timerRotacion);
+  timerRotacion = setTimeout(() => {
+    pantallaActual = (idx + 1) % TOTAL;
+    mostrarPantalla(pantallaActual);
+  }, durMs);
+}
+
+// ── arrancar ──
+mostrarPantalla(0);
+
+
+/* ─────────────────────────────────────────────────────────
+   ANTI-INACTIVIDAD TV LG / SAMSUNG
+───────────────────────────────────────────────────────── */
+const keepAlive = document.getElementById('keepAlive');
+
+function evitarApagado() {
+  keepAlive.style.opacity = keepAlive.style.opacity === '0.02' ? '0.03' : '0.02';
+  window.dispatchEvent(new Event('mousemove'));
+  window.dispatchEvent(new Event('keydown'));
+}
+
+setInterval(evitarApagado, 5 * 60 * 1000);
+
+
+/* ─────────────────────────────────────────────────────────
+   RELOJ — PANTALLA 1
+───────────────────────────────────────────────────────── */
+function actualizarFechaHora() {
+  const ahora = new Date();
+  document.getElementById('fechaHora').innerHTML =
+    ahora.toLocaleDateString('es-PE') + '<br>' +
+    ahora.toLocaleTimeString('es-PE');
+}
+setInterval(actualizarFechaHora, 1000);
 actualizarFechaHora();
 
-function estado(inicio,fin){
 
-if(fin){
-return ['COMPLETO','ok'];
+/* ─────────────────────────────────────────────────────────
+   DATOS OPERATIVOS — Google Sheets → Opensheet
+───────────────────────────────────────────────────────── */
+const URL_RECEPCION =
+  'https://opensheet.elk.sh/1FKppkcwfb66pQ_2Fgw2DAJIDREmUcyL5hqUG0CsY9UE/RECEPCION';
+
+const URL_DESPACHO =
+  'https://opensheet.elk.sh/1FKppkcwfb66pQ_2Fgw2DAJIDREmUcyL5hqUG0CsY9UE/DESPACHO';
+
+function estado(inicio, fin) {
+  if (fin)    return ['COMPLETO',    'ok'];
+  if (inicio) return ['EN PROGRESO', 'proceso'];
+  return           ['NO INICIADO',  'no'];
 }
 
-if(inicio){
-return ['EN PROGRESO','proceso'];
+function diferencia(inicio, fin) {
+  if (!inicio) return '-';
+  try {
+    const parse = t => {
+      const p = t.split(':');
+      return Number(p[0]) * 60 + Number(p[1]);
+    };
+    const inicioMin = parse(inicio);
+    const finMin = fin ? parse(fin) :
+      new Date().getHours() * 60 + new Date().getMinutes();
+    const total = finMin - inicioMin;
+    if (total < 0) return '-';
+    return `${Math.floor(total / 60)}h ${total % 60}m`;
+  } catch { return '-'; }
 }
 
-return ['NO INICIADO','no'];
-
+function hoy() {
+  const d = new Date();
+  return String(d.getDate()).padStart(2,'0') + '/' +
+         String(d.getMonth()+1).padStart(2,'0') + '/' +
+         d.getFullYear();
 }
 
-function diferencia(inicio,fin){
+async function cargarDatos() {
+  const hoyStr = hoy();
+  const [recepcion, despacho] = await Promise.all([
+    fetch(URL_RECEPCION).then(r => r.json()),
+    fetch(URL_DESPACHO).then(r => r.json())
+  ]);
 
-if(!inicio){
-return '-';
+  const recHoy = recepcion.filter(r =>
+    (r['Fecha Llegada'] || '').split(' ')[0] === hoyStr);
+  const desHoy = despacho.filter(d =>
+    (d['Fecha Llegada'] || '').split(' ')[0] === hoyStr);
+
+  /* —— RECEPCIONES —— */
+  let palletsRec = 0, pendientesRec = 0;
+  let htmlRec = '';
+
+  recHoy.forEach(r => {
+    const atencion = estado(r['Hora Llegada'],        r['Fin Descarga']);
+    const acond    = estado(r['Inicio Acondicionado'], r['Fin Acondicionado']);
+    if (!r['Fin Descarga']) pendientesRec++;
+    palletsRec += Number(r['Cantidad Pallet'] || 0);
+
+    htmlRec += `
+      <tr>
+        <td>${r['N° Atención'] || '-'}</td>
+        <td>${r['Placa']       || '-'}</td>
+        <td>${r['Cod. Motivo'] || '-'}</td>
+        <td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
+        <td>${diferencia(r['Hora Llegada'],        r['Fin Descarga'])}</td>
+        <td><span class="estado ${acond[1]}">${acond[0]}</span></td>
+        <td>${diferencia(r['Inicio Acondicionado'], r['Fin Acondicionado'])}</td>
+      </tr>`;
+  });
+
+  document.getElementById('tablaRecepcion').innerHTML = htmlRec;
+  document.getElementById('rAtendidos').textContent  = recHoy.length;
+  document.getElementById('rPendientes').textContent = pendientesRec;
+  document.getElementById('rPallets').textContent    = palletsRec;
+
+  /* —— DESPACHOS —— */
+  let palletsDes = 0, pendientesDes = 0;
+  let htmlDes = '';
+
+  desHoy.forEach(d => {
+    const picking  = estado(d['Inicio Picking'], d['Fin Picking']);
+    const packing  = estado(d['Inicio Packing'], d['Fin Packing']);
+    const atencion = estado(d['Hora Llegada'],   d['Fin Carga']);
+    if (!d['Fin Carga']) pendientesDes++;
+    palletsDes += Number(d['Cantidad Pallet'] || 0);
+
+    htmlDes += `
+      <tr>
+        <td>${d['N° Atención'] || '-'}</td>
+        <td>${d['Placa']       || '-'}</td>
+        <td>${d['Cod. Motivo'] || d['Motivo'] || '-'}</td>
+        <td><span class="estado ${picking[1]}">${picking[0]}</span></td>
+        <td>${diferencia(d['Inicio Picking'], d['Fin Picking'])}</td>
+        <td><span class="estado ${packing[1]}">${packing[0]}</span></td>
+        <td>${diferencia(d['Inicio Packing'], d['Fin Packing'])}</td>
+        <td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
+        <td>${diferencia(d['Hora Llegada'],   d['Fin Carga'])}</td>
+      </tr>`;
+  });
+
+  document.getElementById('tablaDespacho').innerHTML  = htmlDes;
+  document.getElementById('dAtendidos').textContent   = desHoy.length;
+  document.getElementById('dPendientes').textContent  = pendientesDes;
+  document.getElementById('dPallets').textContent     = palletsDes;
 }
 
-try{
-
-const ini = inicio.split(':');
-
-const inicioMin =
-(Number(ini[0])*60)+
-Number(ini[1]);
-
-let finMin;
-
-if(fin){
-
-const f = fin.split(':');
-
-finMin =
-(Number(f[0])*60)+
-Number(f[1]);
-
-}else{
-
-const ahora = new Date();
-
-finMin =
-(ahora.getHours()*60)+
-ahora.getMinutes();
-
-}
-
-const total =
-finMin - inicioMin;
-
-if(total < 0){
-return '-';
-}
-
-const horas =
-Math.floor(total/60);
-
-const minutos =
-total%60;
-
-return `${horas}h ${minutos}m`;
-
-}catch{
-
-return '-';
-
-}
-
-}
-
-function hoy(){
-
-const d = new Date();
-
-const dia =
-String(d.getDate()).padStart(2,'0');
-
-const mes =
-String(d.getMonth()+1).padStart(2,'0');
-
-const anio =
-d.getFullYear();
-
-return `${dia}/${mes}/${anio}`;
-
-}
- async function cargar(){
-
-const hoyActual = hoy();
-
-const recepcion =
-await fetch(URL_RECEPCION)
-.then(r=>r.json());
-
-const despacho =
-await fetch(URL_DESPACHO)
-.then(r=>r.json());
-
-const recHoy = recepcion.filter(r=>{
-
-const fecha =
-(r["Fecha Llegada"] || "")
-.split(" ")[0];
-
-return fecha === hoyActual;
-
-});
-
-const desHoy = despacho.filter(d=>{
-
-const fecha =
-(d["Fecha Llegada"] || "")
-.split(" ")[0];
-
-return fecha === hoyActual;
-
-});
-
-/* RECEPCIONES */
-
-let palletsRec = 0;
-let pendientesRec = 0;
-
-document.getElementById("tablaRecepcion").innerHTML='';
-
-recHoy.forEach(r=>{
-
-const atencion =
-estado(
-r["Hora Llegada"],
-r["Fin Descarga"]
-);
-
-const acond =
-estado(
-r["Inicio Acondicionado"],
-r["Fin Acondicionado"]
-);
-
-if(!r["Fin Descarga"]){
-pendientesRec++;
-}
-
-palletsRec +=
-Number(r["Cantidad Pallet"] || 0);
-
-document.getElementById("tablaRecepcion").innerHTML += `
-
-<tr>
-
-<td>${r["N° Atención"] || r["ID_DESP"] || "-"}</td>
-
-<td>${r["Placa"] || "-"}</td>
-
-<td>${r["Cod. Motivo"] || "-"}</td>
-
-<td>
-<span class="estado ${atencion[1]}">
-${atencion[0]}
-</span>
-</td>
-
-<td>
-${diferencia(
-r["Hora Llegada"],
-r["Fin Descarga"]
-)}
-</td>
-
-<td>
-<span class="estado ${acond[1]}">
-${acond[0]}
-</span>
-</td>
-
-<td>
-${diferencia(
-r["Inicio Acondicionado"],
-r["Fin Acondicionado"]
-)}
-</td>
-
-</tr>
-
-`;
-
-});
-
-document.getElementById("rAtendidos").innerHTML =
-recHoy.length;
-
-document.getElementById("rPendientes").innerHTML =
-pendientesRec;
-
-document.getElementById("rPallets").innerHTML =
-palletsRec;
-
-/* DESPACHOS */
-
-let palletsDes = 0;
-let pendientesDes = 0;
-
-document.getElementById("tablaDespacho").innerHTML='';
-
-desHoy.forEach(d=>{
-
-const picking =
-estado(
-d["Inicio Picking"],
-d["Fin Picking"]
-);
-
-const packing =
-estado(
-d["Inicio Packing"],
-d["Fin Packing"]
-);
-
-const atencion =
-estado(
-d["Hora Llegada"],
-d["Fin Carga"]
-);
-
-if(!d["Fin Carga"]){
-pendientesDes++;
-}
-
-palletsDes +=
-Number(d["Cantidad Pallet"] || 0);
-
-document.getElementById("tablaDespacho").innerHTML += `
-
-<tr>
-
-<td>${d["N° Atención"] || d["ID_DESP"] || "-"}</td>
-
-<td>${d["Placa"] || "-"}</td>
-
-<td>${d["Cod. Motivo"] || d["Motivo"] || "-"}</td>
-
-<td>
-<span class="estado ${picking[1]}">
-${picking[0]}
-</span>
-</td>
-
-<td>
-${diferencia(
-d["Inicio Picking"],
-d["Fin Picking"]
-)}
-</td>
-
-<td>
-<span class="estado ${packing[1]}">
-${packing[0]}
-</span>
-</td>
-
-<td>
-${diferencia(
-d["Inicio Packing"],
-d["Fin Packing"]
-)}
-</td>
-
-<td>
-<span class="estado ${atencion[1]}">
-${atencion[0]}
-</span>
-</td>
-
-<td>
-${diferencia(
-d["Hora Llegada"],
-d["Fin Carga"]
-)}
-</td>
-
-</tr>
-
-`;
-
-});
-
-document.getElementById("dAtendidos").innerHTML =
-desHoy.length;
-
-document.getElementById("dPendientes").innerHTML =
-pendientesDes;
-
-document.getElementById("dPallets").innerHTML =
-palletsDes;
-
-}
-
-cargar();
-
-setInterval(
-cargar,
-30000
-);
+cargarDatos();
+setInterval(cargarDatos, 30_000);
 
 </script>
-
 </body>
 </html>
