@@ -606,13 +606,15 @@ async function cargarDatos() {
 const recHoy = recepcion.filter(r => {
   const fechaSolicitud = (r['Fecha Solicitud'] || '').split(' ')[0];
   const fechaLlegada = (r['Fecha Llegada'] || '').split(' ')[0];
-  return hoyStr >= fechaSolicitud && hoyStr <= fechaLlegada;
+  if (!fechaSolicitud) return false;
+  return hoyStr >= fechaSolicitud && (!fechaLlegada || hoyStr <= fechaLlegada);
 });
 
 const desHoy = despacho.filter(d => {
   const fechaSolicitud = (d['Fecha Solicitud'] || '').split(' ')[0];
   const fechaLlegada = (d['Fecha Llegada'] || '').split(' ')[0];
-  return hoyStr >= fechaSolicitud && hoyStr <= fechaLlegada;
+  if (!fechaSolicitud) return false;
+  return hoyStr >= fechaSolicitud && (!fechaLlegada || hoyStr <= fechaLlegada);
 });
 
 
