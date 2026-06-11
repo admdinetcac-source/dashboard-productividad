@@ -603,10 +603,41 @@ async function cargarDatos() {
   ]);
 
 
-  const recHoy = recepcion.filter(r =>
-    (r['Fecha Llegada'] || '').split(' ')[0] === hoyStr);
-  const desHoy = despacho.filter(d =>
-    (d['Fecha Llegada'] || '').split(' ')[0] === hoyStr);
+const recHoy = recepcion.filter(r => {
+  const solicitud = new Date((r['Fecha Solicitud'] || '').split('/').reverse().join('-'));
+  const llegadaTxt = r['Fecha Llegada'] || '';
+
+  const llegada = llegadaTxt
+    ? new Date(llegadaTxt.split('/').reverse().join('-'))
+    : null;
+
+  const hoy = new Date();
+  hoy.setHours(0,0,0,0);
+
+  solicitud.setHours(0,0,0,0);
+  if (llegada) llegada.setHours(0,0,0,0);
+
+  return solicitud <= hoy &&
+         (!llegada || llegada >= hoy);
+});
+
+const desHoy = despacho.filter(d => {
+  const solicitud = new Date((d['Fecha Solicitud'] || '').split('/').reverse().join('-'));
+  const llegadaTxt = d['Fecha Llegada'] || '';
+
+  const llegada = llegadaTxt
+    ? new Date(llegadaTxt.split('/').reverse().join('-'))
+    : null;
+
+  const hoy = new Date();
+  hoy.setHours(0,0,0,0);
+
+  solicitud.setHours(0,0,0,0);
+  if (llegada) llegada.setHours(0,0,0,0);
+
+  return solicitud <= hoy &&
+         (!llegada || llegada >= hoy);
+});
 
   /* —— RECEPCIONES —— */
   let palletsRec = 0, pendientesRec = 0;
