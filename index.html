@@ -602,50 +602,11 @@ async function cargarDatos() {
     fetch(URL_DESPACHO).then(r => r.json())
   ]);
 
-function convertirFecha(fechaStr) {
-  if (!fechaStr) return null;
 
-  const partes = fechaStr.split('/');
-
-  return new Date(
-    parseInt(partes[2]), // año
-    parseInt(partes[1]) - 1, // mes
-    parseInt(partes[0]) // día
-  );
-}
-
-const hoyFecha = new Date();
-hoyFecha.setHours(0,0,0,0);
-
-const recHoy = recepcion.filter(r => {
-
-  const fechaSolicitud = convertirFecha((r['Fecha Solicitud'] || '').split(' ')[0]);
-  const fechaLlegada = convertirFecha((r['Fecha Llegada'] || '').split(' ')[0]);
-
-  return fechaSolicitud && fechaLlegada &&
-  return fechaSolicitud &&
-         fechaSolicitud <= hoyFecha &&
-         fechaLlegada >= hoyFecha;
-         (
-           !fechaLlegada ||
-           fechaLlegada >= hoyFecha
-         );
-});
-
-const desHoy = despacho.filter(d => {
-
-  const fechaSolicitud = convertirFecha((d['Fecha Solicitud'] || '').split(' ')[0]);
-  const fechaLlegada = convertirFecha((d['Fecha Llegada'] || '').split(' ')[0]);
-
-  return fechaSolicitud && fechaLlegada &&
-  return fechaSolicitud &&
-         fechaSolicitud <= hoyFecha &&
-         fechaLlegada >= hoyFecha;
-         (
-           !fechaLlegada ||
-           fechaLlegada >= hoyFecha
-         );
-});
+  const recHoy = recepcion.filter(r =>
+    (r['Fecha Llegada'] || '').split(' ')[0] === hoyStr);
+  const desHoy = despacho.filter(d =>
+    (d['Fecha Llegada'] || '').split(' ')[0] === hoyStr);
 
   /* —— RECEPCIONES —— */
   let palletsRec = 0, pendientesRec = 0;
