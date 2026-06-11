@@ -603,34 +603,17 @@ async function cargarDatos() {
   ]);
 
 
-function mostrarEnDashboard(registro){
+const recHoy = recepcion.filter(r => {
+  const fechaSolicitud = (r['Fecha Solicitud'] || '').split(' ')[0];
+  const fechaLlegada = (r['Fecha Llegada'] || '').split(' ')[0];
+  return hoyStr >= fechaSolicitud && hoyStr <= fechaLlegada;
+});
 
-  const solicitud = registro["Fecha Solicitud"];
-  const llegada = registro["Fecha Llegada"];
-
-  if(!solicitud || !llegada) return false;
-
-  const hoy = new Date();
-
-  const fechaSolicitud = new Date(
-    solicitud.split('/').reverse().join('-')
-  );
-
-  const fechaLlegada = new Date(
-    llegada.split('/').reverse().join('-')
-  );
-
-  hoy.setHours(0,0,0,0);
-  fechaSolicitud.setHours(0,0,0,0);
-  fechaLlegada.setHours(0,0,0,0);
-
-  return hoy >= fechaSolicitud &&
-         hoy <= fechaLlegada;
-}
-
-const recHoy = recepcion.filter(mostrarEnDashboard);
-
-const desHoy = despacho.filter(mostrarEnDashboard);
+const desHoy = despacho.filter(d => {
+  const fechaSolicitud = (d['Fecha Solicitud'] || '').split(' ')[0];
+  const fechaLlegada = (d['Fecha Llegada'] || '').split(' ')[0];
+  return hoyStr >= fechaSolicitud && hoyStr <= fechaLlegada;
+});
 
 
   /* —— RECEPCIONES —— */
