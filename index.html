@@ -602,48 +602,36 @@ async function cargarDatos() {
     fetch(URL_DESPACHO).then(r => r.json())
   ]);
 
-const hoy = new Date();
-hoy.setHours(0,0,0,0);
 
-const recHoy = recepcion.filter(r => {
+function mostrarEnDashboard(registro){
 
-  const fs = r['Fecha Solicitud'];
-  const fl = r['Fecha Llegada'];
+  const solicitud = registro["Fecha Solicitud"];
+  const llegada = registro["Fecha Llegada"];
 
-  if (!fs) return false;
+  if(!solicitud || !llegada) return false;
 
-  const [d1,m1,a1] = fs.split('/');
-  const fechaSolicitud = new Date(a1, m1-1, d1);
+  const hoy = new Date();
 
-  if (!fl) {
-    return fechaSolicitud <= hoy;
-  }
+  const fechaSolicitud = new Date(
+    solicitud.split('/').reverse().join('-')
+  );
 
-  const [d2,m2,a2] = fl.split('/');
-  const fechaLlegada = new Date(a2, m2-1, d2);
+  const fechaLlegada = new Date(
+    llegada.split('/').reverse().join('-')
+  );
 
-  return fechaSolicitud <= hoy && fechaLlegada >= hoy;
-});
+  hoy.setHours(0,0,0,0);
+  fechaSolicitud.setHours(0,0,0,0);
+  fechaLlegada.setHours(0,0,0,0);
 
-const desHoy = despacho.filter(d => {
+  return hoy >= fechaSolicitud &&
+         hoy <= fechaLlegada;
+}
 
-  const fs = d['Fecha Solicitud'];
-  const fl = d['Fecha Llegada'];
+const recHoy = recepcion.filter(mostrarEnDashboard);
 
-  if (!fs) return false;
+const desHoy = despacho.filter(mostrarEnDashboard);
 
-  const [d1,m1,a1] = fs.split('/');
-  const fechaSolicitud = new Date(a1, m1-1, d1);
-
-  if (!fl) {
-    return fechaSolicitud <= hoy;
-  }
-
-  const [d2,m2,a2] = fl.split('/');
-  const fechaLlegada = new Date(a2, m2-1, d2);
-
-  return fechaSolicitud <= hoy && fechaLlegada >= hoy;
-});
 
   /* —— RECEPCIONES —— */
   let palletsRec = 0, pendientesRec = 0;
