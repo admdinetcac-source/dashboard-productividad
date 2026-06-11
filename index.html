@@ -661,7 +661,7 @@ const desHoy = despacho.filter(d => {
       <tr>
         <td>${d['N° Atención'] || '-'}</td>
         <td>${d['Placa']       || '-'}</td>
-        <td>${d['Cod. Motivo'] || '-'}</td>
+        <td>${d['Motivo\r'] || d['Motivo'] || d['Cod. Motivo'] || '-'}</td>
         <td><span class="estado ${picking[1]}">${picking[0]}</span></td>
         <td>${diferencia(d['Inicio Picking'], d['Fin Picking'])}</td>
         <td><span class="estado ${packing[1]}">${packing[0]}</span></td>
