@@ -602,41 +602,47 @@ async function cargarDatos() {
     fetch(URL_DESPACHO).then(r => r.json())
   ]);
 
+const hoy = new Date();
+hoy.setHours(0,0,0,0);
 
 const recHoy = recepcion.filter(r => {
-  const solicitud = new Date((r['Fecha Solicitud'] || '').split('/').reverse().join('-'));
-  const llegadaTxt = r['Fecha Llegada'] || '';
 
-  const llegada = llegadaTxt
-    ? new Date(llegadaTxt.split('/').reverse().join('-'))
-    : null;
+  const fs = r['Fecha Solicitud'];
+  const fl = r['Fecha Llegada'];
 
-  const hoy = new Date();
-  hoy.setHours(0,0,0,0);
+  if (!fs) return false;
 
-  solicitud.setHours(0,0,0,0);
-  if (llegada) llegada.setHours(0,0,0,0);
+  const [d1,m1,a1] = fs.split('/');
+  const fechaSolicitud = new Date(a1, m1-1, d1);
 
-  return solicitud <= hoy &&
-         (!llegada || llegada >= hoy);
+  if (!fl) {
+    return fechaSolicitud <= hoy;
+  }
+
+  const [d2,m2,a2] = fl.split('/');
+  const fechaLlegada = new Date(a2, m2-1, d2);
+
+  return fechaSolicitud <= hoy && fechaLlegada >= hoy;
 });
 
 const desHoy = despacho.filter(d => {
-  const solicitud = new Date((d['Fecha Solicitud'] || '').split('/').reverse().join('-'));
-  const llegadaTxt = d['Fecha Llegada'] || '';
 
-  const llegada = llegadaTxt
-    ? new Date(llegadaTxt.split('/').reverse().join('-'))
-    : null;
+  const fs = d['Fecha Solicitud'];
+  const fl = d['Fecha Llegada'];
 
-  const hoy = new Date();
-  hoy.setHours(0,0,0,0);
+  if (!fs) return false;
 
-  solicitud.setHours(0,0,0,0);
-  if (llegada) llegada.setHours(0,0,0,0);
+  const [d1,m1,a1] = fs.split('/');
+  const fechaSolicitud = new Date(a1, m1-1, d1);
 
-  return solicitud <= hoy &&
-         (!llegada || llegada >= hoy);
+  if (!fl) {
+    return fechaSolicitud <= hoy;
+  }
+
+  const [d2,m2,a2] = fl.split('/');
+  const fechaLlegada = new Date(a2, m2-1, d2);
+
+  return fechaSolicitud <= hoy && fechaLlegada >= hoy;
 });
 
   /* —— RECEPCIONES —— */
