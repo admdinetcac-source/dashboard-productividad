@@ -675,17 +675,15 @@ recHoy.forEach(r => {
         <td>${r['Proveedor']       || '-'}</td>
         <td>${r['Placa']       || '-'}</td>
         <td>${r['Cod. Motivo'] || '-'}</td>
-
-        <td>
-        <span class="estado-tiempo ${antiguedad[1]}">
-        ${antiguedad[0]}
-        </span>
-        </td>
-
-<td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
+        <td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
         <td>${diferencia(r['Hora Llegada'],        r['Fin Descarga'])}</td>
         <td><span class="estado ${acond[1]}">${acond[0]}</span></td>
         <td>${diferencia(r['Inicio Acondicionado'], r['Fin Acondicionado'])}</td>
+        <td>
+  <span class="estado-tiempo ${antiguedad[1]}">
+    ${antiguedad[0]}
+  </span>
+</td>
       </tr>`;
   });
 
@@ -716,19 +714,17 @@ recHoy.forEach(r => {
         <td>${r['Proveedor']       || '-'}</td>
         <td>${d['Placa']       || '-'}</td>
        <td>${d['Cod. Motivo\r'] || d['Cod. Motivo'] || '-'}</td>
-
-<td>
-  <span class="estado-tiempo ${antiguedad[1]}">
-    ${antiguedad[0]}
-  </span>
-</td>
-
 <td><span class="estado ${picking[1]}">${picking[0]}</span></td>
         <td>${diferencia(d['Inicio Picking'], d['Fin Picking'])}</td>
         <td><span class="estado ${packing[1]}">${packing[0]}</span></td>
         <td>${diferencia(d['Inicio Packing'], d['Fin Packing'])}</td>
         <td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
         <td>${diferencia(d['Hora Llegada'],   d['Fin Carga'])}</td>
+        <td>
+  <span class="estado-tiempo ${antiguedad[1]}">
+    ${antiguedad[0]}
+  </span>
+</td>
       </tr>`;
   });
 
