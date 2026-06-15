@@ -356,10 +356,10 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
     <div class="resumen">
       <h2>📊 RESUMEN DIARIO</h2>
       <div class="kpis">
-        <div class="kpi kpi-rec"><h4>🚚 RECEPCIONES</h4><h2 id="rAtendidos">0</h2></div>
+        <div class="kpi kpi-rec"><h4>🚚 RECEPCIONES TOTALES</h4><h2 id="rAtendidos">0</h2></div>
         <div class="kpi kpi-rec"><h4>⏳ REC. PENDIENTES</h4><h2 id="rPendientes">0</h2></div>
         <div class="kpi kpi-rec"><h4>📦 PALLETS REC.</h4><h2 id="rPallets">0</h2></div>
-        <div class="kpi kpi-des"><h4>🚛 DESPACHOS</h4><h2 id="dAtendidos">0</h2></div>
+        <div class="kpi kpi-des"><h4>🚛 DESPACHOS TOTALES</h4><h2 id="dAtendidos">0</h2></div>
         <div class="kpi kpi-des"><h4>⏳ DESP. PENDIENTES</h4><h2 id="dPendientes">0</h2></div>
         <div class="kpi kpi-des"><h4>📦 PALLETS DESP.</h4><h2 id="dPallets">0</h2></div>
       </div>
@@ -371,9 +371,9 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
         <table>
           <thead>
             <tr>
-              <th>N° Atención</th><th>Placa</th><th>Motivo</th>
+              <th>N° Atención</th><th>Proveedor</th><th>Placa</th><th>Motivo</th>
               <th>Status Atención</th><th>Tiempo Atención</th>
-              <th>Status Acond.</th><th>Tiempo Acond.</th>
+              <th>Status Acond.</th><th>Tiempo Acond.</th><th>Antigüedad</th>
             </tr>
           </thead>
           <tbody id="tablaRecepcion"></tbody>
@@ -385,10 +385,10 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
         <table>
           <thead>
             <tr>
-              <th>N° Atención</th><th>Placa</th><th>Motivo</th>
+              <th>N° Atención</th><th>Proveedor</th><th>Placa</th><th>Motivo</th>
               <th>Status Picking</th><th>Tiempo Picking</th>
               <th>Status Packing</th><th>Tiempo Packing</th>
-              <th>Status Atención</th><th>Tiempo Atención</th>
+              <th>Status Atención</th><th>Tiempo Atención</th><th>Antigüedad</th>
             </tr>
           </thead>
           <tbody id="tablaDespacho"></tbody>
@@ -587,7 +587,43 @@ function diferencia(inicio, fin) {
     return `${Math.floor(total / 60)}h ${total % 60}m`;
   } catch { return '-'; }
 }
+function estadoAntiguedad(fechaLlegada, horaLlegada) {
 
+  if (!fechaLlegada || !horaLlegada)
+    return ['SIN LLEGADA', 'rojo'];
+
+  try {
+
+    const [dia, mes, anio] = fechaLlegada.split('/');
+    const [hora, minuto] = horaLlegada.split(':');
+
+    const llegada = new Date(
+      anio,
+      mes - 1,
+      dia,
+      hora,
+      minuto
+    );
+
+    const ahora = new Date();
+
+    const horas =
+      (ahora - llegada) / (1000 * 60 * 60);
+
+    if (horas <= 5)
+      return ['🟢 EN PLAZO', 'verde'];
+
+    if (horas <= 10)
+      return ['🟡 ALERTA', 'amarillo'];
+
+    return ['🔴 ATRASADO', 'rojo'];
+
+  } catch {
+
+    return ['ERROR', 'rojo'];
+
+  }
+}
 function hoy() {
   const d = new Date();
   return String(d.getDate()).padStart(2,'0') + '/' +
@@ -625,18 +661,31 @@ console.log('Despacho total:', despacho.length);
   let palletsRec = 0, pendientesRec = 0;
   let htmlRec = '';
 
-  recHoy.forEach(r => {
-    const atencion = estado(r['Hora Llegada'],        r['Fin Descarga']);
-    const acond    = estado(r['Inicio Acondicionado'], r['Fin Acondicionado']);
+recHoy.forEach(r => {
+  const atencion = estado(r['Hora Llegada'],        r['Fin Descarga']);
+  const acond    = estado(r['Inicio Acondicionado'], r['Fin Acondicionado']);
+
+  const antiguedad = estadoAntiguedad(
+    r['Fecha Llegada'],
+    r['Hora Llegada']
+  );
     if (!r['Fin Descarga']) pendientesRec++;
     palletsRec += Number(r['Cantidad Pallet'] || 0);
 
     htmlRec += `
       <tr>
         <td>${r['N° Atención'] || '-'}</td>
+        <td>${r['Proveedor']       || '-'}</td>
         <td>${r['Placa']       || '-'}</td>
         <td>${r['Cod. Motivo'] || '-'}</td>
-        <td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
+
+        <td>
+        <span class="estado-tiempo ${antiguedad[1]}">
+        ${antiguedad[0]}
+        </span>
+        </td>
+
+<td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
         <td>${diferencia(r['Hora Llegada'],        r['Fin Descarga'])}</td>
         <td><span class="estado ${acond[1]}">${acond[0]}</span></td>
         <td>${diferencia(r['Inicio Acondicionado'], r['Fin Acondicionado'])}</td>
@@ -653,18 +702,31 @@ console.log('Despacho total:', despacho.length);
   let htmlDes = '';
 
   desHoy.forEach(d => {
-    const picking  = estado(d['Inicio Picking'], d['Fin Picking']);
-    const packing  = estado(d['Inicio Packing'], d['Fin Packing']);
-    const atencion = estado(d['Hora Llegada'],   d['Fin Carga']);
+  const picking  = estado(d['Inicio Picking'], d['Fin Picking']);
+  const packing  = estado(d['Inicio Packing'], d['Fin Packing']);
+  const atencion = estado(d['Hora Llegada'],   d['Fin Carga']);
+
+  const antiguedad = estadoAntiguedad(
+    d['Fecha Llegada'],
+    d['Hora Llegada']
+  );
     if (!d['Fin Carga']) pendientesDes++;
     palletsDes += Number(d['Cantidad Pallet'] || 0);
 
     htmlDes += `
       <tr>
         <td>${d['N° Atención'] || '-'}</td>
+        <td>${r['Proveedor']       || '-'}</td>
         <td>${d['Placa']       || '-'}</td>
-        <td>${d['Cod. Motivo\r'] || d['Cod. Motivo'] || '-'}</td>
-        <td><span class="estado ${picking[1]}">${picking[0]}</span></td>
+       <td>${d['Cod. Motivo\r'] || d['Cod. Motivo'] || '-'}</td>
+
+<td>
+  <span class="estado-tiempo ${antiguedad[1]}">
+    ${antiguedad[0]}
+  </span>
+</td>
+
+<td><span class="estado ${picking[1]}">${picking[0]}</span></td>
         <td>${diferencia(d['Inicio Picking'], d['Fin Picking'])}</td>
         <td><span class="estado ${packing[1]}">${packing[0]}</span></td>
         <td>${diferencia(d['Inicio Packing'], d['Fin Packing'])}</td>
