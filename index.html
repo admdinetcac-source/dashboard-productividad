@@ -640,15 +640,45 @@ async function cargarDatos() {
 console.log('Recepción total:', recepcion.length);
 console.log('Despacho total:', despacho.length);
 
-const recHoy = recepcion.filter(r =>
-  !r['Fecha Cierre'] ||
-  r['Fecha Cierre'] === hoyStr
-);
+function convertirFecha(fechaStr) {
+  if (!fechaStr) return null;
 
-const desHoy = despacho.filter(d =>
-  !d['Fecha Cierre'] ||
-  d['Fecha Cierre'] === hoyStr
-);
+  const [dia, mes, anio] = fechaStr.split('/');
+  return new Date(anio, mes - 1, dia);
+}
+
+const hoyFecha = new Date();
+hoyFecha.setHours(0, 0, 0, 0);
+
+const recHoy = recepcion.filter(r => {
+
+  const fechaCita = convertirFecha(r['Fecha Cita']);
+  const fechaCierre = convertirFecha(r['Fecha Cierre']);
+
+  if (!fechaCita) return false;
+
+  if (hoyFecha < fechaCita) return false;
+
+  if (!fechaCierre) return true;
+
+  return hoyFecha <= fechaCierre;
+
+});
+
+const desHoy = despacho.filter(d => {
+
+  const fechaCita = convertirFecha(d['Fecha Cita']);
+  const fechaCierre = convertirFecha(d['Fecha Cierre']);
+
+  if (!fechaCita) return false;
+
+  if (hoyFecha < fechaCita) return false;
+
+  if (!fechaCierre) return true;
+
+  return hoyFecha <= fechaCierre;
+
+});
 console.log('Recepción total:', recepcion.length);
 console.log('Despacho total:', despacho.length);
 
