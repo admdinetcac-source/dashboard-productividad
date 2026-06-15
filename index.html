@@ -641,14 +641,13 @@ console.log('Recepción total:', recepcion.length);
 console.log('Despacho total:', despacho.length);
 
 const recHoy = recepcion.filter(r =>
-  !r['Fin Descarga'] ||
-  !r['Fin Acondicionado']
+  !r['Fecha Cierre'] ||
+  r['Fecha Cierre'] === hoyStr
 );
 
 const desHoy = despacho.filter(d =>
-  !d['Fin Picking'] ||
-  !d['Fin Packing'] ||
-  !d['Fin Carga']
+  !d['Fecha Cierre'] ||
+  d['Fecha Cierre'] === hoyStr
 );
 console.log('Recepción total:', recepcion.length);
 console.log('Despacho total:', despacho.length);
