@@ -603,6 +603,8 @@ async function cargarDatos() {
   ]);
 console.log('Columnas DESPACHO:', Object.keys(despacho[0]));
 console.log('Valor Motivo:', despacho[0]['Cod. Motivo']);
+console.log('Recepción total:', recepcion.length);
+console.log('Despacho total:', despacho.length);
 
 const recHoy = recepcion.filter(r => {
   const fechaSolicitud = (r['Fecha Solicitud'] || '').split(' ')[0];
@@ -617,6 +619,8 @@ const desHoy = despacho.filter(d => {
   if (!fechaSolicitud) return false;
   return hoyStr >= fechaSolicitud && (!fechaLlegada || hoyStr <= fechaLlegada);
 });
+console.log('Recepción total:', recepcion.length);
+console.log('Despacho total:', despacho.length);
 
 
   /* —— RECEPCIONES —— */
