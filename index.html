@@ -640,19 +640,16 @@ async function cargarDatos() {
 console.log('Recepción total:', recepcion.length);
 console.log('Despacho total:', despacho.length);
 
-const recHoy = recepcion.filter(r => {
-  const fechaSolicitud = (r['Fecha Solicitud'] || '').split(' ')[0];
-  const fechaLlegada = (r['Fecha Llegada'] || '').split(' ')[0];
-  if (!fechaSolicitud) return false;
-  return hoyStr >= fechaSolicitud && (!fechaLlegada || hoyStr <= fechaLlegada);
-});
+const recHoy = recepcion.filter(r =>
+  !r['Fin Descarga'] ||
+  !r['Fin Acondicionado']
+);
 
-const desHoy = despacho.filter(d => {
-  const fechaSolicitud = (d['Fecha Solicitud'] || '').split(' ')[0];
-  const fechaLlegada = (d['Fecha Llegada'] || '').split(' ')[0];
-  if (!fechaSolicitud) return false;
-  return hoyStr >= fechaSolicitud && (!fechaLlegada || hoyStr <= fechaLlegada);
-});
+const desHoy = despacho.filter(d =>
+  !d['Fin Picking'] ||
+  !d['Fin Packing'] ||
+  !d['Fin Carga']
+);
 console.log('Recepción total:', recepcion.length);
 console.log('Despacho total:', despacho.length);
 
