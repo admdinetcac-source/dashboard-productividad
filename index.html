@@ -601,8 +601,6 @@ async function cargarDatos() {
     fetch(URL_RECEPCION).then(r => r.json()),
     fetch(URL_DESPACHO).then(r => r.json())
   ]);
-console.log('Columnas DESPACHO:', Object.keys(despacho[0]));
-console.log('Valor Motivo:', despacho[0]['Cod. Motivo']);
 console.log('Recepción total:', recepcion.length);
 console.log('Despacho total:', despacho.length);
 
