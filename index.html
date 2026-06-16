@@ -385,7 +385,7 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
         <table>
           <thead>
             <tr>
-              <th>N° Atención</th><th>Fecha Cita</th><th>Proveedor</th><th>Placa</th><th>Motivo</th>
+              <th>N° Atención</th><th>Proveedor</th><th>Placa</th><th>Motivo</th>
               <th>Status Picking</th><th>Tiempo Picking</th>
               <th>Status Packing</th><th>Tiempo Packing</th>
               <th>Status Atención</th><th>Tiempo Atención</th>
@@ -653,11 +653,6 @@ console.log('Despacho total:', despacho.length);
 recHoy.forEach(r => {
   const atencion = estado(r['Hora Llegada'],        r['Fin Descarga']);
   const acond    = estado(r['Inicio Acondicionado'], r['Fin Acondicionado']);
-
-  const antiguedad = estadoAntiguedad(
-    r['Fecha Llegada'],
-    r['Hora Llegada']
-  );
     if (!r['Fin Descarga']) pendientesRec++;
     palletsRec += Number(r['Cantidad Pallet'] || 0);
 
@@ -688,19 +683,13 @@ recHoy.forEach(r => {
   const picking  = estado(d['Inicio Picking'], d['Fin Picking']);
   const packing  = estado(d['Inicio Packing'], d['Fin Packing']);
   const atencion = estado(d['Hora Llegada'],   d['Fin Carga']);
-
-  const antiguedad = estadoAntiguedad(
-    d['Fecha Llegada'],
-    d['Hora Llegada']
-  );
     if (!d['Fin Carga']) pendientesDes++;
     palletsDes += Number(d['Cantidad Pallet'] || 0);
 
     htmlDes += `
       <tr>
         <td>${d['N° Atención'] || '-'}</td>
-        <td>${r['Fecha Cita']       || '-'}</td>
-        <td>${r['Proveedor']       || '-'}</td>
+        <td>${d['Proveedor']       || '-'}</td>
         <td>${d['Placa']       || '-'}</td>
        <td>${d['Cod. Motivo\r'] || d['Cod. Motivo'] || '-'}</td>
 <td><span class="estado ${picking[1]}">${picking[0]}</span></td>
