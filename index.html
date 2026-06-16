@@ -373,7 +373,7 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
             <tr>
               <th>N° Atención</th><th>Fecha Cita</th><th>Proveedor</th><th>Placa</th><th>Motivo</th>
               <th>Status Atención</th><th>Tiempo Atención</th>
-              <th>Status Acond.</th><th>Tiempo Acond.</th><th>Antigüedad</th>
+              <th>Status Acond.</th><th>Tiempo Acond.</th>
             </tr>
           </thead>
           <tbody id="tablaRecepcion"></tbody>
@@ -388,7 +388,7 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
               <th>N° Atención</th><th>Fecha Cita</th><th>Proveedor</th><th>Placa</th><th>Motivo</th>
               <th>Status Picking</th><th>Tiempo Picking</th>
               <th>Status Packing</th><th>Tiempo Packing</th>
-              <th>Status Atención</th><th>Tiempo Atención</th><th>Antigüedad</th>
+              <th>Status Atención</th><th>Tiempo Atención</th>
             </tr>
           </thead>
           <tbody id="tablaDespacho"></tbody>
@@ -587,43 +587,6 @@ function diferencia(inicio, fin) {
     return `${Math.floor(total / 60)}h ${total % 60}m`;
   } catch { return '-'; }
 }
-function estadoAntiguedad(fechaLlegada, horaLlegada) {
-
-  if (!fechaLlegada || !horaLlegada)
-    return ['SIN LLEGADA', 'rojo'];
-
-  try {
-
-    const [dia, mes, anio] = fechaLlegada.split('/');
-    const [hora, minuto] = horaLlegada.split(':');
-
-    const llegada = new Date(
-      anio,
-      mes - 1,
-      dia,
-      hora,
-      minuto
-    );
-
-    const ahora = new Date();
-
-    const horas =
-      (ahora - llegada) / (1000 * 60 * 60);
-
-    if (horas <= 5)
-      return ['🟢 EN PLAZO', 'verde'];
-
-    if (horas <= 10)
-      return ['🟡 ALERTA', 'amarillo'];
-
-    return ['🔴 ATRASADO', 'rojo'];
-
-  } catch {
-
-    return ['ERROR', 'rojo'];
-
-  }
-}
 function hoy() {
   const d = new Date();
   return String(d.getDate()).padStart(2,'0') + '/' +
@@ -709,11 +672,6 @@ recHoy.forEach(r => {
         <td>${diferencia(r['Hora Llegada'],        r['Fin Descarga'])}</td>
         <td><span class="estado ${acond[1]}">${acond[0]}</span></td>
         <td>${diferencia(r['Inicio Acondicionado'], r['Fin Acondicionado'])}</td>
-        <td>
-  <span class="estado-tiempo ${antiguedad[1]}">
-    ${antiguedad[0]}
-  </span>
-</td>
       </tr>`;
   });
 
@@ -751,11 +709,6 @@ recHoy.forEach(r => {
         <td>${diferencia(d['Inicio Packing'], d['Fin Packing'])}</td>
         <td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
         <td>${diferencia(d['Hora Llegada'],   d['Fin Carga'])}</td>
-        <td>
-  <span class="estado-tiempo ${antiguedad[1]}">
-    ${antiguedad[0]}
-  </span>
-</td>
       </tr>`;
   });
 
