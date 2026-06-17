@@ -385,7 +385,7 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
         <table>
           <thead>
             <tr>
-              <th>N° Atención</th><th>Proveedor</th><th>Placa</th><th>Motivo</th>
+              <th>N° Atención</th><th>Placa</th><th>Motivo</th>
               <th>Status Picking</th><th>Tiempo Picking</th>
               <th>Status Packing</th><th>Tiempo Packing</th>
               <th>Status Atención</th><th>Tiempo Atención</th>
@@ -689,7 +689,6 @@ recHoy.forEach(r => {
     htmlDes += `
       <tr>
         <td>${d['N° Atención'] || '-'}</td>
-        <td>${d['Proveedor']       || '-'}</td>
         <td>${d['Placa']       || '-'}</td>
        <td>${d['Cod. Motivo\r'] || d['Cod. Motivo'] || '-'}</td>
 <td><span class="estado ${picking[1]}">${picking[0]}</span></td>
