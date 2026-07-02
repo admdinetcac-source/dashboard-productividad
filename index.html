@@ -722,9 +722,14 @@ function mostrarPantalla(idx) {
   document.querySelectorAll('.pantalla')
     .forEach(p => p.classList.remove('activa'));
 
-  document
-    .getElementById('pantalla-' + (idx + 1))
-    .classList.add('activa');
+const pantalla = document.getElementById('pantalla-' + (idx + 1));
+
+if (!pantalla) {
+  console.error('No existe pantalla-' + (idx + 1));
+  return;
+}
+
+pantalla.classList.add('activa');
 
   document.querySelectorAll('.dot').forEach((d, i) => {
     d.classList.toggle('activo', i === idx);
@@ -864,15 +869,20 @@ function minutosAHoras(min){
 
 async function cargarDatos() {
   const hoyStr = hoy();
+
   const [recepcion, despacho, actividades, montacarga, dataLogistica] = await Promise.all([
-  fetch(URL_RECEPCION).then(r => r.json()),
-  fetch(URL_DESPACHO).then(r => r.json()),
-  fetch(URL_ACTIVIDADES).then(r => r.json()),
-  fetch(URL_MONTACARGA).then(r => r.json()),
-  fetch(URL_DATA_LOGISTICA).then(r => r.json())
-]);
-console.log('Recepción total:', recepcion.length);
-console.log('Despacho total:', despacho.length);
+    fetch(URL_RECEPCION).then(r => r.json()),
+    fetch(URL_DESPACHO).then(r => r.json()),
+    fetch(URL_ACTIVIDADES).then(r => r.json()),
+    fetch(URL_MONTACARGA).then(r => r.json()),
+    fetch(URL_DATA_LOGISTICA).then(r => r.json())
+  ]);
+
+  console.log('Recepción total:', recepcion.length);
+  console.log('Despacho total:', despacho.length);
+  console.log('Actividades total:', actividades.length);
+  console.log('Montacarga total:', montacarga.length);
+  console.log('Data Logística total:', dataLogistica.length);
 
 function convertirFecha(fechaStr) {
   if (!fechaStr) return null;
@@ -1089,6 +1099,10 @@ document.getElementById('bigPercent').textContent =
 
 document.getElementById('dataProgressBar').style.width =
   porcentaje + '%';
+document.getElementById('kpiSkuTotal').textContent = totalSku;
+document.getElementById('kpiSkuOk').textContent = completos;
+document.getElementById('kpiSkuFaltante').textContent = faltantes;
+document.getElementById('kpiDataPorcentaje').textContent = porcentaje + '%';
 }
 
 cargarDatos();
