@@ -743,10 +743,6 @@ function mostrarPantalla(idx) {
   }
 
   // Actualizar dashboard operativo al entrar a pantalla 2
-  if (idx === 1) {
-    cargarDashboardOperativo();
-  }
-
   const durMs = CONFIG.duracion[idx] * 1000;
 
   barraEl.style.transition = 'none';
