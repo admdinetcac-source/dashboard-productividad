@@ -308,7 +308,128 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
 
 .mascota { height: 100px; width: auto; }
 .qr      { height: 90px;  width: auto; }
+/* ============================================================
+PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
+============================================================ */
+#pantalla-2{
+  padding:14px;
+  background:linear-gradient(135deg,#f8fbff,#dbeafe);
+  overflow:hidden;
+}
 
+.dashboard2{
+  height:100%;
+  display:grid;
+  grid-template-rows:110px 1fr 260px;
+  gap:14px;
+}
+
+.row1{
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:12px;
+}
+
+.row2{
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:14px;
+}
+
+.row3{
+  display:grid;
+  grid-template-columns:1fr;
+}
+
+.card{
+  background:white;
+  border-radius:20px;
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
+  padding:16px;
+}
+
+.kpi-card{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+.kpi-card h4{
+  font-size:13px;
+  color:#475569;
+  margin-bottom:8px;
+}
+
+.kpi-card h2{
+  font-size:32px;
+  font-weight:800;
+}
+
+.card-title{
+  font-size:22px;
+  font-weight:800;
+  color:#0057b8;
+  margin-bottom:12px;
+}
+
+.tabla-mini{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.tabla-mini th{
+  background:#e2e8f0;
+  padding:10px;
+  font-size:12px;
+}
+
+.tabla-mini td{
+  padding:10px;
+  font-size:13px;
+  text-align:center;
+  border-bottom:1px solid #e5e7eb;
+}
+
+.ranking-item{
+  display:flex;
+  justify-content:space-between;
+  padding:12px;
+  margin-bottom:8px;
+  background:#eff6ff;
+  border-radius:14px;
+  font-weight:700;
+}
+
+.progress-container{
+  width:100%;
+  height:42px;
+  background:#e2e8f0;
+  border-radius:999px;
+  overflow:hidden;
+  margin-top:24px;
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#16a34a,#22c55e);
+  transition:width 1s ease;
+}
+
+.big-percent{
+  text-align:center;
+  font-size:52px;
+  font-weight:800;
+  color:#16a34a;
+  margin-top:22px;
+}
+
+.mini-subtitle{
+  font-size:15px;
+  color:#64748b;
+  margin-bottom:15px;
+}
 </style>
 </head>
 <body>
@@ -406,21 +527,117 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
     </div>
 
   </div><!-- /pantalla-1 -->
+<div class="pantalla" id="pantalla-2">
+  <div class="dashboard2">
 
+    <!-- FILA 1: KPIs -->
+    <div class="row1">
+      <div class="card kpi-card">
+        <h4>Actividades Hoy</h4>
+        <h2 id="kpiActHoy">0</h2>
+      </div>
 
-  <!-- ══════════════════════════════════════
-       PANTALLA 2 — POWER BI / URL #2
-       👉 Cambia el src por tu URL real
-  ══════════════════════════════════════ -->
-  <div class="pantalla" id="pantalla-2">
-    <iframe
-      id="iframe-2"
-      src=""
-      title="Pantalla 2"
-      allow="autoplay; fullscreen">
-    </iframe>
+      <div class="card kpi-card">
+        <h4>En Proceso</h4>
+        <h2 id="kpiActProceso">0</h2>
+      </div>
+
+      <div class="card kpi-card">
+        <h4>Horas Hombre</h4>
+        <h2 id="kpiHorasHombre">0</h2>
+      </div>
+
+      <div class="card kpi-card">
+        <h4>Participantes</h4>
+        <h2 id="kpiParticipantes">0</h2>
+      </div>
+
+      <div class="card kpi-card">
+        <h4>Uso Montacarga</h4>
+        <h2 id="kpiMontacargaTiempo">0h</h2>
+      </div>
+
+      <div class="card kpi-card">
+        <h4>Usos Hoy</h4>
+        <h2 id="kpiMontacargaUsos">0</h2>
+      </div>
+
+      <div class="card kpi-card">
+        <h4>Módulo Top</h4>
+        <h2 id="kpiModuloTop">-</h2>
+      </div>
+
+      <div class="card kpi-card">
+        <h4>Promedio Uso</h4>
+        <h2 id="kpiPromedioUso">0m</h2>
+      </div>
+    </div>
+
+    <!-- FILA 2 -->
+    <div class="row2">
+
+      <!-- Ranking actividades -->
+      <div class="card">
+        <div class="card-title">Ranking Actividades</div>
+        <div class="mini-subtitle">Tiempo acumulado por actividad</div>
+        <div id="rankingActividades"></div>
+      </div>
+
+      <!-- Uso montacarga -->
+      <div class="card">
+        <div class="card-title">Uso de Montacarga por Módulo</div>
+        <table class="tabla-mini">
+          <thead>
+            <tr>
+              <th>Módulo</th>
+              <th>Tiempo</th>
+            </tr>
+          </thead>
+          <tbody id="tablaMontacarga"></tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- FILA 3 -->
+    <div class="row3">
+      <div class="card">
+        <div class="card-title">Data Logística</div>
+
+        <div class="row1">
+          <div class="card kpi-card">
+            <h4>Total SKU</h4>
+            <h2 id="kpiSkuTotal">0</h2>
+          </div>
+
+          <div class="card kpi-card">
+            <h4>Con Data</h4>
+            <h2 id="kpiSkuOk">0</h2>
+          </div>
+
+          <div class="card kpi-card">
+            <h4>Sin Data</h4>
+            <h2 id="kpiSkuFaltante">0</h2>
+          </div>
+
+          <div class="card kpi-card">
+            <h4>% Completo</h4>
+            <h2 id="kpiDataPorcentaje">0%</h2>
+          </div>
+        </div>
+
+        <div class="big-percent" id="bigPercent">
+          0%
+        </div>
+
+        <div class="progress-container">
+          <div class="progress-fill" id="dataProgressBar"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
-
+</div>
 
   <!-- ══════════════════════════════════════
        PANTALLA 3 — POWER BI / URL #3
@@ -431,6 +648,20 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
       id="iframe-3"
       src=""
       title="Pantalla 3"
+      allow="autoplay; fullscreen">
+    </iframe>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       PANTALLA 4 — POWER BI / URL #4
+       👉 Cambia el src por tu URL real
+  ══════════════════════════════════════ -->
+  <div class="pantalla" id="pantalla-4">
+    <iframe
+      id="iframe-4"
+      src=""
+      title="Pantalla 4"
       allow="autoplay; fullscreen">
     </iframe>
   </div>
@@ -455,26 +686,26 @@ const CONFIG = {
 
   /* Duración de cada pantalla en segundos */
   duracion: [
-    60,   // pantalla 1 — Operaciones
-    20,   // pantalla 2
-    20    // pantalla 3
+    120,   // pantalla 1 — Operaciones
+    120,   // pantalla 2
+    20,    // pantalla 3
+    20    // pantalla 4
   ],
 
   /* URLs para pantallas 2 y 3
      Reemplaza con tus links de Power BI u otros dashboards   */
   urls: {
-    2: "https://app.powerbi.com/view?r=eyJrIjoiOTY5MDQ5NGYtZDEzYy00NDEyLTgyYmMtYmU1N2ZjODY3ZTdlIiwidCI6IjhiNThmMjM4LWFmOGEtNDE3Ny1hM2U0LTg3YTllY2YxMGRkMyIsImMiOjR9&pageName=ReportSection463df0311d1c33dbb41a",
-    3: "https://app.powerbi.com/view?r=eyJrIjoiOTY5MDQ5NGYtZDEzYy00NDEyLTgyYmMtYmU1N2ZjODY3ZTdlIiwidCI6IjhiNThmMjM4LWFmOGEtNDE3Ny1hM2U0LTg3YTllY2YxMGRkMyIsImMiOjR9&pageName=227e2ce0bbc8860ab032"
+    3: "https://app.powerbi.com/view?r=eyJrIjoiOTY5MDQ5NGYtZDEzYy00NDEyLTgyYmMtYmU1N2ZjODY3ZTdlIiwidCI6IjhiNThmMjM4LWFmOGEtNDE3Ny1hM2U0LTg3YTllY2YxMGRkMyIsImMiOjR9&pageName=ReportSection463df0311d1c33dbb41a",
+    4: "https://app.powerbi.com/view?r=eyJrIjoiOTY5MDQ5NGYtZDEzYy00NDEyLTgyYmMtYmU1N2ZjODY3ZTdlIiwidCI6IjhiNThmMjM4LWFmOGEtNDE3Ny1hM2U0LTg3YTllY2YxMGRkMyIsImMiOjR9&pageName=227e2ce0bbc8860ab032"
   }
 };
 
 /* ─────────────────────────────────────────────────────────
    ROTADOR
 ───────────────────────────────────────────────────────── */
-const TOTAL = 3;
+const TOTAL = 4;
 let pantallaActual = 0;
 let timerRotacion = null;
-let timerBarra = null;
 
 const barraEl = document.getElementById('barraProgreso');
 
@@ -487,30 +718,40 @@ for (let i = 0; i < TOTAL; i++) {
 }
 
 function mostrarPantalla(idx) {
-  // Ocultar todas
-  document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
-  // Mostrar la activa
-  document.getElementById('pantalla-' + (idx + 1)).classList.add('activa');
 
-  // Dots
+  document.querySelectorAll('.pantalla')
+    .forEach(p => p.classList.remove('activa'));
+
+  document
+    .getElementById('pantalla-' + (idx + 1))
+    .classList.add('activa');
+
   document.querySelectorAll('.dot').forEach((d, i) => {
     d.classList.toggle('activo', i === idx);
   });
 
-  // Cargar iframe solo cuando se va a mostrar (lazy load)
-  if (idx === 1) {
-    const f = document.getElementById('iframe-2');
-    if (!f.src || f.src === window.location.href) f.src = CONFIG.urls[2];
-  }
+  // Pantalla 3 = Power BI 1
   if (idx === 2) {
     const f = document.getElementById('iframe-3');
-    if (!f.src || f.src === window.location.href) f.src = CONFIG.urls[3];
+    if (!f.src) f.src = CONFIG.urls[3];
   }
 
-  // Barra de progreso
+  // Pantalla 4 = Power BI 2
+  if (idx === 3) {
+    const f = document.getElementById('iframe-4');
+    if (!f.src) f.src = CONFIG.urls[4];
+  }
+
+  // Actualizar dashboard operativo al entrar a pantalla 2
+  if (idx === 1) {
+    cargarDashboardOperativo();
+  }
+
   const durMs = CONFIG.duracion[idx] * 1000;
+
   barraEl.style.transition = 'none';
   barraEl.style.width = '0%';
+
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       barraEl.style.transition = `width ${durMs}ms linear`;
@@ -518,7 +759,6 @@ function mostrarPantalla(idx) {
     });
   });
 
-  // Programar siguiente
   clearTimeout(timerRotacion);
   timerRotacion = setTimeout(() => {
     pantallaActual = (idx + 1) % TOTAL;
@@ -526,7 +766,7 @@ function mostrarPantalla(idx) {
   }, durMs);
 }
 
-// ── arrancar ──
+// Arrancar
 mostrarPantalla(0);
 
 
@@ -565,6 +805,14 @@ const URL_RECEPCION =
 
 const URL_DESPACHO =
   'https://opensheet.elk.sh/1KvOP5RidG-dx5a2XBlLoMVbhXXa82yA0zlwp6poKLiY/DESPACHO';
+const URL_ACTIVIDADES =
+  'https://opensheet.elk.sh/1KvOP5RidG-dx5a2XBlLoMVbhXXa82yA0zlwp6poKLiY/ACTIVIDADES%20OPERATIVAS';
+
+const URL_MONTACARGA =
+  'https://opensheet.elk.sh/1KvOP5RidG-dx5a2XBlLoMVbhXXa82yA0zlwp6poKLiY/USO%20MONTACARGA';
+
+const URL_DATA_LOGISTICA =
+  'https://opensheet.elk.sh/1KvOP5RidG-dx5a2XBlLoMVbhXXa82yA0zlwp6poKLiY/DATA%20LOG%C3%8DSTICA';
 
 function estado(inicio, fin) {
   if (fin)    return ['COMPLETO',    'ok'];
@@ -593,13 +841,40 @@ function hoy() {
          String(d.getMonth()+1).padStart(2,'0') + '/' +
          d.getFullYear();
 }
+ function convertirHora(hora){
+  if (!hora) return null;
+
+  const partes = hora.split(':');
+  if (partes.length < 2) return null;
+
+  return Number(partes[0]) * 60 + Number(partes[1]);
+}
+
+function duracionMinutos(inicio, fin){
+  const ini = convertirHora(inicio);
+  const fi = convertirHora(fin);
+
+  if (ini == null || fi == null) return 0;
+  if (fi < ini) return 0;
+
+  return fi - ini;
+}
+
+function minutosAHoras(min){
+  const h = Math.floor(min / 60);
+  const m = min % 60;
+  return `${h}h ${m}m`;
+} 
 
 async function cargarDatos() {
   const hoyStr = hoy();
-  const [recepcion, despacho] = await Promise.all([
-    fetch(URL_RECEPCION).then(r => r.json()),
-    fetch(URL_DESPACHO).then(r => r.json())
-  ]);
+  const [recepcion, despacho, actividades, montacarga, dataLogistica] = await Promise.all([
+  fetch(URL_RECEPCION).then(r => r.json()),
+  fetch(URL_DESPACHO).then(r => r.json()),
+  fetch(URL_ACTIVIDADES).then(r => r.json()),
+  fetch(URL_MONTACARGA).then(r => r.json()),
+  fetch(URL_DATA_LOGISTICA).then(r => r.json())
+]);
 console.log('Recepción total:', recepcion.length);
 console.log('Despacho total:', despacho.length);
 
@@ -704,6 +979,120 @@ recHoy.forEach(r => {
   document.getElementById('dAtendidos').textContent   = desHoy.length;
   document.getElementById('dPendientes').textContent  = pendientesDes;
   document.getElementById('dPallets').textContent     = palletsDes;
+  /* ================= ACTIVIDADES ================= */
+const actividadesHoy = actividades.filter(x => x['FECHA'] === hoyStr);
+
+const actividadesProceso = actividadesHoy.filter(
+  x => String(x['STATUS'] || '').toUpperCase().includes('PROCES')
+).length;
+
+let totalParticipantes = 0;
+let totalMinAct = 0;
+const rankingActividades = {};
+
+actividadesHoy.forEach(row => {
+  const participantes = Number(row['Cantidad de Usuarios'] || 0);
+  const minutos = duracionMinutos(
+    row['HORA DE INICIO'],
+    row['HORA FINAL']
+  );
+
+  totalParticipantes += participantes;
+  totalMinAct += minutos * Math.max(participantes,1);
+
+  const actividad = row['ACTIVIDAD'] || 'Sin nombre';
+
+  if (!rankingActividades[actividad]) {
+    rankingActividades[actividad] = 0;
+  }
+
+  rankingActividades[actividad] += minutos;
+});
+
+document.getElementById('kpiActHoy').textContent = actividadesHoy.length;
+document.getElementById('kpiActProceso').textContent = actividadesProceso;
+document.getElementById('kpiHorasHombre').textContent = minutosAHoras(totalMinAct);
+document.getElementById('kpiParticipantes').textContent = totalParticipantes;
+
+document.getElementById('rankingActividades').innerHTML =
+  Object.entries(rankingActividades)
+    .sort((a,b)=>b[1]-a[1])
+    .slice(0,5)
+    .map(([actividad,min])=>`
+      <div class="ranking-item">
+        <span>${actividad}</span>
+        <span>${minutosAHoras(min)}</span>
+      </div>
+    `).join('');
+
+
+/* ================= MONTACARGA ================= */
+const montacargaHoy = montacarga.filter(x => x['Fecha'] === hoyStr);
+
+let totalMinMontacarga = 0;
+const moduloUso = {};
+
+montacargaHoy.forEach(row => {
+  const min = duracionMinutos(row['Inicio'], row['Fin']);
+
+  totalMinMontacarga += min;
+
+  const modulo = row['Módulo'] || 'Sin módulo';
+
+  if (!moduloUso[modulo]) moduloUso[modulo] = 0;
+
+  moduloUso[modulo] += min;
+});
+
+const moduloTop =
+  Object.entries(moduloUso).sort((a,b)=>b[1]-a[1])[0];
+
+document.getElementById('kpiMontacargaTiempo').textContent =
+  minutosAHoras(totalMinMontacarga);
+
+document.getElementById('kpiMontacargaUsos').textContent =
+  montacargaHoy.length;
+
+document.getElementById('kpiModuloTop').textContent =
+  moduloTop ? moduloTop[0] : '-';
+
+document.getElementById('kpiPromedioUso').textContent =
+  montacargaHoy.length
+    ? minutosAHoras(Math.round(totalMinMontacarga / montacargaHoy.length))
+    : '0m';
+
+document.getElementById('tablaMontacarga').innerHTML =
+  Object.entries(moduloUso)
+    .sort((a,b)=>b[1]-a[1])
+    .map(([modulo,min])=>`
+      <tr>
+        <td>${modulo}</td>
+        <td>${minutosAHoras(min)}</td>
+      </tr>
+    `).join('');
+
+
+/* ================= DATA LOGISTICA ================= */
+const totalSku = dataLogistica.length;
+
+const faltantes = dataLogistica.filter(row => {
+  const alto = Number(row['Alto'] || 0);
+  const ancho = Number(row['Ancho'] || 0);
+  const largo = Number(row['Largo'] || 0);
+
+  return alto === 0 || ancho === 0 || largo === 0;
+}).length;
+
+const completos = totalSku - faltantes;
+const porcentaje = totalSku
+  ? ((completos / totalSku) * 100).toFixed(2)
+  : 0;
+
+document.getElementById('bigPercent').textContent =
+  porcentaje + '%';
+
+document.getElementById('dataProgressBar').style.width =
+  porcentaje + '%';
 }
 
 cargarDatos();
