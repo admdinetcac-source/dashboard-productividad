@@ -309,19 +309,19 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
 .mascota { height: 100px; width: auto; }
 .qr      { height: 90px;  width: auto; }
 /* ============================================================
-   PANTALLA 2 — NUEVO DASHBOARD PREMIUM
+PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
 ============================================================ */
 #pantalla-2{
   padding:14px;
-  background:linear-gradient(135deg,#f8fbff,#dbeafe,#eef6ff);
+  background:linear-gradient(135deg,#f8fbff,#dbeafe);
   overflow:hidden;
 }
 
 .dashboard2{
   height:100%;
   display:grid;
-  grid-template-rows:120px 1fr 320px;
-  gap:16px;
+  grid-template-rows:110px 1fr 260px;
+  gap:14px;
 }
 
 .row1{
@@ -332,25 +332,20 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
 
 .row2{
   display:grid;
-  grid-template-columns:1.4fr 1fr;
-  gap:16px;
+  grid-template-columns:1.3fr 1fr;
+  gap:14px;
 }
 
 .row3{
   display:grid;
+  grid-template-columns:1fr;
 }
 
 .card{
   background:white;
-  border-radius:24px;
-  box-shadow:0 8px 25px rgba(0,0,0,.08);
-  padding:18px;
-  transition:.3s;
-}
-
-.card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 14px 35px rgba(0,0,0,.12);
+  border-radius:20px;
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
+  padding:16px;
 }
 
 .kpi-card{
@@ -362,53 +357,20 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
 
 .kpi-card h4{
   font-size:13px;
-  color:#334155;
+  color:#475569;
   margin-bottom:8px;
-  font-weight:700;
 }
 
 .kpi-card h2{
-  font-size:30px;
+  font-size:32px;
   font-weight:800;
-}
-
-/* ACTIVIDADES */
-.kpi-act{
-  background:linear-gradient(135deg,#dbeafe,#bfdbfe);
-  border-left:8px solid #0284c7;
-}
-
-/* MONTACARGA */
-.kpi-monta{
-  background:linear-gradient(135deg,#dcfce7,#bbf7d0);
-  border-left:8px solid #16a34a;
-}
-
-/* DATA */
-.kpi-data{
-  background:linear-gradient(135deg,#cffafe,#a5f3fc);
-  border-left:8px solid #06b6d4;
 }
 
 .card-title{
   font-size:22px;
   font-weight:800;
-  color:white;
-  padding:12px 18px;
-  border-radius:16px;
-  margin-bottom:14px;
-}
-
-.actividades-title{
-  background:linear-gradient(90deg,#0057b8,#0284c7);
-}
-
-.montacarga-title{
-  background:linear-gradient(90deg,#15803d,#22c55e);
-}
-
-.data-title{
-  background:linear-gradient(90deg,#0891b2,#22d3ee);
+  color:#0057b8;
+  margin-bottom:12px;
 }
 
 .tabla-mini{
@@ -417,42 +379,31 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
 }
 
 .tabla-mini th{
-  background:#f1f5f9;
-  padding:12px;
+  background:#e2e8f0;
+  padding:10px;
   font-size:12px;
-  font-weight:800;
 }
 
 .tabla-mini td{
-  padding:12px;
+  padding:10px;
   font-size:13px;
-  font-weight:600;
   text-align:center;
-  border-bottom:1px solid #e2e8f0;
+  border-bottom:1px solid #e5e7eb;
 }
 
 .ranking-item{
   display:flex;
   justify-content:space-between;
-  padding:14px;
-  margin-bottom:10px;
-  background:linear-gradient(90deg,#eff6ff,#dbeafe);
-  border-left:6px solid #0284c7;
+  padding:12px;
+  margin-bottom:8px;
+  background:#eff6ff;
   border-radius:14px;
   font-weight:700;
 }
 
-.big-percent{
-  text-align:center;
-  font-size:78px;
-  font-weight:800;
-  color:#0891b2;
-  margin-top:20px;
-}
-
 .progress-container{
   width:100%;
-  height:55px;
+  height:42px;
   background:#e2e8f0;
   border-radius:999px;
   overflow:hidden;
@@ -462,15 +413,26 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
 .progress-fill{
   height:100%;
   width:0%;
-  background:linear-gradient(90deg,#06b6d4,#22d3ee);
-  transition:width 1.2s ease;
+  background:linear-gradient(90deg,#16a34a,#22c55e);
+  transition:width 1s ease;
+}
+
+.big-percent{
+  text-align:center;
+  font-size:52px;
+  font-weight:800;
+  color:#16a34a;
+  margin-top:22px;
 }
 
 .mini-subtitle{
-  font-size:14px;
+  font-size:15px;
   color:#64748b;
   margin-bottom:15px;
 }
+</style>
+</head>
+<body>
 
 <!-- ── VIDEO FLOTANTE anti-apagado ── -->
 <div class="video-flotante">
@@ -570,71 +532,60 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
 
     <!-- FILA 1: KPIs -->
     <div class="row1">
-
-      <!-- ACTIVIDADES -->
-      <div class="card kpi-card kpi-act">
+      <div class="card kpi-card">
         <h4>Actividades Hoy</h4>
         <h2 id="kpiActHoy">0</h2>
       </div>
 
-      <div class="card kpi-card kpi-act">
+      <div class="card kpi-card">
         <h4>En Proceso</h4>
         <h2 id="kpiActProceso">0</h2>
       </div>
 
-      <div class="card kpi-card kpi-act">
+      <div class="card kpi-card">
         <h4>Horas Hombre</h4>
         <h2 id="kpiHorasHombre">0</h2>
       </div>
 
-      <div class="card kpi-card kpi-act">
+      <div class="card kpi-card">
         <h4>Participantes</h4>
         <h2 id="kpiParticipantes">0</h2>
       </div>
 
-      <!-- MONTACARGA -->
-      <div class="card kpi-card kpi-monta">
+      <div class="card kpi-card">
         <h4>Uso Montacarga</h4>
         <h2 id="kpiMontacargaTiempo">0h</h2>
       </div>
 
-      <div class="card kpi-card kpi-monta">
+      <div class="card kpi-card">
         <h4>Usos Hoy</h4>
         <h2 id="kpiMontacargaUsos">0</h2>
       </div>
 
-      <div class="card kpi-card kpi-monta">
+      <div class="card kpi-card">
         <h4>Módulo Top</h4>
         <h2 id="kpiModuloTop">-</h2>
       </div>
 
-      <div class="card kpi-card kpi-monta">
+      <div class="card kpi-card">
         <h4>Promedio Uso</h4>
         <h2 id="kpiPromedioUso">0m</h2>
       </div>
-
     </div>
 
     <!-- FILA 2 -->
     <div class="row2">
 
-      <!-- Ranking Actividades -->
-      <div class="card actividades-card">
-        <div class="card-title actividades-title">
-          🔵 Ranking Actividades
-        </div>
-        <div class="mini-subtitle">
-          Tiempo acumulado por actividad
-        </div>
+      <!-- Ranking actividades -->
+      <div class="card">
+        <div class="card-title">Ranking Actividades</div>
+        <div class="mini-subtitle">Tiempo acumulado por actividad</div>
         <div id="rankingActividades"></div>
       </div>
 
-      <!-- Uso Montacarga -->
-      <div class="card montacarga-card">
-        <div class="card-title montacarga-title">
-          🟢 Uso de Montacarga por Módulo
-        </div>
-
+      <!-- Uso montacarga -->
+      <div class="card">
+        <div class="card-title">Uso de Montacarga por Módulo</div>
         <table class="tabla-mini">
           <thead>
             <tr>
@@ -650,48 +601,39 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
 
     <!-- FILA 3 -->
     <div class="row3">
-
-      <div class="card data-card">
-
-        <div class="card-title data-title">
-          🔷 Data Logística
-        </div>
+      <div class="card">
+        <div class="card-title">Data Logística</div>
 
         <div class="row1">
-
-          <div class="card kpi-card kpi-data">
+          <div class="card kpi-card">
             <h4>Total SKU</h4>
             <h2 id="kpiSkuTotal">0</h2>
           </div>
 
-          <div class="card kpi-card kpi-data">
+          <div class="card kpi-card">
             <h4>Con Data</h4>
             <h2 id="kpiSkuOk">0</h2>
           </div>
 
-          <div class="card kpi-card kpi-data">
+          <div class="card kpi-card">
             <h4>Sin Data</h4>
             <h2 id="kpiSkuFaltante">0</h2>
           </div>
 
-          <div class="card kpi-card kpi-data">
+          <div class="card kpi-card">
             <h4>% Completo</h4>
             <h2 id="kpiDataPorcentaje">0%</h2>
           </div>
-
         </div>
 
-<div class="gauge-wrap">
-  <div class="gauge-circle" id="gaugeCircle">
-    <div class="gauge-inner">
-      <div class="big-percent" id="bigPercent">0%</div>
-      <div class="gauge-label">COMPLETO</div>
-    </div>
-  </div>
-</div>
+        <div class="big-percent" id="bigPercent">
+          0%
+        </div>
 
+        <div class="progress-container">
+          <div class="progress-fill" id="dataProgressBar"></div>
+        </div>
       </div>
-
     </div>
 
   </div>
@@ -1148,34 +1090,19 @@ const faltantes = dataLogistica.filter(row => {
 }).length;
 
 const completos = totalSku - faltantes;
-
 const porcentaje = totalSku
-  ? Number(((completos / totalSku) * 100).toFixed(2))
+  ? ((completos / totalSku) * 100).toFixed(2)
   : 0;
 
-/* KPIs */
+document.getElementById('bigPercent').textContent =
+  porcentaje + '%';
+
+document.getElementById('dataProgressBar').style.width =
+  porcentaje + '%';
 document.getElementById('kpiSkuTotal').textContent = totalSku;
 document.getElementById('kpiSkuOk').textContent = completos;
 document.getElementById('kpiSkuFaltante').textContent = faltantes;
 document.getElementById('kpiDataPorcentaje').textContent = porcentaje + '%';
-
-/* Gauge circular */
-document.getElementById('bigPercent').textContent = porcentaje + '%';
-
-const gauge = document.getElementById('gaugeCircle');
-
-let color = '#06b6d4'; // turquesa
-
-if (porcentaje < 70) {
-  color = '#ef4444'; // rojo
-} else if (porcentaje < 90) {
-  color = '#f59e0b'; // amarillo
-}
-
-const grados = (porcentaje / 100) * 360;
-
-gauge.style.background =
-  `conic-gradient(${color} ${grados}deg, #e2e8f0 ${grados}deg)`;entById('kpiDataPorcentaje').textContent = porcentaje + '%';
 }
 
 cargarDatos();
