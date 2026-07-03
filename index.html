@@ -868,7 +868,7 @@ const CONFIG = {
 
   /* Duración de cada pantalla en segundos */
   duracion: [
-    120,   // pantalla 1 — Operaciones
+    20,   // pantalla 1 — Operaciones
     120,   // pantalla 2
     20,    // pantalla 3
     20    // pantalla 4
@@ -1123,9 +1123,9 @@ console.log('Despacho total:', despacho.length);
   let htmlRec = '';
 
 recHoy.forEach(r => {
-  const atencion = estado(r['Hora Llegada'],        r['Fin Descarga']);
+  const atencion = estado(r['Hora Llegada'],        r['Hora Terminó']);
   const acond    = estado(r['Inicio Acondicionado'], r['Fin Acondicionado']);
-    if (!r['Fin Descarga']) pendientesRec++;
+    if (!r['Hora Terminó']) pendientesRec++;
     palletsRec += Number(r['Cantidad Pallet'] || 0);
 
     htmlRec += `
@@ -1136,7 +1136,7 @@ recHoy.forEach(r => {
         <td>${r['Placa']       || '-'}</td>
         <td>${r['Cod. Motivo'] || '-'}</td>
         <td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
-        <td>${diferencia(r['Hora Llegada'],        r['Fin Descarga'])}</td>
+        <td>${diferencia(r['Hora Llegada'],        r['Hora Terminó'])}</td>
         <td><span class="estado ${acond[1]}">${acond[0]}</span></td>
         <td>${diferencia(r['Inicio Acondicionado'], r['Fin Acondicionado'])}</td>
       </tr>`;
