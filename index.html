@@ -313,10 +313,11 @@ PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
 ============================================================ */
 #pantalla-2{
   padding:14px;
-  background:linear-gradient(135deg,#f8fbff,#dbeafe);
+  background:linear-gradient(135deg,#f8fbff,#eaf3ff,#f1f8ff);
   overflow:hidden;
 }
 
+/* GRID PRINCIPAL */
 .dashboard2{
   height:100%;
   display:grid;
@@ -324,6 +325,7 @@ PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
   gap:14px;
 }
 
+/* FILAS */
 .row1{
   display:grid;
   grid-template-columns:repeat(8,1fr);
@@ -338,16 +340,23 @@ PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
 
 .row3{
   display:grid;
-  grid-template-columns:1fr;
 }
 
+/* CARDS */
 .card{
   background:white;
   border-radius:20px;
-  box-shadow:0 4px 18px rgba(0,0,0,.08);
+  box-shadow:0 6px 20px rgba(0,0,0,.08);
   padding:16px;
+  transition:.2s;
 }
 
+.card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+/* KPI BASE */
 .kpi-card{
   display:flex;
   flex-direction:column;
@@ -359,6 +368,7 @@ PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
   font-size:13px;
   color:#475569;
   margin-bottom:8px;
+  font-weight:700;
 }
 
 .kpi-card h2{
@@ -366,6 +376,29 @@ PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
   font-weight:800;
 }
 
+/* =========================
+   COLORES POR MÓDULO
+========================= */
+
+/* ACTIVIDADES - AZUL */
+.kpi-act{
+  background:linear-gradient(135deg,#dbeafe,#bfdbfe);
+  border-left:6px solid #0284c7;
+}
+
+/* MONTACARGA - VERDE */
+.kpi-monta{
+  background:linear-gradient(135deg,#dcfce7,#bbf7d0);
+  border-left:6px solid #16a34a;
+}
+
+/* DATA LOGISTICA - TURQUESA */
+.kpi-data{
+  background:linear-gradient(135deg,#cffafe,#a5f3fc);
+  border-left:6px solid #06b6d4;
+}
+
+/* TITULOS */
 .card-title{
   font-size:22px;
   font-weight:800;
@@ -373,6 +406,7 @@ PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
   margin-bottom:12px;
 }
 
+/* TABLA MINI */
 .tabla-mini{
   width:100%;
   border-collapse:collapse;
@@ -382,6 +416,7 @@ PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
   background:#e2e8f0;
   padding:10px;
   font-size:12px;
+  font-weight:800;
 }
 
 .tabla-mini td{
@@ -391,6 +426,7 @@ PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
   border-bottom:1px solid #e5e7eb;
 }
 
+/* RANKING */
 .ranking-item{
   display:flex;
   justify-content:space-between;
@@ -401,30 +437,17 @@ PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
   font-weight:700;
 }
 
-.progress-container{
-  width:100%;
-  height:42px;
-  background:#e2e8f0;
-  border-radius:999px;
-  overflow:hidden;
-  margin-top:24px;
-}
-
-.progress-fill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#16a34a,#22c55e);
-  transition:width 1s ease;
-}
-
+/* DATA LOGISTICA (SIN BARRA) */
 .big-percent{
   text-align:center;
-  font-size:52px;
+  font-size:58px;
   font-weight:800;
-  color:#16a34a;
-  margin-top:22px;
+  color:#06b6d4;
+  margin-top:20px;
+  text-shadow:0 4px 12px rgba(6,182,212,.15);
 }
 
+/* SUBTEXTO */
 .mini-subtitle{
   font-size:15px;
   color:#64748b;
@@ -530,62 +553,67 @@ PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
 <div class="pantalla" id="pantalla-2">
   <div class="dashboard2">
 
+    <!-- ══════════════════════════════════════ -->
     <!-- FILA 1: KPIs -->
+    <!-- ══════════════════════════════════════ -->
     <div class="row1">
-      <div class="card kpi-card">
+
+      <div class="card kpi-card kpi-act">
         <h4>Actividades Hoy</h4>
         <h2 id="kpiActHoy">0</h2>
       </div>
 
-      <div class="card kpi-card">
+      <div class="card kpi-card kpi-act">
         <h4>En Proceso</h4>
         <h2 id="kpiActProceso">0</h2>
       </div>
 
-      <div class="card kpi-card">
+      <div class="card kpi-card kpi-act">
         <h4>Horas Hombre</h4>
         <h2 id="kpiHorasHombre">0</h2>
       </div>
 
-      <div class="card kpi-card">
+      <div class="card kpi-card kpi-act">
         <h4>Participantes</h4>
         <h2 id="kpiParticipantes">0</h2>
       </div>
 
-      <div class="card kpi-card">
+      <div class="card kpi-card kpi-monta">
         <h4>Uso Montacarga</h4>
         <h2 id="kpiMontacargaTiempo">0h</h2>
       </div>
 
-      <div class="card kpi-card">
+      <div class="card kpi-card kpi-monta">
         <h4>Usos Hoy</h4>
         <h2 id="kpiMontacargaUsos">0</h2>
       </div>
 
-      <div class="card kpi-card">
+      <div class="card kpi-card kpi-monta">
         <h4>Módulo Top</h4>
         <h2 id="kpiModuloTop">-</h2>
       </div>
 
-      <div class="card kpi-card">
+      <div class="card kpi-card kpi-monta">
         <h4>Promedio Uso</h4>
         <h2 id="kpiPromedioUso">0m</h2>
       </div>
+
     </div>
 
+    <!-- ══════════════════════════════════════ -->
     <!-- FILA 2 -->
+    <!-- ══════════════════════════════════════ -->
     <div class="row2">
 
-      <!-- Ranking actividades -->
       <div class="card">
         <div class="card-title">Ranking Actividades</div>
         <div class="mini-subtitle">Tiempo acumulado por actividad</div>
         <div id="rankingActividades"></div>
       </div>
 
-      <!-- Uso montacarga -->
       <div class="card">
         <div class="card-title">Uso de Montacarga por Módulo</div>
+
         <table class="tabla-mini">
           <thead>
             <tr>
@@ -599,41 +627,51 @@ PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
 
     </div>
 
-    <!-- FILA 3 -->
+    <!-- ══════════════════════════════════════ -->
+    <!-- FILA 3: DATA LOGÍSTICA -->
+    <!-- ══════════════════════════════════════ -->
     <div class="row3">
+
       <div class="card">
+
         <div class="card-title">Data Logística</div>
 
         <div class="row1">
-          <div class="card kpi-card">
+
+          <div class="card kpi-card kpi-data">
             <h4>Total SKU</h4>
             <h2 id="kpiSkuTotal">0</h2>
           </div>
 
-          <div class="card kpi-card">
+          <div class="card kpi-card kpi-data">
             <h4>Con Data</h4>
             <h2 id="kpiSkuOk">0</h2>
           </div>
 
-          <div class="card kpi-card">
+          <div class="card kpi-card kpi-data">
             <h4>Sin Data</h4>
             <h2 id="kpiSkuFaltante">0</h2>
           </div>
 
-          <div class="card kpi-card">
+          <div class="card kpi-card kpi-data">
             <h4>% Completo</h4>
             <h2 id="kpiDataPorcentaje">0%</h2>
           </div>
+
         </div>
 
-        <div class="big-percent" id="bigPercent">
-          0%
+        <!-- GAUGE NUEVO (SIN BARRA) -->
+        <div class="gauge-wrap">
+          <div class="gauge-circle" id="gaugeCircle">
+            <div class="gauge-inner">
+              <div class="big-percent" id="bigPercent">0%</div>
+              <div class="gauge-label">COMPLETO</div>
+            </div>
+          </div>
         </div>
 
-        <div class="progress-container">
-          <div class="progress-fill" id="dataProgressBar"></div>
-        </div>
       </div>
+
     </div>
 
   </div>
@@ -1090,19 +1128,33 @@ const faltantes = dataLogistica.filter(row => {
 }).length;
 
 const completos = totalSku - faltantes;
+
 const porcentaje = totalSku
-  ? ((completos / totalSku) * 100).toFixed(2)
+  ? Number(((completos / totalSku) * 100).toFixed(2))
   : 0;
 
 document.getElementById('bigPercent').textContent =
   porcentaje + '%';
 
-document.getElementById('dataProgressBar').style.width =
-  porcentaje + '%';
 document.getElementById('kpiSkuTotal').textContent = totalSku;
 document.getElementById('kpiSkuOk').textContent = completos;
 document.getElementById('kpiSkuFaltante').textContent = faltantes;
 document.getElementById('kpiDataPorcentaje').textContent = porcentaje + '%';
+
+
+/* ================= GAUGE ================= */
+const gauge = document.getElementById('gaugeCircle');
+
+if (gauge) {
+  const grados = (porcentaje / 100) * 360;
+
+  let color = '#06b6d4';
+
+  if (porcentaje < 70) color = '#ef4444';
+  else if (porcentaje < 90) color = '#f59e0b';
+
+  gauge.style.background =
+    `conic-gradient(${color} ${grados}deg, #e2e8f0 ${grados}deg)`;
 }
 
 cargarDatos();
