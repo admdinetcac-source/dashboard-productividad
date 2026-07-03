@@ -309,149 +309,226 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
 .mascota { height: 100px; width: auto; }
 .qr      { height: 90px;  width: auto; }
 /* ============================================================
-PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
+PANTALLA 2
 ============================================================ */
+
 #pantalla-2{
-  padding:14px;
-  background:linear-gradient(135deg,#f8fbff,#eaf3ff,#f1f8ff);
-  overflow:hidden;
+    background:#eef6ff;
+    padding:6px;
+    overflow-y:auto;
 }
 
-/* GRID PRINCIPAL */
+/* CONTENEDOR */
 .dashboard2{
-  height:100%;
-  display:grid;
-  grid-template-rows:110px 1fr 260px;
-  gap:14px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    min-height:calc(100vh - 12px);
 }
 
-/* FILAS */
+/* ===========================
+   KPI
+=========================== */
+
 .row1{
-  display:grid;
-  grid-template-columns:repeat(8,1fr);
-  gap:12px;
+    display:grid;
+    grid-template-columns:repeat(8,1fr);
+    gap:10px;
 }
 
-.row2{
-  display:grid;
-  grid-template-columns:1.3fr 1fr;
-  gap:14px;
-}
-
-.row3{
-  display:grid;
-}
-
-/* CARDS */
-.card{
-  background:white;
-  border-radius:20px;
-  box-shadow:0 6px 20px rgba(0,0,0,.08);
-  padding:16px;
-  transition:.2s;
-}
-
-.card:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 25px rgba(0,0,0,.12);
-}
-
-/* KPI BASE */
 .kpi-card{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
+    border-radius:18px;
+    padding:16px;
+    text-align:center;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+    transition:.2s;
+}
+
+.kpi-card:hover{
+    transform:translateY(-2px);
 }
 
 .kpi-card h4{
-  font-size:13px;
-  color:#475569;
-  margin-bottom:8px;
-  font-weight:700;
+    font-size:13px;
+    color:#334155;
+    margin-bottom:8px;
+    font-weight:700;
 }
 
 .kpi-card h2{
-  font-size:32px;
-  font-weight:800;
+    font-size:34px;
+    font-weight:800;
+    color:#0f172a;
 }
 
-/* =========================
-   COLORES POR MÓDULO
-========================= */
+/* ACTIVIDADES */
 
-/* ACTIVIDADES - AZUL */
 .kpi-act{
-  background:linear-gradient(135deg,#dbeafe,#bfdbfe);
-  border-left:6px solid #0284c7;
+    background:#dbeafe;
+    border-left:8px solid #0284c7;
 }
 
-/* MONTACARGA - VERDE */
+/* MONTACARGA */
+
 .kpi-monta{
-  background:linear-gradient(135deg,#dcfce7,#bbf7d0);
-  border-left:6px solid #16a34a;
+    background:#dcfce7;
+    border-left:8px solid #16a34a;
 }
 
-/* DATA LOGISTICA - TURQUESA */
+/* DATA */
+
 .kpi-data{
-  background:linear-gradient(135deg,#cffafe,#a5f3fc);
-  border-left:6px solid #06b6d4;
+    background:#cffafe;
+    border-left:8px solid #06b6d4;
 }
 
-/* TITULOS */
+/* ===========================
+   FILA CENTRAL
+=========================== */
+
+.row2{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:12px;
+    flex:1;
+}
+
+.card{
+    background:#fff;
+    border-radius:18px;
+    padding:16px;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+}
+
 .card-title{
-  font-size:22px;
-  font-weight:800;
-  color:#0057b8;
-  margin-bottom:12px;
+    font-size:24px;
+    font-weight:800;
+    color:#0057b8;
+    margin-bottom:12px;
 }
 
-/* TABLA MINI */
+.mini-subtitle{
+    color:#64748b;
+    margin-bottom:15px;
+    font-size:15px;
+}
+
+/* ===========================
+   RANKING
+=========================== */
+
+#rankingActividades{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.ranking-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#eff6ff;
+    border-radius:14px;
+    padding:12px 16px;
+    font-weight:700;
+    font-size:15px;
+}
+
+/* ===========================
+   TABLA MONTACARGA
+=========================== */
+
 .tabla-mini{
-  width:100%;
-  border-collapse:collapse;
+    width:100%;
+    border-collapse:collapse;
 }
 
 .tabla-mini th{
-  background:#e2e8f0;
-  padding:10px;
-  font-size:12px;
-  font-weight:800;
+    background:#e2e8f0;
+    padding:12px;
+    font-size:13px;
+    font-weight:800;
 }
 
 .tabla-mini td{
-  padding:10px;
-  font-size:13px;
-  text-align:center;
-  border-bottom:1px solid #e5e7eb;
+    padding:12px;
+    text-align:center;
+    font-size:14px;
+    border-bottom:1px solid #e2e8f0;
 }
 
-/* RANKING */
-.ranking-item{
-  display:flex;
-  justify-content:space-between;
-  padding:12px;
-  margin-bottom:8px;
-  background:#eff6ff;
-  border-radius:14px;
-  font-weight:700;
+/* ===========================
+   DATA LOGISTICA
+=========================== */
+
+.row3{
+    margin-top:4px;
 }
 
-/* DATA LOGISTICA (SIN BARRA) */
+.data-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.gauge-wrap{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-top:10px;
+}
+
+.gauge-circle{
+    width:240px;
+    height:240px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#e2e8f0;
+    transition:.5s;
+}
+
+.gauge-inner{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
 .big-percent{
-  text-align:center;
-  font-size:58px;
-  font-weight:800;
-  color:#06b6d4;
-  margin-top:20px;
-  text-shadow:0 4px 12px rgba(6,182,212,.15);
+    font-size:60px;
+    font-weight:800;
+    color:#06b6d4;
+    line-height:1;
 }
 
-/* SUBTEXTO */
-.mini-subtitle{
-  font-size:15px;
-  color:#64748b;
-  margin-bottom:15px;
+.gauge-label{
+    margin-top:8px;
+    font-size:18px;
+    font-weight:700;
+    color:#64748b;
+}
+
+/* ===========================
+   RESPONSIVE TV
+=========================== */
+
+@media (max-width:1600px){
+
+    .row1{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .data-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
 }
 </style>
 </head>
@@ -551,123 +628,174 @@ PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
 
   </div><!-- /pantalla-1 -->
 <div class="pantalla" id="pantalla-2">
+
+  <!-- CABECERA -->
+  <div class="header">
+    <div class="header-left">
+      <img src="logo-dinet.png" class="logo-principal">
+
+      <div class="titulo">
+        <h1>DASHBOARD OPERATIVO INTEGRAL</h1>
+        <p>INDICADORES EN TIEMPO REAL</p>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="slogan">
+        ¡CUMPLIMOS HOY,<br>
+        SUPERAMOS JUNTOS!
+      </div>
+
+      <div id="fechaHora2" class="fechaHora"></div>
+    </div>
+  </div>
+
+
   <div class="dashboard2">
 
-    <!-- ══════════════════════════════════════ -->
-    <!-- FILA 1: KPIs -->
-    <!-- ══════════════════════════════════════ -->
+    <!-- ================= KPIs ================= -->
+
     <div class="row1">
 
-      <div class="card kpi-card kpi-act">
-        <h4>Actividades Hoy</h4>
+      <div class="kpi-card kpi-act">
+        <h4>ACTIVIDADES HOY</h4>
         <h2 id="kpiActHoy">0</h2>
       </div>
 
-      <div class="card kpi-card kpi-act">
-        <h4>En Proceso</h4>
+      <div class="kpi-card kpi-act">
+        <h4>EN PROCESO</h4>
         <h2 id="kpiActProceso">0</h2>
       </div>
 
-      <div class="card kpi-card kpi-act">
-        <h4>Horas Hombre</h4>
+      <div class="kpi-card kpi-act">
+        <h4>HORAS HOMBRE</h4>
         <h2 id="kpiHorasHombre">0</h2>
       </div>
 
-      <div class="card kpi-card kpi-act">
-        <h4>Participantes</h4>
+      <div class="kpi-card kpi-act">
+        <h4>PARTICIPANTES</h4>
         <h2 id="kpiParticipantes">0</h2>
       </div>
 
-      <div class="card kpi-card kpi-monta">
-        <h4>Uso Montacarga</h4>
+      <div class="kpi-card kpi-monta">
+        <h4>USO MONTACARGA</h4>
         <h2 id="kpiMontacargaTiempo">0h</h2>
       </div>
 
-      <div class="card kpi-card kpi-monta">
-        <h4>Usos Hoy</h4>
+      <div class="kpi-card kpi-monta">
+        <h4>USOS HOY</h4>
         <h2 id="kpiMontacargaUsos">0</h2>
       </div>
 
-      <div class="card kpi-card kpi-monta">
-        <h4>Módulo Top</h4>
+      <div class="kpi-card kpi-monta">
+        <h4>MÓDULO TOP</h4>
         <h2 id="kpiModuloTop">-</h2>
       </div>
 
-      <div class="card kpi-card kpi-monta">
-        <h4>Promedio Uso</h4>
+      <div class="kpi-card kpi-monta">
+        <h4>PROMEDIO USO</h4>
         <h2 id="kpiPromedioUso">0m</h2>
       </div>
 
     </div>
 
-    <!-- ══════════════════════════════════════ -->
-    <!-- FILA 2 -->
-    <!-- ══════════════════════════════════════ -->
+
+    <!-- ================= CENTRO ================= -->
+
     <div class="row2">
 
       <div class="card">
-        <div class="card-title">Ranking Actividades</div>
-        <div class="mini-subtitle">Tiempo acumulado por actividad</div>
+
+        <div class="card-title">
+          🔵 Ranking de Actividades
+        </div>
+
+        <div class="mini-subtitle">
+          Tiempo acumulado por actividad
+        </div>
+
         <div id="rankingActividades"></div>
+
       </div>
 
       <div class="card">
-        <div class="card-title">Uso de Montacarga por Módulo</div>
+
+        <div class="card-title">
+          🟢 Uso de Montacarga por Módulo
+        </div>
 
         <table class="tabla-mini">
+
           <thead>
             <tr>
-              <th>Módulo</th>
-              <th>Tiempo</th>
+              <th>MÓDULO</th>
+              <th>TIEMPO</th>
             </tr>
           </thead>
+
           <tbody id="tablaMontacarga"></tbody>
+
         </table>
+
       </div>
 
     </div>
 
-    <!-- ══════════════════════════════════════ -->
-    <!-- FILA 3: DATA LOGÍSTICA -->
-    <!-- ══════════════════════════════════════ -->
+
+    <!-- ================= DATA LOGÍSTICA ================= -->
+
     <div class="row3">
 
       <div class="card">
 
-        <div class="card-title">Data Logística</div>
+        <div class="card-title">
+          🟦 DATA LOGÍSTICA
+        </div>
 
-        <div class="row1">
+        <div class="data-grid">
 
-          <div class="card kpi-card kpi-data">
-            <h4>Total SKU</h4>
+          <div class="kpi-card kpi-data">
+            <h4>TOTAL SKU</h4>
             <h2 id="kpiSkuTotal">0</h2>
           </div>
 
-          <div class="card kpi-card kpi-data">
-            <h4>Con Data</h4>
+          <div class="kpi-card kpi-data">
+            <h4>CON DATA</h4>
             <h2 id="kpiSkuOk">0</h2>
           </div>
 
-          <div class="card kpi-card kpi-data">
-            <h4>Sin Data</h4>
+          <div class="kpi-card kpi-data">
+            <h4>SIN DATA</h4>
             <h2 id="kpiSkuFaltante">0</h2>
           </div>
 
-          <div class="card kpi-card kpi-data">
-            <h4>% Completo</h4>
+          <div class="kpi-card kpi-data">
+            <h4>% COMPLETO</h4>
             <h2 id="kpiDataPorcentaje">0%</h2>
           </div>
 
         </div>
 
-        <!-- GAUGE NUEVO (SIN BARRA) -->
         <div class="gauge-wrap">
+
           <div class="gauge-circle" id="gaugeCircle">
+
             <div class="gauge-inner">
-              <div class="big-percent" id="bigPercent">0%</div>
-              <div class="gauge-label">COMPLETO</div>
+
+              <div
+                class="big-percent"
+                id="bigPercent">
+                0%
+              </div>
+
+              <div class="gauge-label">
+                COMPLETO
+              </div>
+
             </div>
+
           </div>
+
         </div>
 
       </div>
@@ -675,6 +803,22 @@ PANTALLA 2 — DASHBOARD OPERATIVO INTEGRAL
     </div>
 
   </div>
+
+  <!-- FOOTER -->
+
+  <div class="footer-ops">
+
+    <div class="footer-msg">
+      Los indicadores nos muestran dónde estamos,
+      nuestras acciones determinan hacia dónde vamos.
+    </div>
+
+    <img
+      src="mascota-dinet.png"
+      class="mascota">
+
+  </div>
+
 </div>
 
   <!-- ══════════════════════════════════════
@@ -824,17 +968,26 @@ setInterval(evitarApagado, 5 * 60 * 1000);
 
 
 /* ─────────────────────────────────────────────────────────
-   RELOJ — PANTALLA 1
+   RELOJ — PANTALLAS 1 Y 2
 ───────────────────────────────────────────────────────── */
 function actualizarFechaHora() {
+
   const ahora = new Date();
-  document.getElementById('fechaHora').innerHTML =
-    ahora.toLocaleDateString('es-PE') + '<br>' +
+
+  const texto =
+    ahora.toLocaleDateString('es-PE') +
+    '<br>' +
     ahora.toLocaleTimeString('es-PE');
+
+  const reloj1 = document.getElementById('fechaHora');
+  const reloj2 = document.getElementById('fechaHora2');
+
+  if (reloj1) reloj1.innerHTML = texto;
+  if (reloj2) reloj2.innerHTML = texto;
 }
+
 setInterval(actualizarFechaHora, 1000);
 actualizarFechaHora();
-
 
 /* ─────────────────────────────────────────────────────────
    DATOS OPERATIVOS — Google Sheets → Opensheet
