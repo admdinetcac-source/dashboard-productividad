@@ -308,211 +308,541 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
 
 .mascota { height: 100px; width: auto; }
 .qr      { height: 90px;  width: auto; }
-/* ============================================================
-PANTALLA 2
-============================================================ */
+/*==================================================
+PANTALLA 2 - NUEVO DISEÑO FULL HD
+Optimizado para TV 50" (1920x1080)
+==================================================*/
 
 #pantalla-2{
-    background:#eef6ff;
-    padding:6px;
-    overflow-y:auto;
+    background:#eef5fb;
+    padding:8px;
+    height:100vh;
+    overflow:hidden;
+    box-sizing:border-box;
 }
 
-/* CONTENEDOR */
+/*==========================================
+CONTENEDOR
+==========================================*/
+
 .dashboard2{
     display:flex;
     flex-direction:column;
-    gap:12px;
-    min-height:calc(100vh - 12px);
+    height:calc(100vh - 110px);
+    gap:10px;
 }
 
-/* ===========================
-   KPI
-=========================== */
+/*==========================================
+FILA KPI
+==========================================*/
 
 .row1{
     display:grid;
     grid-template-columns:repeat(8,1fr);
     gap:10px;
+    flex-shrink:0;
 }
 
 .kpi-card{
+
+    background:#fff;
+
     border-radius:18px;
-    padding:16px;
+
+    padding:10px 8px;
+
     text-align:center;
-    box-shadow:0 4px 14px rgba(0,0,0,.08);
-    transition:.2s;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.25s;
+
+    position:relative;
+
+    overflow:hidden;
+
+    min-height:88px;
+
 }
 
 .kpi-card:hover{
-    transform:translateY(-2px);
+
+    transform:translateY(-3px);
+
+}
+
+.kpi-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    bottom:0;
+
+    width:7px;
+
+}
+
+.kpi-act::before{
+
+    background:#0284c7;
+
+}
+
+.kpi-monta::before{
+
+    background:#16a34a;
+
+}
+
+.kpi-data::before{
+
+    background:#06b6d4;
+
+}
+
+.kpi-act{
+
+    background:linear-gradient(90deg,#dbeafe,#eff6ff);
+
+}
+
+.kpi-monta{
+
+    background:linear-gradient(90deg,#dcfce7,#f0fdf4);
+
+}
+
+.kpi-data{
+
+    background:linear-gradient(90deg,#cffafe,#ecfeff);
+
 }
 
 .kpi-card h4{
-    font-size:13px;
-    color:#334155;
-    margin-bottom:8px;
+
+    font-size:11px;
+
+    color:#475569;
+
+    margin-bottom:6px;
+
     font-weight:700;
+
+    letter-spacing:.4px;
+
 }
 
 .kpi-card h2{
+
     font-size:34px;
+
     font-weight:800;
+
     color:#0f172a;
+
 }
 
-/* ACTIVIDADES */
-
-.kpi-act{
-    background:#dbeafe;
-    border-left:8px solid #0284c7;
-}
-
-/* MONTACARGA */
-
-.kpi-monta{
-    background:#dcfce7;
-    border-left:8px solid #16a34a;
-}
-
-/* DATA */
-
-.kpi-data{
-    background:#cffafe;
-    border-left:8px solid #06b6d4;
-}
-
-/* ===========================
-   FILA CENTRAL
-=========================== */
+/*==========================================
+FILA CENTRAL
+==========================================*/
 
 .row2{
+
     display:grid;
-    grid-template-columns:1.3fr 1fr;
+
+    grid-template-columns:1.2fr 1fr;
+
     gap:12px;
+
     flex:1;
+
+    min-height:0;
+
 }
 
 .card{
+
     background:#fff;
+
     border-radius:18px;
-    padding:16px;
-    box-shadow:0 4px 14px rgba(0,0,0,.08);
+
+    padding:14px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    display:flex;
+
+    flex-direction:column;
+
+    overflow:hidden;
+
 }
 
 .card-title{
-    font-size:24px;
+
+    font-size:22px;
+
     font-weight:800;
+
     color:#0057b8;
-    margin-bottom:12px;
+
+    margin-bottom:4px;
+
 }
 
 .mini-subtitle{
+
+    font-size:13px;
+
     color:#64748b;
-    margin-bottom:15px;
-    font-size:15px;
+
+    margin-bottom:10px;
+
 }
 
-/* ===========================
-   RANKING
-=========================== */
+/*==========================================
+RANKING
+==========================================*/
 
 #rankingActividades{
+
     display:flex;
+
     flex-direction:column;
+
     gap:10px;
+
 }
 
 .ranking-item{
-    display:flex;
-    justify-content:space-between;
+
+    display:grid;
+
+    grid-template-columns:170px 1fr 80px;
+
     align-items:center;
-    background:#eff6ff;
-    border-radius:14px;
-    padding:12px 16px;
+
+    gap:12px;
+
+}
+
+.rank-name{
+
     font-weight:700;
-    font-size:15px;
-}
 
-/* ===========================
-   TABLA MONTACARGA
-=========================== */
+    color:#334155;
 
-.tabla-mini{
-    width:100%;
-    border-collapse:collapse;
-}
-
-.tabla-mini th{
-    background:#e2e8f0;
-    padding:12px;
-    font-size:13px;
-    font-weight:800;
-}
-
-.tabla-mini td{
-    padding:12px;
-    text-align:center;
     font-size:14px;
-    border-bottom:1px solid #e2e8f0;
+
 }
 
-/* ===========================
-   DATA LOGISTICA
-=========================== */
+.rank-bar{
+
+    width:100%;
+
+    height:18px;
+
+    background:#dbeafe;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+.rank-fill{
+
+    height:100%;
+
+    border-radius:20px;
+
+    background:linear-gradient(90deg,#0284c7,#38bdf8);
+
+    transition:.8s;
+
+}
+
+.rank-time{
+
+    text-align:right;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+/*==========================================
+MONTACARGA
+==========================================*/
+
+#tablaMontacarga{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+.modulo-item{
+
+    display:grid;
+
+    grid-template-columns:110px 1fr 80px;
+
+    gap:12px;
+
+    align-items:center;
+
+}
+
+.modulo-nombre{
+
+    font-weight:700;
+
+}
+
+.modulo-bar{
+
+    width:100%;
+
+    height:20px;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    background:#dcfce7;
+
+}
+
+.modulo-fill{
+
+    height:100%;
+
+    border-radius:20px;
+
+    background:linear-gradient(90deg,#16a34a,#4ade80);
+
+}
+
+.modulo-tiempo{
+
+    text-align:right;
+
+    font-weight:700;
+
+}
+
+/*==========================================
+DATA LOGISTICA
+==========================================*/
 
 .row3{
-    margin-top:4px;
+
+    flex-shrink:0;
+
 }
 
 .data-grid{
+
     display:grid;
+
     grid-template-columns:repeat(4,1fr);
+
     gap:10px;
-    margin-bottom:20px;
+
+    margin-bottom:10px;
+
 }
 
+/*==========================================
+GAUGE
+==========================================*/
+
 .gauge-wrap{
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
-    margin-top:10px;
+
+    gap:40px;
+
 }
 
 .gauge-circle{
-    width:240px;
-    height:240px;
+
+    width:180px;
+
+    height:180px;
+
     border-radius:50%;
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
+
     background:#e2e8f0;
-    transition:.5s;
+
+    transition:.6s;
+
 }
 
 .gauge-inner{
-    width:180px;
-    height:180px;
+
+    width:135px;
+
+    height:135px;
+
     border-radius:50%;
+
     background:#fff;
+
     display:flex;
+
     flex-direction:column;
+
     justify-content:center;
+
     align-items:center;
+
 }
 
 .big-percent{
-    font-size:60px;
-    font-weight:800;
+
+    font-size:46px;
+
+    font-weight:900;
+
     color:#06b6d4;
-    line-height:1;
+
 }
 
 .gauge-label{
-    margin-top:8px;
-    font-size:18px;
+
+    font-size:16px;
+
     font-weight:700;
+
     color:#64748b;
+
+}
+
+/*==========================================
+BARRA DE PROGRESO
+==========================================*/
+
+.progress-container{
+
+    flex:1;
+
+}
+
+.progress-title{
+
+    font-size:18px;
+
+    font-weight:800;
+
+    color:#334155;
+
+    margin-bottom:10px;
+
+}
+
+.progress-bg{
+
+    width:100%;
+
+    height:32px;
+
+    border-radius:40px;
+
+    background:#dbeafe;
+
+    overflow:hidden;
+
+}
+
+.progress-fill{
+
+    height:100%;
+
+    width:0%;
+
+    background:linear-gradient(90deg,#06b6d4,#0ea5e9);
+
+    transition:1s;
+
+}
+
+.progress-text{
+
+    margin-top:10px;
+
+    font-size:24px;
+
+    font-weight:800;
+
+    color:#0284c7;
+
+}
+
+/*==========================================
+FOOTER
+==========================================*/
+
+.footer-ops{
+
+    height:48px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.footer-msg{
+
+    font-size:16px;
+
+    font-weight:700;
+
+    color:#334155;
+
+}
+
+.mascota{
+
+    height:42px;
+
+}
+
+/*==========================================
+FULL HD
+==========================================*/
+
+@media screen and (1920px){
+
+    .kpi-card h2{
+
+        font-size:32px;
+
+    }
+
 }
 
 /* ===========================
@@ -651,158 +981,209 @@ PANTALLA 2
   </div>
 
 
-  <div class="dashboard2">
+ <div class="dashboard2">
 
-    <!-- ================= KPIs ================= -->
+    <!--================ KPIs =================-->
 
     <div class="row1">
 
-      <div class="kpi-card kpi-act">
-        <h4>ACTIVIDADES HOY</h4>
-        <h2 id="kpiActHoy">0</h2>
-      </div>
+        <div class="kpi-card kpi-act">
+            <h4>ACTIVIDADES HOY</h4>
+            <h2 id="kpiActHoy">0</h2>
+        </div>
 
-      <div class="kpi-card kpi-act">
-        <h4>EN PROCESO</h4>
-        <h2 id="kpiActProceso">0</h2>
-      </div>
+        <div class="kpi-card kpi-act">
+            <h4>EN PROCESO</h4>
+            <h2 id="kpiActProceso">0</h2>
+        </div>
 
-      <div class="kpi-card kpi-act">
-        <h4>HORAS HOMBRE</h4>
-        <h2 id="kpiHorasHombre">0</h2>
-      </div>
+        <div class="kpi-card kpi-act">
+            <h4>HORAS HOMBRE</h4>
+            <h2 id="kpiHorasHombre">0h 0m</h2>
+        </div>
 
-      <div class="kpi-card kpi-act">
-        <h4>PARTICIPANTES</h4>
-        <h2 id="kpiParticipantes">0</h2>
-      </div>
+        <div class="kpi-card kpi-act">
+            <h4>PARTICIPANTES</h4>
+            <h2 id="kpiParticipantes">0</h2>
+        </div>
 
-      <div class="kpi-card kpi-monta">
-        <h4>USO MONTACARGA</h4>
-        <h2 id="kpiMontacargaTiempo">0h</h2>
-      </div>
+        <div class="kpi-card kpi-monta">
+            <h4>USO MONTACARGA</h4>
+            <h2 id="kpiMontacargaTiempo">0h</h2>
+        </div>
 
-      <div class="kpi-card kpi-monta">
-        <h4>USOS HOY</h4>
-        <h2 id="kpiMontacargaUsos">0</h2>
-      </div>
+        <div class="kpi-card kpi-monta">
+            <h4>USOS HOY</h4>
+            <h2 id="kpiMontacargaUsos">0</h2>
+        </div>
 
-      <div class="kpi-card kpi-monta">
-        <h4>MÓDULO TOP</h4>
-        <h2 id="kpiModuloTop">-</h2>
-      </div>
+        <div class="kpi-card kpi-monta">
+            <h4>MÓDULO TOP</h4>
+            <h2 id="kpiModuloTop">-</h2>
+        </div>
 
-      <div class="kpi-card kpi-monta">
-        <h4>PROMEDIO USO</h4>
-        <h2 id="kpiPromedioUso">0m</h2>
-      </div>
+        <div class="kpi-card kpi-monta">
+            <h4>PROMEDIO USO</h4>
+            <h2 id="kpiPromedioUso">0m</h2>
+        </div>
 
     </div>
 
-
-    <!-- ================= CENTRO ================= -->
+    <!--================ CENTRO =================-->
 
     <div class="row2">
 
-      <div class="card">
+        <!--================ RANKING =================-->
 
-        <div class="card-title">
-          🔵 Ranking de Actividades
+        <div class="card">
+
+            <div class="card-title">
+                📊 Ranking de Actividades
+            </div>
+
+            <div class="mini-subtitle">
+                Tiempo acumulado del día
+            </div>
+
+            <div id="rankingActividades">
+                <!-- El JavaScript llenará este contenido -->
+            </div>
+
         </div>
 
-        <div class="mini-subtitle">
-          Tiempo acumulado por actividad
+        <!--================ MONTACARGA =================-->
+
+        <div class="card">
+
+            <div class="card-title">
+                🚜 Uso de Montacarga por Módulo
+            </div>
+
+            <div class="mini-subtitle">
+                Tiempo acumulado por módulo
+            </div>
+
+            <div id="tablaMontacarga">
+                <!-- El JavaScript llenará este contenido -->
+            </div>
+
         </div>
-
-        <div id="rankingActividades"></div>
-
-      </div>
-
-      <div class="card">
-
-        <div class="card-title">
-          🟢 Uso de Montacarga por Módulo
-        </div>
-
-        <table class="tabla-mini">
-
-          <thead>
-            <tr>
-              <th>MÓDULO</th>
-              <th>TIEMPO</th>
-            </tr>
-          </thead>
-
-          <tbody id="tablaMontacarga"></tbody>
-
-        </table>
-
-      </div>
 
     </div>
 
-
-    <!-- ================= DATA LOGÍSTICA ================= -->
+    <!--================ DATA LOGÍSTICA =================-->
 
     <div class="row3">
 
-      <div class="card">
+        <div class="card">
 
-        <div class="card-title">
-          🟦 DATA LOGÍSTICA
-        </div>
+            <div class="card-title">
+                📦 DATA LOGÍSTICA
+            </div>
 
-        <div class="data-grid">
+            <div class="data-grid">
 
-          <div class="kpi-card kpi-data">
-            <h4>TOTAL SKU</h4>
-            <h2 id="kpiSkuTotal">0</h2>
-          </div>
+                <div class="kpi-card kpi-data">
+                    <h4>TOTAL SKU</h4>
+                    <h2 id="kpiSkuTotal">0</h2>
+                </div>
 
-          <div class="kpi-card kpi-data">
-            <h4>CON DATA</h4>
-            <h2 id="kpiSkuOk">0</h2>
-          </div>
+                <div class="kpi-card kpi-data">
+                    <h4>CON DATA</h4>
+                    <h2 id="kpiSkuOk">0</h2>
+                </div>
 
-          <div class="kpi-card kpi-data">
-            <h4>SIN DATA</h4>
-            <h2 id="kpiSkuFaltante">0</h2>
-          </div>
+                <div class="kpi-card kpi-data">
+                    <h4>SIN DATA</h4>
+                    <h2 id="kpiSkuFaltante">0</h2>
+                </div>
 
-          <div class="kpi-card kpi-data">
-            <h4>% COMPLETO</h4>
-            <h2 id="kpiDataPorcentaje">0%</h2>
-          </div>
-
-        </div>
-
-        <div class="gauge-wrap">
-
-          <div class="gauge-circle" id="gaugeCircle">
-
-            <div class="gauge-inner">
-
-              <div
-                class="big-percent"
-                id="bigPercent">
-                0%
-              </div>
-
-              <div class="gauge-label">
-                COMPLETO
-              </div>
+                <div class="kpi-card kpi-data">
+                    <h4>% COMPLETO</h4>
+                    <h2 id="kpiDataPorcentaje">0%</h2>
+                </div>
 
             </div>
 
-          </div>
+            <div class="gauge-wrap">
+
+    <!-- GAUGE -->
+
+    <div class="gauge-circle" id="gaugeCircle">
+
+        <div class="gauge-inner">
+
+            <div class="big-percent" id="bigPercent">
+                0%
+            </div>
+
+            <div class="gauge-label">
+                COMPLETO
+            </div>
 
         </div>
 
-      </div>
+    </div>
+
+    <!-- BARRA DE PROGRESO -->
+
+    <div class="progress-container">
+
+        <div class="progress-title">
+            Avance de Calidad de Datos
+        </div>
+
+        <div class="progress-bg">
+
+            <div
+                class="progress-fill"
+                id="progressFill">
+            </div>
+
+        </div>
+
+        <div
+            class="progress-text"
+            id="progressText">
+            0%
+        </div>
 
     </div>
 
-  </div>
+</div>
+
+                <!-- NUEVA BARRA DE PROGRESO -->
+
+                <div class="progress-container">
+
+                    <div class="progress-title">
+                        Avance de Calidad de Datos
+                    </div>
+
+                    <div class="progress-bg">
+
+                        <div
+                            class="progress-fill"
+                            id="progressFill">
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="progress-text"
+                        id="progressText">
+                        0%
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
   <!-- FOOTER -->
 
@@ -1057,6 +1438,96 @@ function minutosAHoras(min){
   const m = min % 60;
   return `${h}h ${m}m`;
 } 
+  /*====================================================
+        TIEMPO EN TIEMPO REAL
+====================================================*/
+
+let actividadesTiempoReal=[];
+let montacargaTiempoReal=[];
+
+function convertirHoraSegundos(hora){
+
+    if(!hora) return null;
+
+    const p=hora.split(":");
+
+    return Number(p[0])*3600+
+           Number(p[1])*60+
+           Number(p[2]||0);
+
+}
+
+function segundosAHora(seg){
+
+    if(seg<0) seg=0;
+
+    const h=Math.floor(seg/3600);
+
+    const m=Math.floor((seg%3600)/60);
+
+    const s=Math.floor(seg%60);
+
+    return `${h}h ${m}m ${s}s`;
+
+}
+
+function diferenciaSegundos(inicio,fin){
+
+    const ini=convertirHoraSegundos(inicio);
+
+    if(ini==null) return 0;
+
+    let finSeg;
+
+    if(fin){
+
+        finSeg=convertirHoraSegundos(fin);
+
+    }else{
+
+        const ahora=new Date();
+
+        finSeg=
+        ahora.getHours()*3600+
+        ahora.getMinutes()*60+
+        ahora.getSeconds();
+
+    }
+
+    return Math.max(0,finSeg-ini);
+
+}
+  /*====================================================
+        RANKING
+====================================================*/
+
+function pintarRanking(){
+
+    // Se agregará en el siguiente paso
+
+}
+
+/*====================================================
+        MONTACARGA
+====================================================*/
+
+function pintarMontacarga(){
+
+    // Se agregará en el siguiente paso
+
+}
+
+/*====================================================
+        ACTUALIZAR
+====================================================*/
+
+function actualizarTiempoReal(){
+
+    pintarRanking();
+
+    pintarMontacarga();
+
+}
 
 async function cargarDatos() {
   const hoyStr = hoy();
@@ -1178,6 +1649,12 @@ recHoy.forEach(r => {
   document.getElementById('dPallets').textContent     = palletsDes;
   /* ================= ACTIVIDADES ================= */
 const actividadesHoy = actividades.filter(x => x['FECHA'] === hoyStr);
+/* DATOS PARA TIEMPO REAL */
+actividadesTiempoReal = actividadesHoy.map(x => ({
+    actividad: x['ACTIVIDAD'] || 'Sin nombre',
+    inicio: x['HORA DE INICIO'],
+    fin: x['HORA FINAL']
+}));  
 
 const actividadesProceso = actividadesHoy.filter(
   x => String(x['STATUS'] || '').toUpperCase().includes('PROCES')
@@ -1211,21 +1688,21 @@ document.getElementById('kpiActProceso').textContent = actividadesProceso;
 document.getElementById('kpiHorasHombre').textContent = minutosAHoras(totalMinAct);
 document.getElementById('kpiParticipantes').textContent = totalParticipantes;
 
-document.getElementById('rankingActividades').innerHTML =
-  Object.entries(rankingActividades)
-    .sort((a,b)=>b[1]-a[1])
-    .slice(0,5)
-    .map(([actividad,min])=>`
-      <div class="ranking-item">
-        <span>${actividad}</span>
-        <span>${minutosAHoras(min)}</span>
-      </div>
-    `).join('');
-
+pintarRanking();
 
 /* ================= MONTACARGA ================= */
 const montacargaHoy = montacarga.filter(x => x['Fecha'] === hoyStr);
+/* DATOS PARA TIEMPO REAL */
 
+montacargaTiempoReal = montacargaHoy.map(x=>({
+
+    modulo:x['Módulo'] || 'Sin módulo',
+
+    inicio:x['Inicio'],
+
+    fin:x['Fin']
+
+}));
 let totalMinMontacarga = 0;
 const moduloUso = {};
 
@@ -1258,15 +1735,7 @@ document.getElementById('kpiPromedioUso').textContent =
     ? minutosAHoras(Math.round(totalMinMontacarga / montacargaHoy.length))
     : '0m';
 
-document.getElementById('tablaMontacarga').innerHTML =
-  Object.entries(moduloUso)
-    .sort((a,b)=>b[1]-a[1])
-    .map(([modulo,min])=>`
-      <tr>
-        <td>${modulo}</td>
-        <td>${minutosAHoras(min)}</td>
-      </tr>
-    `).join('');
+pintarMontacarga();
 
 
 /* ================= DATA LOGISTICA ================= */
@@ -1293,6 +1762,11 @@ document.getElementById('kpiSkuTotal').textContent = totalSku;
 document.getElementById('kpiSkuOk').textContent = completos;
 document.getElementById('kpiSkuFaltante').textContent = faltantes;
 document.getElementById('kpiDataPorcentaje').textContent = porcentaje + '%';
+document.getElementById("progressFill").style.width =
+    porcentaje + "%";
+
+document.getElementById("progressText").textContent =
+    porcentaje + "%";
 
 
 /* ================= GAUGE ================= */
@@ -1312,7 +1786,10 @@ if (gauge) {
 }
 
 cargarDatos();
-setInterval(cargarDatos, 30_000);
+
+setInterval(cargarDatos,30000);
+
+setInterval(actualizarTiempoReal,1000);
 
 </script>
 </body>
