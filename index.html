@@ -82,7 +82,7 @@ html, body {
   pointer-events: all;
 }
 
-/* iframe para pantallas 2 y 3 */
+/* iframe para pantallas 3 y 4 */
 .pantalla iframe {
   width: 100%;
   height: 100%;
@@ -308,558 +308,6 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
 
 .mascota { height: 100px; width: auto; }
 .qr      { height: 90px;  width: auto; }
-/*==================================================
-PANTALLA 2 - NUEVO DISEÑO FULL HD
-Optimizado para TV 50" (1920x1080)
-==================================================*/
-
-#pantalla-2{
-    background:#eef5fb;
-    padding:8px;
-    height:100vh;
-    overflow:hidden;
-    box-sizing:border-box;
-}
-
-/*==========================================
-CONTENEDOR
-==========================================*/
-
-.dashboard2{
-    display:flex;
-    flex-direction:column;
-    height:calc(100vh - 110px);
-    gap:10px;
-}
-
-/*==========================================
-FILA KPI
-==========================================*/
-
-.row1{
-    display:grid;
-    grid-template-columns:repeat(8,1fr);
-    gap:10px;
-    flex-shrink:0;
-}
-
-.kpi-card{
-
-    background:#fff;
-
-    border-radius:18px;
-
-    padding:10px 8px;
-
-    text-align:center;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-
-    transition:.25s;
-
-    position:relative;
-
-    overflow:hidden;
-
-    min-height:88px;
-
-}
-
-.kpi-card:hover{
-
-    transform:translateY(-3px);
-
-}
-
-.kpi-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-
-    top:0;
-
-    bottom:0;
-
-    width:7px;
-
-}
-
-.kpi-act::before{
-
-    background:#0284c7;
-
-}
-
-.kpi-monta::before{
-
-    background:#16a34a;
-
-}
-
-.kpi-data::before{
-
-    background:#06b6d4;
-
-}
-
-.kpi-act{
-
-    background:linear-gradient(90deg,#dbeafe,#eff6ff);
-
-}
-
-.kpi-monta{
-
-    background:linear-gradient(90deg,#dcfce7,#f0fdf4);
-
-}
-
-.kpi-data{
-
-    background:linear-gradient(90deg,#cffafe,#ecfeff);
-
-}
-
-.kpi-card h4{
-
-    font-size:11px;
-
-    color:#475569;
-
-    margin-bottom:6px;
-
-    font-weight:700;
-
-    letter-spacing:.4px;
-
-}
-
-.kpi-card h2{
-
-    font-size:34px;
-
-    font-weight:800;
-
-    color:#0f172a;
-
-}
-
-/*==========================================
-FILA CENTRAL
-==========================================*/
-
-.row2{
-
-    display:grid;
-
-    grid-template-columns:1.2fr 1fr;
-
-    gap:12px;
-
-    flex:1;
-
-    min-height:0;
-
-}
-
-.card{
-
-    background:#fff;
-
-    border-radius:18px;
-
-    padding:14px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-
-    display:flex;
-
-    flex-direction:column;
-
-    overflow:hidden;
-
-}
-
-.card-title{
-
-    font-size:22px;
-
-    font-weight:800;
-
-    color:#0057b8;
-
-    margin-bottom:4px;
-
-}
-
-.mini-subtitle{
-
-    font-size:13px;
-
-    color:#64748b;
-
-    margin-bottom:10px;
-
-}
-
-/*==========================================
-RANKING
-==========================================*/
-
-#rankingActividades{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
-
-}
-
-.ranking-item{
-
-    display:grid;
-
-    grid-template-columns:170px 1fr 80px;
-
-    align-items:center;
-
-    gap:12px;
-
-}
-
-.rank-name{
-
-    font-weight:700;
-
-    color:#334155;
-
-    font-size:14px;
-
-}
-
-.rank-bar{
-
-    width:100%;
-
-    height:18px;
-
-    background:#dbeafe;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-}
-
-.rank-fill{
-
-    height:100%;
-
-    border-radius:20px;
-
-    background:linear-gradient(90deg,#0284c7,#38bdf8);
-
-    transition:.8s;
-
-}
-
-.rank-time{
-
-    text-align:right;
-
-    font-weight:700;
-
-    color:#0f172a;
-
-}
-
-/*==========================================
-MONTACARGA
-==========================================*/
-
-#tablaMontacarga{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:12px;
-
-}
-
-.modulo-item{
-
-    display:grid;
-
-    grid-template-columns:110px 1fr 80px;
-
-    gap:12px;
-
-    align-items:center;
-
-}
-
-.modulo-nombre{
-
-    font-weight:700;
-
-}
-
-.modulo-bar{
-
-    width:100%;
-
-    height:20px;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-    background:#dcfce7;
-
-}
-
-.modulo-fill{
-
-    height:100%;
-
-    border-radius:20px;
-
-    background:linear-gradient(90deg,#16a34a,#4ade80);
-
-}
-
-.modulo-tiempo{
-
-    text-align:right;
-
-    font-weight:700;
-
-}
-
-/*==========================================
-DATA LOGISTICA
-==========================================*/
-
-.row3{
-
-    flex-shrink:0;
-
-}
-
-.data-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(4,1fr);
-
-    gap:10px;
-
-    margin-bottom:10px;
-
-}
-
-/*==========================================
-GAUGE
-==========================================*/
-
-.gauge-wrap{
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:40px;
-
-}
-
-.gauge-circle{
-
-    width:180px;
-
-    height:180px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:#e2e8f0;
-
-    transition:.6s;
-
-}
-
-.gauge-inner{
-
-    width:135px;
-
-    height:135px;
-
-    border-radius:50%;
-
-    background:#fff;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-}
-
-.big-percent{
-
-    font-size:46px;
-
-    font-weight:900;
-
-    color:#06b6d4;
-
-}
-
-.gauge-label{
-
-    font-size:16px;
-
-    font-weight:700;
-
-    color:#64748b;
-
-}
-
-/*==========================================
-BARRA DE PROGRESO
-==========================================*/
-
-.progress-container{
-
-    flex:1;
-
-}
-
-.progress-title{
-
-    font-size:18px;
-
-    font-weight:800;
-
-    color:#334155;
-
-    margin-bottom:10px;
-
-}
-
-.progress-bg{
-
-    width:100%;
-
-    height:32px;
-
-    border-radius:40px;
-
-    background:#dbeafe;
-
-    overflow:hidden;
-
-}
-
-.progress-fill{
-
-    height:100%;
-
-    width:0%;
-
-    background:linear-gradient(90deg,#06b6d4,#0ea5e9);
-
-    transition:1s;
-
-}
-
-.progress-text{
-
-    margin-top:10px;
-
-    font-size:24px;
-
-    font-weight:800;
-
-    color:#0284c7;
-
-}
-
-/*==========================================
-FOOTER
-==========================================*/
-
-.footer-ops{
-
-    height:48px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-}
-
-.footer-msg{
-
-    font-size:16px;
-
-    font-weight:700;
-
-    color:#334155;
-
-}
-
-.mascota{
-
-    height:42px;
-
-}
-
-/*==========================================
-FULL HD
-==========================================*/
-
-@media screen and (1920px){
-
-    .kpi-card h2{
-
-        font-size:32px;
-
-    }
-
-}
-
-/* ===========================
-   RESPONSIVE TV
-=========================== */
-
-@media (max-width:1600px){
-
-    .row1{
-        grid-template-columns:repeat(4,1fr);
-    }
-
-    .data-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-}
 </style>
 </head>
 <body>
@@ -957,216 +405,6 @@ FULL HD
     </div>
 
   </div><!-- /pantalla-1 -->
-<div class="pantalla" id="pantalla-2">
-
-  <!-- CABECERA -->
-  <div class="header">
-    <div class="header-left">
-      <img src="logo-dinet.png" class="logo-principal">
-
-      <div class="titulo">
-        <h1>DASHBOARD OPERATIVO INTEGRAL</h1>
-        <p>INDICADORES EN TIEMPO REAL</p>
-      </div>
-    </div>
-
-    <div class="header-right">
-      <div class="slogan">
-        ¡CUMPLIMOS HOY,<br>
-        SUPERAMOS JUNTOS!
-      </div>
-
-      <div id="fechaHora2" class="fechaHora"></div>
-    </div>
-  </div>
-
-
- <div class="dashboard2">
-
-    <!--================ KPIs =================-->
-
-    <div class="row1">
-
-        <div class="kpi-card kpi-act">
-            <h4>ACTIVIDADES HOY</h4>
-            <h2 id="kpiActHoy">0</h2>
-        </div>
-
-        <div class="kpi-card kpi-act">
-            <h4>EN PROCESO</h4>
-            <h2 id="kpiActProceso">0</h2>
-        </div>
-
-        <div class="kpi-card kpi-act">
-            <h4>HORAS HOMBRE</h4>
-            <h2 id="kpiHorasHombre">0h 0m</h2>
-        </div>
-
-        <div class="kpi-card kpi-act">
-            <h4>PARTICIPANTES</h4>
-            <h2 id="kpiParticipantes">0</h2>
-        </div>
-
-        <div class="kpi-card kpi-monta">
-            <h4>USO MONTACARGA</h4>
-            <h2 id="kpiMontacargaTiempo">0h</h2>
-        </div>
-
-        <div class="kpi-card kpi-monta">
-            <h4>USOS HOY</h4>
-            <h2 id="kpiMontacargaUsos">0</h2>
-        </div>
-
-        <div class="kpi-card kpi-monta">
-            <h4>MÓDULO TOP</h4>
-            <h2 id="kpiModuloTop">-</h2>
-        </div>
-
-        <div class="kpi-card kpi-monta">
-            <h4>PROMEDIO USO</h4>
-            <h2 id="kpiPromedioUso">0m</h2>
-        </div>
-
-    </div>
-
-    <!--================ CENTRO =================-->
-
-    <div class="row2">
-
-        <!--================ RANKING =================-->
-
-        <div class="card">
-
-            <div class="card-title">
-                📊 Ranking de Actividades
-            </div>
-
-            <div class="mini-subtitle">
-                Tiempo acumulado del día
-            </div>
-
-            <div id="rankingActividades">
-                <!-- El JavaScript llenará este contenido -->
-            </div>
-
-        </div>
-
-        <!--================ MONTACARGA =================-->
-
-        <div class="card">
-
-            <div class="card-title">
-                🚜 Uso de Montacarga por Módulo
-            </div>
-
-            <div class="mini-subtitle">
-                Tiempo acumulado por módulo
-            </div>
-
-            <div id="tablaMontacarga">
-                <!-- El JavaScript llenará este contenido -->
-            </div>
-
-        </div>
-
-    </div>
-
-    <!--================ DATA LOGÍSTICA =================-->
-
-    <div class="row3">
-
-        <div class="card">
-
-            <div class="card-title">
-                📦 DATA LOGÍSTICA
-            </div>
-
-            <div class="data-grid">
-
-                <div class="kpi-card kpi-data">
-                    <h4>TOTAL SKU</h4>
-                    <h2 id="kpiSkuTotal">0</h2>
-                </div>
-
-                <div class="kpi-card kpi-data">
-                    <h4>CON DATA</h4>
-                    <h2 id="kpiSkuOk">0</h2>
-                </div>
-
-                <div class="kpi-card kpi-data">
-                    <h4>SIN DATA</h4>
-                    <h2 id="kpiSkuFaltante">0</h2>
-                </div>
-
-                <div class="kpi-card kpi-data">
-                    <h4>% COMPLETO</h4>
-                    <h2 id="kpiDataPorcentaje">0%</h2>
-                </div>
-
-            </div>
-
-            <div class="gauge-wrap">
-
-    <!-- GAUGE -->
-
-    <div class="gauge-circle" id="gaugeCircle">
-
-        <div class="gauge-inner">
-
-            <div class="big-percent" id="bigPercent">
-                0%
-            </div>
-
-            <div class="gauge-label">
-                COMPLETO
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- BARRA DE PROGRESO -->
-
-    <div class="progress-container">
-
-        <div class="progress-title">
-            Avance de Calidad de Datos
-        </div>
-
-        <div class="progress-bg">
-
-            <div
-                class="progress-fill"
-                id="progressFill">
-            </div>
-
-        </div>
-
-        <div
-            class="progress-text"
-            id="progressText">
-            0%
-        </div>
-
-    </div>
-
-</div>
-  <!-- FOOTER -->
-
-  <div class="footer-ops">
-
-    <div class="footer-msg">
-      Los indicadores nos muestran dónde estamos,
-      nuestras acciones determinan hacia dónde vamos.
-    </div>
-
-    <img
-      src="mascota-dinet.png"
-      class="mascota">
-
-  </div>
-
-</div>
 
   <!-- ══════════════════════════════════════
        PANTALLA 3 — POWER BI / URL #3
@@ -1210,18 +448,22 @@ FULL HD
 
 /* ─────────────────────────────────────────────────────────
    ⚙️  CONFIGURACIÓN — ajusta aquí
+   Ahora solo existen 3 pantallas activas: 1, 3 y 4
+   (la pantalla 2 fue eliminada por completo)
 ───────────────────────────────────────────────────────── */
 const CONFIG = {
 
-  /* Duración de cada pantalla en segundos */
+  /* Pantallas reales que se muestran, en orden de rotación */
+  pantallas: [1, 3, 4],
+
+  /* Duración de cada pantalla en segundos (mismo orden que "pantallas") */
   duracion: [
     20,   // pantalla 1 — Operaciones
-    120,   // pantalla 2
-    20,    // pantalla 3
+    20,   // pantalla 3
     20    // pantalla 4
   ],
 
-  /* URLs para pantallas 2 y 3
+  /* URLs para pantallas 3 y 4
      Reemplaza con tus links de Power BI u otros dashboards   */
   urls: {
     3: "https://app.powerbi.com/view?r=eyJrIjoiOTY5MDQ5NGYtZDEzYy00NDEyLTgyYmMtYmU1N2ZjODY3ZTdlIiwidCI6IjhiNThmMjM4LWFmOGEtNDE3Ny1hM2U0LTg3YTllY2YxMGRkMyIsImMiOjR9&pageName=ReportSection463df0311d1c33dbb41a",
@@ -1231,8 +473,10 @@ const CONFIG = {
 
 /* ─────────────────────────────────────────────────────────
    ROTADOR
+   "idx" recorre CONFIG.pantallas (posición 0,1,2)
+   y se traduce al número real de pantalla (1,3,4)
 ───────────────────────────────────────────────────────── */
-const TOTAL = 4;
+const TOTAL = CONFIG.pantallas.length;
 let pantallaActual = 0;
 let timerRotacion = null;
 
@@ -1248,35 +492,36 @@ for (let i = 0; i < TOTAL; i++) {
 
 function mostrarPantalla(idx) {
 
+  const numeroPantalla = CONFIG.pantallas[idx];
+
   document.querySelectorAll('.pantalla')
     .forEach(p => p.classList.remove('activa'));
 
-const pantalla = document.getElementById('pantalla-' + (idx + 1));
+  const pantalla = document.getElementById('pantalla-' + numeroPantalla);
 
-if (!pantalla) {
-  console.error('No existe pantalla-' + (idx + 1));
-  return;
-}
+  if (!pantalla) {
+    console.error('No existe pantalla-' + numeroPantalla);
+    return;
+  }
 
-pantalla.classList.add('activa');
+  pantalla.classList.add('activa');
 
   document.querySelectorAll('.dot').forEach((d, i) => {
     d.classList.toggle('activo', i === idx);
   });
 
   // Pantalla 3 = Power BI 1
-  if (idx === 2) {
+  if (numeroPantalla === 3) {
     const f = document.getElementById('iframe-3');
     if (!f.src) f.src = CONFIG.urls[3];
   }
 
   // Pantalla 4 = Power BI 2
-  if (idx === 3) {
+  if (numeroPantalla === 4) {
     const f = document.getElementById('iframe-4');
     if (!f.src) f.src = CONFIG.urls[4];
   }
 
-  // Actualizar dashboard operativo al entrar a pantalla 2
   const durMs = CONFIG.duracion[idx] * 1000;
 
   barraEl.style.transition = 'none';
@@ -1315,7 +560,7 @@ setInterval(evitarApagado, 5 * 60 * 1000);
 
 
 /* ─────────────────────────────────────────────────────────
-   RELOJ — PANTALLAS 1 Y 2
+   RELOJ — PANTALLA 1
 ───────────────────────────────────────────────────────── */
 function actualizarFechaHora() {
 
@@ -1327,10 +572,8 @@ function actualizarFechaHora() {
     ahora.toLocaleTimeString('es-PE');
 
   const reloj1 = document.getElementById('fechaHora');
-  const reloj2 = document.getElementById('fechaHora2');
 
   if (reloj1) reloj1.innerHTML = texto;
-  if (reloj2) reloj2.innerHTML = texto;
 }
 
 setInterval(actualizarFechaHora, 1000);
@@ -1338,20 +581,13 @@ actualizarFechaHora();
 
 /* ─────────────────────────────────────────────────────────
    DATOS OPERATIVOS — Google Sheets → Opensheet
+   (solo Recepción y Despacho, usados por la pantalla 1)
 ───────────────────────────────────────────────────────── */
 const URL_RECEPCION =
   'https://opensheet.elk.sh/1KvOP5RidG-dx5a2XBlLoMVbhXXa82yA0zlwp6poKLiY/RECEPCION';
 
 const URL_DESPACHO =
   'https://opensheet.elk.sh/1KvOP5RidG-dx5a2XBlLoMVbhXXa82yA0zlwp6poKLiY/DESPACHO';
-const URL_ACTIVIDADES =
-  'https://opensheet.elk.sh/1KvOP5RidG-dx5a2XBlLoMVbhXXa82yA0zlwp6poKLiY/ACTIVIDADES%20OPERATIVAS';
-
-const URL_MONTACARGA =
-  'https://opensheet.elk.sh/1KvOP5RidG-dx5a2XBlLoMVbhXXa82yA0zlwp6poKLiY/USO%20MONTACARGA';
-
-const URL_DATA_LOGISTICA =
-  'https://opensheet.elk.sh/1KvOP5RidG-dx5a2XBlLoMVbhXXa82yA0zlwp6poKLiY/DATA%20LOG%C3%8DSTICA';
 
 function estado(inicio, fin) {
   if (fin)    return ['COMPLETO',    'ok'];
@@ -1374,194 +610,71 @@ function diferencia(inicio, fin) {
     return `${Math.floor(total / 60)}h ${total % 60}m`;
   } catch { return '-'; }
 }
+
 function hoy() {
   const d = new Date();
   return String(d.getDate()).padStart(2,'0') + '/' +
          String(d.getMonth()+1).padStart(2,'0') + '/' +
          d.getFullYear();
 }
- function convertirHora(hora){
-  if (!hora) return null;
-
-  const partes = hora.split(':');
-  if (partes.length < 2) return null;
-
-  return Number(partes[0]) * 60 + Number(partes[1]);
-}
-
-function duracionMinutos(inicio, fin){
-  const ini = convertirHora(inicio);
-  const fi = convertirHora(fin);
-
-  if (ini == null || fi == null) return 0;
-  if (fi < ini) return 0;
-
-  return fi - ini;
-}
-
-function minutosAHoras(min){
-  const h = Math.floor(min / 60);
-  const m = min % 60;
-  return `${h}h ${m}m`;
-} 
-  /*====================================================
-        TIEMPO EN TIEMPO REAL
-====================================================*/
-
-let actividadesTiempoReal=[];
-let montacargaTiempoReal=[];
-
-function convertirHoraSegundos(hora){
-
-    if(!hora) return null;
-
-    const p=hora.split(":");
-
-    return Number(p[0])*3600+
-           Number(p[1])*60+
-           Number(p[2]||0);
-
-}
-
-function segundosAHora(seg){
-
-    if(seg<0) seg=0;
-
-    const h=Math.floor(seg/3600);
-
-    const m=Math.floor((seg%3600)/60);
-
-    const s=Math.floor(seg%60);
-
-    return `${h}h ${m}m ${s}s`;
-
-}
-
-function diferenciaSegundos(inicio,fin){
-
-    const ini=convertirHoraSegundos(inicio);
-
-    if(ini==null) return 0;
-
-    let finSeg;
-
-    if(fin){
-
-        finSeg=convertirHoraSegundos(fin);
-
-    }else{
-
-        const ahora=new Date();
-
-        finSeg=
-        ahora.getHours()*3600+
-        ahora.getMinutes()*60+
-        ahora.getSeconds();
-
-    }
-
-    return Math.max(0,finSeg-ini);
-
-}
-  /*====================================================
-        RANKING
-====================================================*/
-
-function pintarRanking(){
-
-    // Se agregará en el siguiente paso
-
-}
-
-/*====================================================
-        MONTACARGA
-====================================================*/
-
-function pintarMontacarga(){
-
-    // Se agregará en el siguiente paso
-
-}
-
-/*====================================================
-        ACTUALIZAR
-====================================================*/
-
-function actualizarTiempoReal(){
-
-    pintarRanking();
-
-    pintarMontacarga();
-
-}
 
 async function cargarDatos() {
-  const hoyStr = hoy();
 
-  const [recepcion, despacho, actividades, montacarga, dataLogistica] = await Promise.all([
+  const [recepcion, despacho] = await Promise.all([
     fetch(URL_RECEPCION).then(r => r.json()),
-    fetch(URL_DESPACHO).then(r => r.json()),
-    fetch(URL_ACTIVIDADES).then(r => r.json()),
-    fetch(URL_MONTACARGA).then(r => r.json()),
-    fetch(URL_DATA_LOGISTICA).then(r => r.json())
+    fetch(URL_DESPACHO).then(r => r.json())
   ]);
 
   console.log('Recepción total:', recepcion.length);
   console.log('Despacho total:', despacho.length);
-  console.log('Actividades total:', actividades.length);
-  console.log('Montacarga total:', montacarga.length);
-  console.log('Data Logística total:', dataLogistica.length);
 
-function convertirFecha(fechaStr) {
-  if (!fechaStr) return null;
+  function convertirFecha(fechaStr) {
+    if (!fechaStr) return null;
 
-  const [dia, mes, anio] = fechaStr.split('/');
-  return new Date(anio, mes - 1, dia);
-}
+    const [dia, mes, anio] = fechaStr.split('/');
+    return new Date(anio, mes - 1, dia);
+  }
 
-const hoyFecha = new Date();
-hoyFecha.setHours(0, 0, 0, 0);
+  const hoyFecha = new Date();
+  hoyFecha.setHours(0, 0, 0, 0);
 
-const recHoy = recepcion.filter(r => {
+  const recHoy = recepcion.filter(r => {
 
-  const fechaCita = convertirFecha(r['Fecha Cita']);
-  const fechaCierre = convertirFecha(r['Fecha Cierre']);
+    const fechaCita = convertirFecha(r['Fecha Cita']);
+    const fechaCierre = convertirFecha(r['Fecha Cierre']);
 
-  if (!fechaCita) return false;
+    if (!fechaCita) return false;
 
-  if (hoyFecha < fechaCita) return false;
+    if (hoyFecha < fechaCita) return false;
 
-  if (!fechaCierre) return true;
+    if (!fechaCierre) return true;
 
-  return hoyFecha <= fechaCierre;
+    return hoyFecha <= fechaCierre;
 
-});
+  });
 
-const desHoy = despacho.filter(d => {
+  const desHoy = despacho.filter(d => {
 
-  const fechaCita = convertirFecha(d['Fecha Cita']);
-  const fechaCierre = convertirFecha(d['Fecha Cierre']);
+    const fechaCita = convertirFecha(d['Fecha Cita']);
+    const fechaCierre = convertirFecha(d['Fecha Cierre']);
 
-  if (!fechaCita) return false;
+    if (!fechaCita) return false;
 
-  if (hoyFecha < fechaCita) return false;
+    if (hoyFecha < fechaCita) return false;
 
-  if (!fechaCierre) return true;
+    if (!fechaCierre) return true;
 
-  return hoyFecha <= fechaCierre;
+    return hoyFecha <= fechaCierre;
 
-});
-console.log('Recepción total:', recepcion.length);
-console.log('Despacho total:', despacho.length);
-
+  });
 
   /* —— RECEPCIONES —— */
   let palletsRec = 0, pendientesRec = 0;
   let htmlRec = '';
 
-recHoy.forEach(r => {
-  const atencion = estado(r['Hora Llegada'],        r['Hora Terminó']);
-  const acond    = estado(r['Inicio Acondicionado'], r['Fin Acondicionado']);
+  recHoy.forEach(r => {
+    const atencion = estado(r['Hora Llegada'],        r['Hora Terminó']);
+    const acond    = estado(r['Inicio Acondicionado'], r['Fin Acondicionado']);
     if (!r['Hora Terminó']) pendientesRec++;
     palletsRec += Number(r['Cantidad Pallet'] || 0);
 
@@ -1589,9 +702,9 @@ recHoy.forEach(r => {
   let htmlDes = '';
 
   desHoy.forEach(d => {
-  const picking  = estado(d['Inicio Picking'], d['Fin Picking']);
-  const packing  = estado(d['Inicio Packing'], d['Fin Packing']);
-  const atencion = estado(d['Hora Llegada'],   d['Fin Carga']);
+    const picking  = estado(d['Inicio Picking'], d['Fin Picking']);
+    const packing  = estado(d['Inicio Packing'], d['Fin Packing']);
+    const atencion = estado(d['Hora Llegada'],   d['Fin Carga']);
     if (!d['Fin Carga']) pendientesDes++;
     palletsDes += Number(d['Cantidad Pallet'] || 0);
 
@@ -1599,8 +712,8 @@ recHoy.forEach(r => {
       <tr>
         <td>${d['N° Atención'] || '-'}</td>
         <td>${d['Placa']       || '-'}</td>
-       <td>${d['Cod. Motivo\r'] || d['Cod. Motivo'] || '-'}</td>
-<td><span class="estado ${picking[1]}">${picking[0]}</span></td>
+        <td>${d['Cod. Motivo\r'] || d['Cod. Motivo'] || '-'}</td>
+        <td><span class="estado ${picking[1]}">${picking[0]}</span></td>
         <td>${diferencia(d['Inicio Picking'], d['Fin Picking'])}</td>
         <td><span class="estado ${packing[1]}">${packing[0]}</span></td>
         <td>${diferencia(d['Inicio Packing'], d['Fin Packing'])}</td>
@@ -1613,149 +726,11 @@ recHoy.forEach(r => {
   document.getElementById('dAtendidos').textContent   = desHoy.length;
   document.getElementById('dPendientes').textContent  = pendientesDes;
   document.getElementById('dPallets').textContent     = palletsDes;
-  /* ================= ACTIVIDADES ================= */
-const actividadesHoy = actividades.filter(x => x['FECHA'] === hoyStr);
-/* DATOS PARA TIEMPO REAL */
-actividadesTiempoReal = actividadesHoy.map(x => ({
-    actividad: x['ACTIVIDAD'] || 'Sin nombre',
-    inicio: x['HORA DE INICIO'],
-    fin: x['HORA FINAL']
-}));  
-
-const actividadesProceso = actividadesHoy.filter(
-  x => String(x['STATUS'] || '').toUpperCase().includes('PROCES')
-).length;
-
-let totalParticipantes = 0;
-let totalMinAct = 0;
-const rankingActividades = {};
-
-actividadesHoy.forEach(row => {
-  const participantes = Number(row['Cantidad de Usuarios'] || 0);
-  const minutos = duracionMinutos(
-    row['HORA DE INICIO'],
-    row['HORA FINAL']
-  );
-
-  totalParticipantes += participantes;
-  totalMinAct += minutos * Math.max(participantes,1);
-
-  const actividad = row['ACTIVIDAD'] || 'Sin nombre';
-
-  if (!rankingActividades[actividad]) {
-    rankingActividades[actividad] = 0;
-  }
-
-  rankingActividades[actividad] += minutos;
-});
-
-document.getElementById('kpiActHoy').textContent = actividadesHoy.length;
-document.getElementById('kpiActProceso').textContent = actividadesProceso;
-document.getElementById('kpiHorasHombre').textContent = minutosAHoras(totalMinAct);
-document.getElementById('kpiParticipantes').textContent = totalParticipantes;
-
-pintarRanking();
-
-/* ================= MONTACARGA ================= */
-const montacargaHoy = montacarga.filter(x => x['Fecha'] === hoyStr);
-/* DATOS PARA TIEMPO REAL */
-
-montacargaTiempoReal = montacargaHoy.map(x=>({
-
-    modulo:x['Módulo'] || 'Sin módulo',
-
-    inicio:x['Inicio'],
-
-    fin:x['Fin']
-
-}));
-let totalMinMontacarga = 0;
-const moduloUso = {};
-
-montacargaHoy.forEach(row => {
-  const min = duracionMinutos(row['Inicio'], row['Fin']);
-
-  totalMinMontacarga += min;
-
-  const modulo = row['Módulo'] || 'Sin módulo';
-
-  if (!moduloUso[modulo]) moduloUso[modulo] = 0;
-
-  moduloUso[modulo] += min;
-});
-
-const moduloTop =
-  Object.entries(moduloUso).sort((a,b)=>b[1]-a[1])[0];
-
-document.getElementById('kpiMontacargaTiempo').textContent =
-  minutosAHoras(totalMinMontacarga);
-
-document.getElementById('kpiMontacargaUsos').textContent =
-  montacargaHoy.length;
-
-document.getElementById('kpiModuloTop').textContent =
-  moduloTop ? moduloTop[0] : '-';
-
-document.getElementById('kpiPromedioUso').textContent =
-  montacargaHoy.length
-    ? minutosAHoras(Math.round(totalMinMontacarga / montacargaHoy.length))
-    : '0m';
-
-pintarMontacarga();
-
-
-/* ================= DATA LOGISTICA ================= */
-const totalSku = dataLogistica.length;
-
-const faltantes = dataLogistica.filter(row => {
-  const alto = Number(row['Alto'] || 0);
-  const ancho = Number(row['Ancho'] || 0);
-  const largo = Number(row['Largo'] || 0);
-
-  return alto === 0 || ancho === 0 || largo === 0;
-}).length;
-
-const completos = totalSku - faltantes;
-
-const porcentaje = totalSku
-  ? Number(((completos / totalSku) * 100).toFixed(2))
-  : 0;
-
-document.getElementById('bigPercent').textContent =
-  porcentaje + '%';
-
-document.getElementById('kpiSkuTotal').textContent = totalSku;
-document.getElementById('kpiSkuOk').textContent = completos;
-document.getElementById('kpiSkuFaltante').textContent = faltantes;
-document.getElementById('kpiDataPorcentaje').textContent = porcentaje + '%';
-document.getElementById("progressFill").style.width =
-    porcentaje + "%";
-
-document.getElementById("progressText").textContent =
-    porcentaje + "%";
-
-
-/* ================= GAUGE ================= */
-const gauge = document.getElementById('gaugeCircle');
-
-if (gauge) {
-  const grados = (porcentaje / 100) * 360;
-
-  let color = '#06b6d4';
-
-  if (porcentaje < 70) color = '#ef4444';
-  else if (porcentaje < 90) color = '#f59e0b';
-
-  gauge.style.background =
-    `conic-gradient(${color} ${grados}deg, #e2e8f0 ${grados}deg)`;
-}
 }
 
 cargarDatos();
 
-setInterval(cargarDatos,30000);
-
-setInterval(actualizarTiempoReal,1000);
+setInterval(cargarDatos, 30000);
 
 </script>
 </body>
