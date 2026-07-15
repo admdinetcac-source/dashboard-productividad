@@ -129,9 +129,10 @@ html, body {
 }
 
 /* ============================================================
-   PANTALLA 1 — OPERACIONES (misma lógica del código original)
+   PANTALLA 1 (Recepción) y PANTALLA 2 (Despacho)
 ============================================================ */
-#pantalla-1 {
+#pantalla-1,
+#pantalla-2 {
   padding: 6px;
   overflow-y: auto;
 }
@@ -221,6 +222,13 @@ html, body {
   gap: 10px;
 }
 
+/* variante para pantallas individuales (solo 3 KPIs) */
+.kpis-3 {
+  grid-template-columns: repeat(3,1fr);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
 .kpi {
   border-radius: 16px;
   padding: 14px;
@@ -251,6 +259,17 @@ html, body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
+}
+
+/* variante: un solo panel ocupando todo el ancho (pantallas de Recepción/Despacho) */
+.paneles-solo {
+  grid-template-columns: 1fr;
+}
+
+.paneles-solo table td,
+.paneles-solo table th {
+  font-size: 15px;
+  padding: 14px;
 }
 
 .panel {
@@ -334,7 +353,7 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
 <div class="tv-wrapper">
 
   <!-- ══════════════════════════════════════
-       PANTALLA 1 — OPERACIONES IPESA HYDRO
+       PANTALLA 1 — RECEPCIÓN
   ══════════════════════════════════════ -->
   <div class="pantalla activa" id="pantalla-1">
 
@@ -348,46 +367,86 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
       </div>
       <div class="header-right">
         <div class="slogan">¡CUMPLIMOS HOY,<br>SUPERAMOS JUNTOS!</div>
-        <div id="fechaHora" class="fechaHora"></div>
+        <div class="fechaHora js-reloj"></div>
       </div>
     </div>
 
     <div class="resumen">
-      <h2>📊 RESUMEN DIARIO</h2>
-      <div class="kpis">
+      <h2>📊 RESUMEN DE RECEPCIÓN</h2>
+      <div class="kpis kpis-3">
         <div class="kpi kpi-rec"><h4>🚚 RECEPCIONES TOTALES</h4><h2 id="rAtendidos">0</h2></div>
         <div class="kpi kpi-rec"><h4>⏳ REC. PENDIENTES</h4><h2 id="rPendientes">0</h2></div>
         <div class="kpi kpi-rec"><h4>📦 PALLETS REC.</h4><h2 id="rPallets">0</h2></div>
+      </div>
+    </div>
+
+    <div class="paneles paneles-solo">
+      <div class="panel">
+        <div class="panel-title rec-title">🚚 RECEPCIONES</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha Cita</th><th>Proveedor</th><th>Placa</th><th>Ordenes de Compra</th><th>Motivo</th><th>Tipo</th>
+              <th>Status Atención (Unidad)</th><th>Tiempo Atención(Unidad)</th>
+              <th>Status Acond.</th><th>Observación</th>
+            </tr>
+          </thead>
+          <tbody id="tablaRecepcion"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="footer-ops">
+      <div class="footer-msg">
+        Tu trabajo mueve la operación,<br>
+        tu compromiso impulsa la excelencia operativa.
+      </div>
+      <img src="mascota-dinet.png" class="mascota" alt="Mascota">
+      
+    </div>
+
+  </div><!-- /pantalla-1 (Recepción) -->
+
+  <!-- ══════════════════════════════════════
+       PANTALLA 2 — DESPACHO
+  ══════════════════════════════════════ -->
+  <div class="pantalla" id="pantalla-2">
+
+    <div class="header">
+      <div class="header-left">
+        <img src="logo-dinet.png" class="logo-principal" alt="Logo">
+        <div class="titulo">
+          <h1>OPERACIONES IPESA HYDRO</h1>
+          <p>CONTROL OPERATIVO EN TIEMPO REAL</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="slogan">¡CUMPLIMOS HOY,<br>SUPERAMOS JUNTOS!</div>
+        <div class="fechaHora js-reloj"></div>
+      </div>
+    </div>
+
+    <div class="resumen">
+      <h2>📊 RESUMEN DE DESPACHO</h2>
+      <div class="kpis kpis-3">
         <div class="kpi kpi-des"><h4>🚛 DESPACHOS TOTALES</h4><h2 id="dAtendidos">0</h2></div>
         <div class="kpi kpi-des"><h4>⏳ DESP. PENDIENTES</h4><h2 id="dPendientes">0</h2></div>
         <div class="kpi kpi-des"><h4>📦 PALLETS DESP.</h4><h2 id="dPallets">0</h2></div>
       </div>
     </div>
 
-    <div class="paneles">
-      <div class="panel">
-        <div class="panel-title rec-title">🚚 RECEPCIONES</div>
-        <table>
-          <thead>
-            <tr>
-              <th>N° Atención</th><th>Fecha Cita</th><th>Proveedor</th><th>Placa</th><th>Motivo</th>
-              <th>Status Atención</th><th>Tiempo Atención</th>
-              <th>Status Acond.</th><th>Tiempo Acond.</th>
-            </tr>
-          </thead>
-          <tbody id="tablaRecepcion"></tbody>
-        </table>
-      </div>
-
+    <div class="paneles paneles-solo">
       <div class="panel">
         <div class="panel-title des-title">🚛 DESPACHOS</div>
         <table>
           <thead>
             <tr>
-              <th>N° Atención</th><th>Placa</th><th>Motivo</th>
-              <th>Status Picking</th><th>Tiempo Picking</th>
-              <th>Status Packing</th><th>Tiempo Packing</th>
-              <th>Status Atención</th><th>Tiempo Atención</th>
+              <th>Fecha Solicitud</th><th>Cliente</th><th>Placa</th><th>Ordenes de Pedido</th><th>Motivo</th><th>Tipo</th>
+              <th>Status Picking</th>
+              <th>Status Packing</th>
+              <th>Status Atención(Unidad)</th>
+              <th>Tiempo Atención(Unidad)</th>
+              <th>Observación</th>
             </tr>
           </thead>
           <tbody id="tablaDespacho"></tbody>
@@ -404,35 +463,7 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
       
     </div>
 
-  </div><!-- /pantalla-1 -->
-
-  <!-- ══════════════════════════════════════
-       PANTALLA 3 — POWER BI / URL #3
-       👉 Cambia el src por tu URL real
-  ══════════════════════════════════════ -->
-  <div class="pantalla" id="pantalla-3">
-    <iframe
-      id="iframe-3"
-      src=""
-      title="Pantalla 3"
-      allow="autoplay; fullscreen">
-    </iframe>
-  </div>
-
-
-  <!-- ══════════════════════════════════════
-       PANTALLA 4 — POWER BI / URL #4
-       👉 Cambia el src por tu URL real
-  ══════════════════════════════════════ -->
-  <div class="pantalla" id="pantalla-4">
-    <iframe
-      id="iframe-4"
-      src=""
-      title="Pantalla 4"
-      allow="autoplay; fullscreen">
-    </iframe>
-  </div>
-
+  </div><!-- /pantalla-2 (Despacho) -->
 </div><!-- /tv-wrapper -->
 
 
@@ -448,27 +479,20 @@ td { padding: 10px; font-size: 13px; font-weight: 600; border-bottom: 1px solid 
 
 /* ─────────────────────────────────────────────────────────
    ⚙️  CONFIGURACIÓN — ajusta aquí
-   Ahora solo existen 3 pantallas activas: 1, 3 y 4
-   (la pantalla 2 fue eliminada por completo)
+   Ahora existen 4 pantallas activas: 1 (Recepción),
+   2 (Despacho), 3 y 4 (Power BI)
 ───────────────────────────────────────────────────────── */
 const CONFIG = {
 
-  /* Pantallas reales que se muestran, en orden de rotación */
-  pantallas: [1, 3, 4],
+    // Solo existirán dos pantallas
+    pantallas: [1,2],
 
-  /* Duración de cada pantalla en segundos (mismo orden que "pantallas") */
-  duracion: [
-    3600,   // pantalla 1 — Operaciones
-    20,   // pantalla 3
-    20    // pantalla 4
-  ],
+    // Tiempo de cada pantalla (segundos)
+    duracion:[
+        40,
+        40
+    ]
 
-  /* URLs para pantallas 3 y 4
-     Reemplaza con tus links de Power BI u otros dashboards   */
-  urls: {
-    3: "https://app.powerbi.com/view?r=eyJrIjoiOTY5MDQ5NGYtZDEzYy00NDEyLTgyYmMtYmU1N2ZjODY3ZTdlIiwidCI6IjhiNThmMjM4LWFmOGEtNDE3Ny1hM2U0LTg3YTllY2YxMGRkMyIsImMiOjR9&pageName=ReportSection463df0311d1c33dbb41a",
-    4: "https://app.powerbi.com/view?r=eyJrIjoiOTY5MDQ5NGYtZDEzYy00NDEyLTgyYmMtYmU1N2ZjODY3ZTdlIiwidCI6IjhiNThmMjM4LWFmOGEtNDE3Ny1hM2U0LTg3YTllY2YxMGRkMyIsImMiOjR9&pageName=227e2ce0bbc8860ab032"
-  }
 };
 
 /* ─────────────────────────────────────────────────────────
@@ -560,7 +584,7 @@ setInterval(evitarApagado, 5 * 60 * 1000);
 
 
 /* ─────────────────────────────────────────────────────────
-   RELOJ — PANTALLA 1
+   RELOJ — se repite en el encabezado de Recepción y Despacho
 ───────────────────────────────────────────────────────── */
 function actualizarFechaHora() {
 
@@ -571,9 +595,8 @@ function actualizarFechaHora() {
     '<br>' +
     ahora.toLocaleTimeString('es-PE');
 
-  const reloj1 = document.getElementById('fechaHora');
-
-  if (reloj1) reloj1.innerHTML = texto;
+  document.querySelectorAll('.js-reloj')
+    .forEach(reloj => reloj.innerHTML = texto);
 }
 
 setInterval(actualizarFechaHora, 1000);
@@ -680,15 +703,16 @@ async function cargarDatos() {
 
     htmlRec += `
       <tr>
-        <td>${r['N° Atención'] || '-'}</td>
         <td>${r['Fecha Cita']       || '-'}</td>
         <td>${r['Proveedor']       || '-'}</td>
         <td>${r['Placa']       || '-'}</td>
+        <td>${r['OC']       || '-'}</td>
         <td>${r['Cod. Motivo'] || '-'}</td>
+        <td>${r['Tipo '] || '-'}</td>
         <td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
         <td>${diferencia(r['Hora Llegada'],        r['Hora Terminó'])}</td>
         <td><span class="estado ${acond[1]}">${acond[0]}</span></td>
-        <td>${diferencia(r['Inicio Acondicionado'], r['Fin Acondicionado'])}</td>
+        <td>${r['Observación'] || '-'}</td>
       </tr>`;
   });
 
@@ -710,15 +734,17 @@ async function cargarDatos() {
 
     htmlDes += `
       <tr>
-        <td>${d['N° Atención'] || '-'}</td>
+        <td>${d['Fecha Solicitud'] || '-'}</td>
+        <td>${d['Cliente']       || '-'}</td>
         <td>${d['Placa']       || '-'}</td>
-        <td>${d['Cod. Motivo\r'] || d['Cod. Motivo'] || '-'}</td>
+        <td>${d['Cantidad OC']       || '-'}</td>
+        <td>${d['Cod. Motivo\n'] || '-'}</td>
+        <td>${d['Tipo']       || '-'}</td>
         <td><span class="estado ${picking[1]}">${picking[0]}</span></td>
-        <td>${diferencia(d['Inicio Picking'], d['Fin Picking'])}</td>
         <td><span class="estado ${packing[1]}">${packing[0]}</span></td>
-        <td>${diferencia(d['Inicio Packing'], d['Fin Packing'])}</td>
         <td><span class="estado ${atencion[1]}">${atencion[0]}</span></td>
         <td>${diferencia(d['Hora Llegada'],   d['Fin Carga'])}</td>
+        <td>${d['Observación']       || '-'}</td>
       </tr>`;
   });
 
